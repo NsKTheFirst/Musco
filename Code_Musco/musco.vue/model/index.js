@@ -5,7 +5,7 @@ const database = function database() {
       host     : 'localhost',
       user     : 'root',
       password : "", 
-      database : "musco_maison" 
+      database : "musco" 
     });
   
     const connect = function connect() {

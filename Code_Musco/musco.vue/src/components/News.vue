@@ -19,9 +19,9 @@
                 </div>
                 <article>
                     <div>
-                        <h5 id="date">{{ annonce.date }}</h5>
-                        <h5 id="cat">categorie: {{ annonce.categorie }}</h5>
-                        <h5 id="skill"> skill: {{ annonce.skill }}</h5>
+                        <h4 id="date">{{ annonce.date }}</h4>
+                        <h4 id="cat">categorie: {{ annonce.categorie }}</h4>
+                        <h4 id="skill"> skill: {{ annonce.skill }}</h4>
                     </div>
                     <p id="annonce">{{ annonce.annonce }}</p>
                 </article>
@@ -74,7 +74,7 @@ export default {
             font-size: 30px;
             text-align: center;
             margin-top: 60px;
-            margin-bottom: 50px
+            margin-bottom: 30px
         }
 
         .annonces {
@@ -94,8 +94,8 @@ export default {
                 width: 10%;
                 
                 figure {
-                    width: 60px;
-                    height: 60px;
+                    width: 70px;
+                    height: 70px;
                     line-height: 115px;
                     margin: auto;
                     // display: block;
@@ -113,7 +113,8 @@ export default {
                 }
                 h3 {
                     text-align: center;
-                    line-height: 50px
+                    line-height: 50px;
+                    font-family: 'Shrikhand', cursive
                 }
             }
 
@@ -129,6 +130,10 @@ export default {
                     display: flex;
                     justify-content: space-around;
                     margin-bottom: 10px
+                }
+
+                p {
+                    font-size: 12px;
                 }
             }
         }

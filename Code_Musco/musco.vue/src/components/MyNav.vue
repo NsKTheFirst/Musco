@@ -23,7 +23,7 @@ export default {
         height: 70px;
         background: black;
         position: fixed;
-        box-shadow: 0px 8px 20px rgb(59, 59, 59);
+        box-shadow: 0px 1px 20px rgb(59, 59, 59);
 
         h1 {
             font-size: 40px;

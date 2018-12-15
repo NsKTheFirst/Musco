@@ -74,7 +74,7 @@ export default {
             font-size: 30px;
             text-align: center;
             margin-top: 60px;
-            margin-bottom: 50px
+            margin-bottom: 30px
         }
 
         .annonces {

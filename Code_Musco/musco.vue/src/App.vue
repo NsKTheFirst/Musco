@@ -1,18 +1,27 @@
 <template>
-  <div id="app">
-    <MyNav/>
+  <v-app id="app">
+    <!-- <MyNav/>
     <router-view/>
-    <MyFooter/>
-  </div>
+    <MyFooter/> -->
+    <Navbar/>
+    <v-content>
+      <router-view></router-view>
+    </v-content>
+    <MyFooter2/>
+  </v-app>
 </template>
 
 <script>
-import MyNav from '@/components/MyNav.vue'
-import MyFooter from '@/components/MyFooter.vue'
+// import MyNav from '@/components/MyNav.vue'
+// import MyFooter from '@/components/MyFooter.vue'
+import Navbar from '@/components/Navbar'
+import MyFooter2 from '@/components/MyFooter2'
 export default {
   components: {
-    MyNav,
-    MyFooter
+    // MyNav,
+    // MyFooter
+    Navbar,
+    MyFooter2
   }
 }
 </script>
@@ -23,4 +32,5 @@ export default {
     padding: 0;
     box-sizing: border-box
   }
+  
 </style>

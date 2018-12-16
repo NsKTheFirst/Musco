@@ -1,13 +1,17 @@
 <template>
-    <Annonces/>
+        <PageAnnonces/>
 </template>
 
 <script>
-import Annonces from '@/components/Annonces/Annonce.vue';
+import PageAnnonces from '@/components/Annonces/PageAnnonces.vue';
 
 export default {
     components: {
-        Annonces
+        PageAnnonces
     }
 }
 </script>
+
+<style scoped lang="scss">
+    
+</style>

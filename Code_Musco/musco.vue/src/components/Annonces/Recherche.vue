@@ -2,7 +2,7 @@
     <section>
         <h2>Rechercher</h2>
         <form>
-            <select name="categorie" id="cat" placeholder="Catégorie">
+            <select name="categorie" id="cat">
                 <option value="audio">Audio</option>
                 <option value="video">Video</option>
                 <option value="instruments">Instruments</option>

@@ -4,17 +4,20 @@
             <img src="@/assets/Images/photo_header.jpg" alt="Studio">
         </figure>
         <About/>
-        <News/>
+        <!-- <News/> -->
+        <MyNews/>
     </div>
 </template>
 
 <script>
-import About from '@/components/About.vue'
-import News from '@/components/News.vue'
+import About from '@/components/About'
+// import News from '@/components/News.vue'
+import MyNews from '@/components/MyNews'
 export default {
     components: {
         About,
-        News,
+        // News,
+        MyNews
     }
 }
 </script>
@@ -28,6 +31,8 @@ export default {
 
     img {
         width: 100%;
-        margin-top: 70px
+        // margin-top: 70px
     }
+
+    
 </style>

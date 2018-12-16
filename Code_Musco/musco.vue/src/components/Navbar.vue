@@ -15,7 +15,14 @@
                     path:'/annonces',
                     name:'annonces'
                     }">Annonces</v-btn>
-                <v-btn flat id="connexionBtn">Connexion</v-btn>
+                <v-menu offset-y transition="slide-y-transition" bottom>
+                    <v-btn flat id="connexionBtn" slot="activator">Connexion</v-btn>
+                    <v-list>
+                        <v-list-tile v-for="link in links" :key="link.text">
+                            <v-list-tile-title>{{ link.text }}</v-list-tile-title>
+                        </v-list-tile>
+                    </v-list>
+                </v-menu>
             </v-toolbar-items>
         </v-toolbar>
     </nav>
@@ -23,8 +30,15 @@
 
 <script>
 export default {
-    
-}
+    data() {
+        return {
+            links: [
+                {text: 'Se connecter'},
+                {text: 'Créer un compte'}
+            ]
+        }
+    }
+} 
 </script>
 
 <style scoped lang="scss">
@@ -47,5 +61,5 @@ export default {
             color: #01dc0e
             }
         }
-    }
+    }   
 </style>

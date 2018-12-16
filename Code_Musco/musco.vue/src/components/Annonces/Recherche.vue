@@ -1,8 +1,9 @@
 <template>
     <section>
         <h2>Rechercher</h2>
-        <form>
-            <select name="categorie" id="cat">
+        <v-container fluid grid-list-xl id:="container">
+            <v-layout wrap align-center>
+            <!-- <select name="categorie" id="cat">
                 <option value="audio">Audio</option>
                 <option value="video">Video</option>
                 <option value="instruments">Instruments</option>
@@ -23,15 +24,37 @@
                 <option value="vent">Instruments à vent</option>
                 <option value="percussion">Percussions</option>
                 <option value="autres">Autres</option>
-            </select>
-            <span>Autour de moi</span>
-        </form>
+            </select> -->
+                <v-flex sm2 d-flex>
+                    <v-select :items="cat" label="Catégorie" outline offset-y background-color="white" id="cat"></v-select>
+                </v-flex>
+                <v-flex sm2 d-flex>
+                    <v-select :items="audioskill" label="Audio skills" outline offset-y background-color="white"></v-select>
+                </v-flex>
+                <v-flex sm2 d-flex>
+                    <v-select :items="videoskill" label="Video skills" outline offset-y background-color="white"></v-select>
+                </v-flex>
+                <v-flex sm2 d-flex>
+                    <v-select :items="instruments" label="Instruments" outline offset-y background-color="white"></v-select>
+                </v-flex>
+                <v-flex sm1 d-flex>
+                    <span>Autour de moi</span>
+                </v-flex>
+            </v-layout>
+        </v-container>
     </section>
 </template>
 
 <script>
 export default {
-    
+    data() {
+        return {
+            cat: ['Audio', 'Video', 'Instruments'],
+            audioskill: ['Mixage', 'Beat making', 'Composition'],
+            videoskill: ['Réalisation', 'Post-produciton'],
+            instruments: ['Cuivres', 'Cordes', 'Instruments à vent', 'Percussions', 'Chant', 'Autres']
+        }
+    }
 }
 </script>
 
@@ -45,9 +68,8 @@ export default {
             text-align: center;
             color: white
         }
-        form {
-            display: flex;
-            justify-content: space-around
+        span {
+            
         }
     }
 </style>

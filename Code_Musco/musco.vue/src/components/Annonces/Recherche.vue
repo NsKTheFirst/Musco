@@ -69,7 +69,19 @@ export default {
             color: white
         }
         span {
-            
+            border: 1px solid #01dc0e;
+            padding: 5px;
+            text-align: center;
+            border-radius: 5px;
+            background: #01dc0e;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            transition: 0.1s;
+            &:hover {
+                box-shadow: 4px 4px 8px rgb(66, 66, 66);
+                cursor: pointer;
+            }
         }
     }
 </style>

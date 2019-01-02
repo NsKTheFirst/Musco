@@ -1,6 +1,6 @@
 <template>
     <div>
-        <figure>
+        <figure id="picture">
             <img src="@/assets/Images/photo_header.jpg" alt="Studio">
         </figure>
         <Recherche/>
@@ -67,6 +67,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    #picture {
+        margin-bottom: -6px
+    }
+    
     img {
         width: 100%;
         // margin-top: 70px

@@ -1,9 +1,10 @@
 <template>
-    <section>
-        <h2>Rechercher</h2>
-        <v-container fluid grid-list-xl id:="container">
-            <v-layout wrap align-center>
-            <!-- <select name="categorie" id="cat">
+    <div>
+        <section>
+            <h2>Rechercher</h2>
+            <v-container fluid grid-list-xl id:="container">
+                <v-layout wrap align-center>
+            <!-- <select  name="categorie" id="cat">
                 <option value="audio">Audio</option>
                 <option value="video">Video</option>
                 <option value="instruments">Instruments</option>
@@ -25,35 +26,81 @@
                 <option value="percussion">Percussions</option>
                 <option value="autres">Autres</option>
             </select> -->
-                <v-flex sm2 d-flex>
-                    <v-select :items="cat" label="Catégorie" outline offset-y background-color="white" id="cat"></v-select>
-                </v-flex>
-                <v-flex sm2 d-flex>
-                    <v-select :items="audioskill" label="Audio skills" outline offset-y background-color="white"></v-select>
-                </v-flex>
-                <v-flex sm2 d-flex>
-                    <v-select :items="videoskill" label="Video skills" outline offset-y background-color="white"></v-select>
-                </v-flex>
-                <v-flex sm2 d-flex>
-                    <v-select :items="instruments" label="Instruments" outline offset-y background-color="white"></v-select>
-                </v-flex>
-                <v-flex sm1 d-flex>
-                    <span>Autour de moi</span>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </section>
+                    <v-flex sm2 d-flex>
+                     <v-select :items="cat" label="Catégorie" solo offset-y class="field"></v-select>
+                    </v-flex>
+                    <v-flex sm2 d-flex>
+                     <v-select :items="audioskill" label="Audio skills" solo offset-y class="field"></v-select>
+                    </v-flex>
+                    <v-flex sm2 d-flex>
+                     <v-select :items="videoskill" label="Video skills" solo offset-y class="field"></v-select>
+                    </v-flex>
+                    <v-flex sm2 d-flex>
+                     <v-select :items="instruments" label="Instruments" solo offset-y class="field"></v-select>
+                    </v-flex>
+                    <v-flex sm1 d-flex>
+                        <span @click="geoloc">Autour de moi</span>
+                    </v-flex>
+                </v-layout>
+            </v-container>
+        
+        </section>
+        <div class="map" id="map">
+        </div>
+    </div>
 </template>
 
 <script>
+import L from "leaflet"
 export default {
     data() {
         return {
             cat: ['Audio', 'Video', 'Instruments'],
             audioskill: ['Mixage', 'Beat making', 'Composition'],
             videoskill: ['Réalisation', 'Post-produciton'],
-            instruments: ['Cuivres', 'Cordes', 'Instruments à vent', 'Percussions', 'Chant', 'Autres']
+            instruments: ['Cuivres', 'Cordes', 'Instruments à vent', 'Percussions', 'Chant', 'Autres'],
+            map: null,
+            userlat: null,
+            userlon: null
         }
+    },
+    methods: {
+        initMap() {
+                    // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+                    
+                    this.map = L.map('map').setView([this.userlat, this.userlon], 11);
+                    // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+                    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                        // Il est toujours bien de laisser le lien vers la source des données
+                        attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                        minZoom: 1,
+                        maxZoom: 20
+                    }).addTo(this.map);
+                    console.log("mes couilles");
+                    // Nous ajoutons un marqueur
+                    var marker = L.marker([this.userlat, this.userlon]).addTo(this.map);
+                },
+        
+        geoloc() {
+            const that = this
+            var geoSuccess = function(position) { // Ceci s'exécutera si l'utilisateur accepte la géolocalisation
+                var startPos = position;
+                that.userlat = startPos.coords.latitude;
+                that.userlon = startPos.coords.longitude;
+                console.log("lat: "+that.userlat+" - lon: "+that.userlon);
+                // Fonction d'initialisation de la carte
+                
+                that.initMap();
+            };
+            var geoFail = function(){ // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
+                console.log("refus");
+            };
+            navigator.geolocation.getCurrentPosition(geoSuccess,geoFail);
+        }
+    },
+    mounted() {
+        
+        this.geoloc()
     }
 }
 </script>
@@ -61,13 +108,23 @@ export default {
 <style scoped lang="scss">
     section {
         width: 100%;
-        height: 200px;
+        height: 180px;
         background: #8833f8;
+
         h2 {
-            font-family: 'Shrikland', cursive;
+            font-family: 'Shrikhand', cursive;
             text-align: center;
-            color: white
+            color: white;
+            font-size: 30px
         }
+        // select{appearance: auto}
+        
+        // .btn {
+        //     color: white;
+        //     font-family: 'Montserrat', sans-serif;
+        //     font-weight: 700;
+            
+        // }
         span {
             border: 1px solid #01dc0e;
             padding: 5px;
@@ -78,10 +135,15 @@ export default {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             transition: 0.1s;
+            
             &:hover {
                 box-shadow: 4px 4px 8px rgb(66, 66, 66);
                 cursor: pointer;
             }
+        }
+
+        #map {
+            height: 400px
         }
     }
 </style>

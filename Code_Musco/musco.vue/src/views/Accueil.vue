@@ -1,6 +1,6 @@
 <template>
     <div>
-        <figure>
+        <figure id="picture">
             <img src="@/assets/Images/photo_header.jpg" alt="Studio">
         </figure>
         <About/>
@@ -28,11 +28,9 @@ export default {
         padding: 0;
         box-sizing: border-box
     }
-
+    
     img {
         width: 100%;
-        // margin-top: 70px
     }
-
     
 </style>

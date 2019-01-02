@@ -2,8 +2,8 @@
     <div>
         <section>
             <h2>Rechercher</h2>
-            <v-container fluid grid-list-xl id:="container">
-                <v-layout wrap align-center>
+            <v-container grid-list-xl id:="container">
+                <v-layout wrap justify-center>
             <!-- <select  name="categorie" id="cat">
                 <option value="audio">Audio</option>
                 <option value="video">Video</option>
@@ -27,16 +27,16 @@
                 <option value="autres">Autres</option>
             </select> -->
                     <v-flex sm2 d-flex>
-                     <v-select :items="cat" label="Catégorie" solo offset-y class="field"></v-select>
+                     <v-select :items="cat" label="Catégorie" solo menu-props="offset-y" class="field"></v-select>
                     </v-flex>
                     <v-flex sm2 d-flex>
-                     <v-select :items="audioskill" label="Audio skills" solo offset-y class="field"></v-select>
+                     <v-select :items="audioskill" label="Audio skills" solo menu-props="offset-y" class="field"></v-select>
                     </v-flex>
                     <v-flex sm2 d-flex>
-                     <v-select :items="videoskill" label="Video skills" solo offset-y class="field"></v-select>
+                     <v-select :items="videoskill" label="Video skills" solo menu-props="offset-y" class="field"></v-select>
                     </v-flex>
                     <v-flex sm2 d-flex>
-                     <v-select :items="instruments" label="Instruments" solo offset-y class="field"></v-select>
+                     <v-select :items="instruments" label="Instruments" solo menu-props="offset-y" class="field"></v-select>
                     </v-flex>
                     <v-flex sm1 d-flex>
                         <span @click="geoloc">Autour de moi</span>
@@ -45,7 +45,8 @@
             </v-container>
         
         </section>
-        <div class="map" id="map">
+        <div id="map">{{ macarte }}
+
         </div>
     </div>
 </template>
@@ -61,24 +62,25 @@ export default {
             instruments: ['Cuivres', 'Cordes', 'Instruments à vent', 'Percussions', 'Chant', 'Autres'],
             map: null,
             userlat: null,
-            userlon: null
+            userlon: null,
+            macarte: {}
         }
     },
     methods: {
         initMap() {
                     // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
                     
-                    this.map = L.map('map').setView([this.userlat, this.userlon], 11);
+                    var macarte = L.map('map').setView([this.userlat, this.userlon], 12);
                     // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
                     L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
                         // Il est toujours bien de laisser le lien vers la source des données
                         attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
                         minZoom: 1,
                         maxZoom: 20
-                    }).addTo(this.map);
-                    console.log("mes couilles");
+                    }).addTo(macarte);
+                    
                     // Nous ajoutons un marqueur
-                    var marker = L.marker([this.userlat, this.userlon]).addTo(this.map);
+                    var marker = L.marker([this.userlat, this.userlon]).addTo(macarte);
                 },
         
         geoloc() {
@@ -92,16 +94,16 @@ export default {
                 
                 that.initMap();
             };
-            var geoFail = function(){ // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
+            var geoFail = function() { // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
                 console.log("refus");
             };
             navigator.geolocation.getCurrentPosition(geoSuccess,geoFail);
         }
     },
-    mounted() {
+    // mounted() {
         
-        this.geoloc()
-    }
+    //     this.geoloc()
+    // }
 }
 </script>
 
@@ -135,6 +137,8 @@ export default {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             transition: 0.1s;
+            height: 32px;
+            margin-top: 10px;
             
             &:hover {
                 box-shadow: 4px 4px 8px rgb(66, 66, 66);
@@ -143,7 +147,8 @@ export default {
         }
 
         #map {
-            height: 400px
+            height: 500px;
+            width: 100%
         }
     }
 </style>

@@ -33,5 +33,10 @@ export default {
     box-sizing: border-box;
     appearance: scrollbarbutton-up ;
   }
+
+  .leaflet-container {
+    overflow: visible;
+    margin-bottom: 300px
+  }
   
 </style>

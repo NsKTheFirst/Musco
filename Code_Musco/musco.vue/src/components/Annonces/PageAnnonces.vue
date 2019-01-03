@@ -132,7 +132,7 @@ export default {
                 margin-bottom: 10px
             }
 
-             p {
+            p {
                 font-size: 12px;
             }
         }

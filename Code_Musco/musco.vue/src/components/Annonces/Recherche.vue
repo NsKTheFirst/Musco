@@ -45,15 +45,17 @@
             </v-container>
         
         </section>
-        <div id="map">{{ macarte }}
-
-        </div>
+        <figure id="carte">
+            <div id="map">
+            </div>
+        </figure>
     </div>
 </template>
 
 <script>
 import L from "leaflet"
 export default {
+    name: "Recherche",
     data() {
         return {
             cat: ['Audio', 'Video', 'Instruments'],
@@ -146,9 +148,16 @@ export default {
             }
         }
 
-        #map {
-            height: 500px;
-            width: 100%
+        #carte {
+            height: 300px;
+            width: 100%;
+            display: block;
+
+            #map {
+                height: 100%;
+                width: 100%;
+                display: block
+            }
         }
     }
 </style>

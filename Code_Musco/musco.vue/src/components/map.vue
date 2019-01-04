@@ -1,6 +1,6 @@
 <template>
-    <figure id="carte" >
-        <div id="map" :class="{active: notActive}"></div>
+    <figure id="carte" :class="{active: notActive}">
+        <div id="map"></div>
     </figure>
 </template>
 
@@ -70,12 +70,14 @@ export default {
             height: 300px;
             width: 100%;
             position: relative;
-            overflow: hidden;
+            // overflow: hidden;
+
 
             #map {
                 height: 100%;
                 width: 100%;
-                position: absolute
+                position: absolute;
+                overflow: hidden;
             }
         }
 </style>

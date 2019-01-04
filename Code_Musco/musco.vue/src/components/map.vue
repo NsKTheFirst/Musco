@@ -1,37 +1,45 @@
 <template>
-    <figure id="carte">
-        <div id="map"></div>
+    <figure id="carte" >
+        <div id="map" :class="{active: notActive}"></div>
     </figure>
 </template>
 
 <script>
+import L from "leaflet"
 export default {
     data() {
         return {
             map: null,
             userlat: null,
             userlon: null,
-            // macarte: {}
+            notActive: true
+            
         }
     },
+
+    created() {
+        this.$ebus.$on("runGeoloc", this.geoloc)
+    },
+
     methods: {
         initMap() {
-                    // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+            // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
                     
-                    var macarte = L.map('map').setView([this.userlat, this.userlon], 12);
-                    // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
-                    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-                        // Il est toujours bien de laisser le lien vers la source des données
-                        attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
-                        minZoom: 1,
-                        maxZoom: 20
-                    }).addTo(macarte);
+            var macarte = L.map('map').setView([this.userlat, this.userlon], 13);
+            // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+            L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+            // Il est toujours bien de laisser le lien vers la source des données
+                attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                minZoom: 1,
+                maxZoom: 20
+            }).addTo(macarte);
                     
-                    // Nous ajoutons un marqueur
-                    var marker = L.marker([this.userlat, this.userlon]).addTo(macarte);
-                },
+            // Nous ajoutons un marqueur
+            var marker = L.marker([this.userlat, this.userlon]).addTo(macarte);
+        },
         
         geoloc() {
+            
             const that = this
             var geoSuccess = function(position) { // Ceci s'exécutera si l'utilisateur accepte la géolocalisation
                 var startPos = position;
@@ -46,7 +54,28 @@ export default {
                 console.log("refus");
             };
             navigator.geolocation.getCurrentPosition(geoSuccess,geoFail);
+            this.notActive = false;
+
         }
     }
 }
 </script>
+
+<style scoped lang="scss">
+    .active {
+        display: none
+    }
+    
+    #carte {
+            height: 300px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+
+            #map {
+                height: 100%;
+                width: 100%;
+                position: absolute
+            }
+        }
+</style>

@@ -1,9 +1,10 @@
 <template>
-    <div>
+    <div id="glob">
         <figure id="picture">
             <img src="@/assets/Images/photo_header.jpg" alt="Studio">
         </figure>
         <Recherche/>
+        <Map/>
         <div class="annonces" v-for="(annonce, a) in annonces" :key="a">
             <!-- <router-link
             :to="{
@@ -34,11 +35,13 @@
 
 <script>
 import Recherche from '@/components/Annonces/Recherche.vue'
+import Map from '@/components/Map.vue'
 import axios from 'axios'
 export default {
     name: "PageAnnonces",
     components: {
-        Recherche
+        Recherche,
+        Map
     },
     data () {
         return {
@@ -67,6 +70,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+    #glob {
+        position: relative;
+    }
+    
     #picture {
         margin-bottom: -6px
     }

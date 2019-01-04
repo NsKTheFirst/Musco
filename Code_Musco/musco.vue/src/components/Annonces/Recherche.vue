@@ -39,21 +39,21 @@
                      <v-select :items="instruments" label="Instruments" solo menu-props="offset-y" class="field"></v-select>
                     </v-flex>
                     <v-flex sm1 d-flex>
-                        <span @click="geoloc">Autour de moi</span>
+                        <span @click="runGeoloc">Autour de moi</span>
                     </v-flex>
                 </v-layout>
             </v-container>
         
         </section>
-        <figure id="carte">
+        <!-- <figure id="carte">
             <div id="map">
             </div>
-        </figure>
+        </figure> -->
     </div>
 </template>
 
 <script>
-import L from "leaflet"
+// import L from "leaflet"
 export default {
     name: "Recherche",
     data() {
@@ -62,45 +62,53 @@ export default {
             audioskill: ['Mixage', 'Beat making', 'Composition'],
             videoskill: ['Réalisation', 'Post-produciton'],
             instruments: ['Cuivres', 'Cordes', 'Instruments à vent', 'Percussions', 'Chant', 'Autres'],
-            map: null,
-            userlat: null,
-            userlon: null,
-            macarte: {}
+            // map: null,
+            // userlat: null,
+            // userlon: null,
+            // macarte: {}
         }
     },
+    // computed: {
+    //     runGeoloc() {
+    //         this.$ebus.$emit("runGeoloc");
+    //     }
+    // },
     methods: {
-        initMap() {
-                    // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
-                    
-                    var macarte = L.map('map').setView([this.userlat, this.userlon], 12);
-                    // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
-                    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-                        // Il est toujours bien de laisser le lien vers la source des données
-                        attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
-                        minZoom: 1,
-                        maxZoom: 20
-                    }).addTo(macarte);
-                    
-                    // Nous ajoutons un marqueur
-                    var marker = L.marker([this.userlat, this.userlon]).addTo(macarte);
-                },
-        
-        geoloc() {
-            const that = this
-            var geoSuccess = function(position) { // Ceci s'exécutera si l'utilisateur accepte la géolocalisation
-                var startPos = position;
-                that.userlat = startPos.coords.latitude;
-                that.userlon = startPos.coords.longitude;
-                console.log("lat: "+that.userlat+" - lon: "+that.userlon);
-                // Fonction d'initialisation de la carte
-                
-                that.initMap();
-            };
-            var geoFail = function() { // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
-                console.log("refus");
-            };
-            navigator.geolocation.getCurrentPosition(geoSuccess,geoFail);
+        runGeoloc() {
+            this.$ebus.$emit("runGeoloc");
         }
+        // initMap() {
+        //             // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+                    
+        //             var macarte = L.map('map').setView([this.userlat, this.userlon], 12);
+        //             // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+        //             L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        //                 // Il est toujours bien de laisser le lien vers la source des données
+        //                 attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+        //                 minZoom: 1,
+        //                 maxZoom: 20
+        //             }).addTo(macarte);
+                    
+        //             // Nous ajoutons un marqueur
+        //             var marker = L.marker([this.userlat, this.userlon]).addTo(macarte);
+        //         },
+        
+        // geoloc() {
+        //     const that = this
+        //     var geoSuccess = function(position) { // Ceci s'exécutera si l'utilisateur accepte la géolocalisation
+        //         var startPos = position;
+        //         that.userlat = startPos.coords.latitude;
+        //         that.userlon = startPos.coords.longitude;
+        //         console.log("lat: "+that.userlat+" - lon: "+that.userlon);
+        //         // Fonction d'initialisation de la carte
+                
+        //         that.initMap();
+        //     };
+        //     var geoFail = function() { // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
+        //         console.log("refus");
+        //     };
+        //     navigator.geolocation.getCurrentPosition(geoSuccess,geoFail);
+        // }
     },
     // mounted() {
         
@@ -148,17 +156,17 @@ export default {
             }
         }
 
-        #carte {
-            height: 300px;
-            width: 100%;
-            display: block;
+        // #carte {
+        //     height: 300px;
+        //     width: 100%;
+        //     display: block;
 
-            #map {
-                height: 100%;
-                width: 100%;
-                display: block
-            }
-        }
+        //     #map {
+        //         height: 100%;
+        //         width: 100%;
+        //         display: block
+        //     }
+        // }
     }
 </style>
 

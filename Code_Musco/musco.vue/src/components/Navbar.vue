@@ -46,7 +46,7 @@ export default {
 <style scoped lang="scss">
     nav {
         font-family: 'Shrikhand', cursive;
-        z-index: 3;
+        z-index: 5;
 
         #title {
             font-size: 40px

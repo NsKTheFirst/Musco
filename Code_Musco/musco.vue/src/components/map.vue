@@ -75,6 +75,7 @@ export default {
             position: relative;
             // transition: 0,2s;
             // overflow: hidden;
+            z-index: 1;
 
 
             #map {

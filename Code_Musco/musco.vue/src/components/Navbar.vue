@@ -19,7 +19,9 @@
                     <v-btn flat id="connexionBtn" slot="activator">Connexion</v-btn>
                     <v-list>
                         <v-list-tile v-for="link in links" :key="link.text">
-                            <v-list-tile-title>{{ link.text }}</v-list-tile-title>
+                            <v-list-tile-title>
+                                <router-link to="">{{ link.text }}</router-link>
+                            </v-list-tile-title>
                         </v-list-tile>
                     </v-list>
                 </v-menu>

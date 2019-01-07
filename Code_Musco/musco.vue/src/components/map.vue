@@ -12,7 +12,10 @@ export default {
             map: null,
             userlat: null,
             userlon: null,
-            notActive: true
+            notActive: true,
+            options: {
+                enableHighAccuracy: true
+            }
             
         }
     },
@@ -53,7 +56,7 @@ export default {
             var geoFail = function() { // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
                 console.log("refus");
             };
-            navigator.geolocation.getCurrentPosition(geoSuccess,geoFail);
+            navigator.geolocation.getCurrentPosition(geoSuccess, geoFail, this.options);
             this.notActive = false;
 
         }
@@ -70,6 +73,7 @@ export default {
             height: 300px;
             width: 100%;
             position: relative;
+            // transition: 0,2s;
             // overflow: hidden;
 
 

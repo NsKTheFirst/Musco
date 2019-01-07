@@ -70,9 +70,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    #glob {
-        position: relative;
-    }
+    // #glob {
+    //     position: relative;
+    // }
     
     #picture {
         margin-bottom: -6px

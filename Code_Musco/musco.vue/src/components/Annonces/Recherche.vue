@@ -149,6 +149,7 @@ export default {
             transition: 0.1s;
             height: 32px;
             margin-top: 10px;
+            user-select: none;
             
             &:hover {
                 box-shadow: 4px 4px 8px rgb(66, 66, 66);

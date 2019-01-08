@@ -5,6 +5,7 @@
         </figure>
         <Recherche/>
         <Map/>
+        
         <div class="annonces" v-for="(annonce, a) in annonces" :key="a">
             <!-- <router-link
             :to="{
@@ -30,18 +31,23 @@
             </article>
             <!-- </router-link> -->
         </div>
+        <back-to-top bottom="120px" right="50px">
+            <button type="button" class="btn btn-info btn-to-top"><i class="fas fa-chevron-up"></i></button>
+        </back-to-top>
     </div>   
 </template>
 
 <script>
 import Recherche from '@/components/Annonces/Recherche.vue'
 import Map from '@/components/Map.vue'
+import BackToTop from 'vue-backtotop'
 import axios from 'axios'
 export default {
     name: "PageAnnonces",
     components: {
         Recherche,
-        Map
+        Map,
+        BackToTop
     },
     data () {
         return {
@@ -96,9 +102,14 @@ export default {
         padding: 1rem;
         box-shadow: 8px 8px 10px darkgrey;
         transition: 0.2s;
+        user-select: none;
             
         &:hover {
-            box-shadow: 12px 12px 10px darkgrey
+            box-shadow: 12px 12px 10px darkgrey;
+            border: solid 5px #8833f8;
+            // img {
+            //     border: solid 3px #01dc0e
+            // }
         }
         .profil{
             height: 100%;
@@ -115,6 +126,9 @@ export default {
                     width: 100%;
                     border: solid 3px #8833f8;
                     border-radius: 50%;
+                    &:hover {
+                        border: solid 3px #01dc0e
+                    }
                     
                 }
             }
@@ -142,6 +156,30 @@ export default {
             p {
                 font-size: 12px;
             }
+        }
+    }
+    .btn-to-top {
+        width: 60px;
+        height: 60px;
+        color: #8833f8;
+        background: #01dc0e;
+        padding: 3px 8px;
+        border-radius: 50%;
+        font-size: 40px;
+        line-height: 42px;
+        box-shadow: 6px 6px 10px darkgrey;
+        transition: 0.2s;
+
+
+        &:hover {
+            background: #8833f8;
+            color: #01dc0e;
+            text-decoration: none;
+            box-shadow: 8px 8px 10px darkgrey
+        }
+
+        &:active {
+            border: none
         }
     }
 </style>

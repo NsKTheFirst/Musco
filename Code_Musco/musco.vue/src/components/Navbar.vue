@@ -18,9 +18,9 @@
                 <v-menu offset-y transition="slide-y-transition" bottom>
                     <v-btn flat id="connexionBtn" slot="activator">Connexion</v-btn>
                     <v-list>
-                        <v-list-tile v-for="link in links" :key="link.text">
+                        <v-list-tile v-for="link in links" :key="link.text" @click="openForm">
                             <v-list-tile-title>
-                                <router-link to="">{{ link.text }}</router-link>
+                                {{ link.text }}
                             </v-list-tile-title>
                         </v-list-tile>
                     </v-list>
@@ -38,6 +38,11 @@ export default {
                 {text: 'Se connecter'},
                 {text: 'Créer un compte'}
             ]
+        }
+    },
+    methods: {
+        openForm() {
+            this.$ebus.$emit("openForm")
         }
     }
 } 

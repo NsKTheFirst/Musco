@@ -41,8 +41,15 @@ export default {
         }
     },
     methods: {
-        openForm() {
-            this.$ebus.$emit("openForm")
+        // Observe l'élément déclencheur et émet une data différente en fonction du résultat.
+        openForm(evt) {
+            if (evt.target.textContent.trim() == this.links[0].text) {
+                // console.log("yep");
+                this.$ebus.$emit("openFormLog");
+            } else {
+                // console.log("yop");
+                this.$ebus.$emit("openFormReg");
+            };
         }
     }
 } 

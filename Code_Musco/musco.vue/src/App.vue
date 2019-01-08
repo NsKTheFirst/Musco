@@ -6,6 +6,7 @@
     <Navbar/>
     <v-content>
       <router-view></router-view>
+      <FormLogin/>
     </v-content>
     <MyFooter2/>
   </v-app>
@@ -16,12 +17,14 @@
 // import MyFooter from '@/components/MyFooter.vue'
 import Navbar from '@/components/Navbar'
 import MyFooter2 from '@/components/MyFooter2'
+import FormLogin from '@/components/Forms/FormLogin.vue'
 export default {
   components: {
     // MyNav,
     // MyFooter
     Navbar,
-    MyFooter2
+    MyFooter2,
+    FormLogin
   }
 }
 </script>

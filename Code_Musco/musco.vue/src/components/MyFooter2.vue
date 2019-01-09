@@ -11,7 +11,10 @@
                     name:'mentions'
                     }">Mentions légales</v-btn>
                 <v-btn flat round id="contBtn">Contact</v-btn>
-                
+                <v-btn icon id="fbBtn" href='https://fr-fr.facebook.com/'><i class="fab fa-facebook-square fa-2x"></i></v-btn>
+                <v-btn icon id="twitterBtn" href='https://twitter.com/?lang=fr'><i class="fab fa-twitter-square fa-2x"></i></v-btn>
+                <!-- <a href="https://fr-fr.facebook.com/" id="fbBtn"><i class="fab fa-facebook-square"></i></a>
+                <a href="https://twitter.com/?lang=fr" id="twitterBtn"><i class="fab fa-twitter-square"></i></a> -->
                 <v-flex
                     lighten-2
                     py-3
@@ -41,7 +44,13 @@ export default {
             font-family: 'Shrikhand', cursive;
             &:hover {
                 color: #8833f8
-            }   
+            }
+        }
+        #fbBtn, #twitterBtn {
+            color: white;
+            &:hover {
+                color: #8833f8
+            }
         }
     }
 </style>

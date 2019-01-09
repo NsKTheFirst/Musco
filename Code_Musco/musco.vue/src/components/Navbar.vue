@@ -2,8 +2,8 @@
     <nav>
         <v-toolbar app class="black">
             <v-toolbar-title class="text-uppercase" id="title">
-                <span class="purple--text">Mus</span>
-                <span class="green--text">co</span>
+                <span class="mus">Mus</span>
+                <span class="co">co</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <v-toolbar-items class="hidden-md-and-down" >
@@ -59,6 +59,14 @@ export default {
     nav {
         font-family: 'Shrikhand', cursive;
         z-index: 5;
+
+        .mus {
+            color: #8833f8
+        }
+
+        .co {
+            color: #01dc0e
+        }
 
         #title {
             font-size: 40px

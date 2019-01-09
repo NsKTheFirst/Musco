@@ -169,17 +169,15 @@ export default {
         line-height: 42px;
         box-shadow: 6px 6px 10px darkgrey;
         transition: 0.2s;
+        opacity: 0.6;
+        outline: none;
 
 
         &:hover {
             background: #8833f8;
             color: #01dc0e;
-            text-decoration: none;
+            // text-decoration: none;
             box-shadow: 8px 8px 10px darkgrey
-        }
-
-        &:active {
-            border: none
         }
     }
 </style>

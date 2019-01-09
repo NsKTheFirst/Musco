@@ -14,7 +14,7 @@ export default {
             userlon: null,
             notActive: true,
             options: {
-                enableHighAccuracy: true
+                enableHighAccuracy: true,
             }
             
         }
@@ -28,7 +28,7 @@ export default {
         initMap() {
             // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
                     
-            var macarte = L.map('map').setView([this.userlat, this.userlon], 13);
+            var macarte = L.map('map', {scrollWheelZoom: false}).setView([this.userlat, this.userlon], 11);
             // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
             L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
             // Il est toujours bien de laisser le lien vers la source des données
@@ -39,6 +39,7 @@ export default {
                     
             // Nous ajoutons un marqueur
             var marker = L.marker([this.userlat, this.userlon]).addTo(macarte);
+            marker.bindPopup("Vous êtes ici").openPopup();
         },
         
         geoloc() {

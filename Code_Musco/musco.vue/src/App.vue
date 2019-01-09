@@ -7,6 +7,7 @@
     <v-content>
       <router-view></router-view>
       <FormLogin/>
+      <FormRegister/>
     </v-content>
     <MyFooter2/>
   </v-app>
@@ -18,13 +19,15 @@
 import Navbar from '@/components/Navbar'
 import MyFooter2 from '@/components/MyFooter2'
 import FormLogin from '@/components/Forms/FormLogin.vue'
+import FormRegister from '@/components/Forms/FormRegister.vue'
 export default {
   components: {
     // MyNav,
     // MyFooter
     Navbar,
     MyFooter2,
-    FormLogin
+    FormLogin,
+    FormRegister
   }
 }
 </script>

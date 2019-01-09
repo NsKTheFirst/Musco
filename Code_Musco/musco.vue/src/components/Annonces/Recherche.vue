@@ -26,19 +26,19 @@
                 <option value="percussion">Percussions</option>
                 <option value="autres">Autres</option>
             </select> -->
-                    <v-flex sm2 d-flex>
+                    <v-flex xs12 sm6 md2 d-flex>
                      <v-select :items="cat" label="Catégorie" solo menu-props="offset-y" class="field"></v-select>
                     </v-flex>
-                    <v-flex sm2 d-flex>
+                    <v-flex xs12 sm6 md2 d-flex>
                      <v-select :items="audioskill" label="Audio skills" solo menu-props="offset-y" class="field"></v-select>
                     </v-flex>
-                    <v-flex sm2 d-flex>
+                    <v-flex xs12 sm6 md2 d-flex>
                      <v-select :items="videoskill" label="Video skills" solo menu-props="offset-y" class="field"></v-select>
                     </v-flex>
-                    <v-flex sm2 d-flex>
+                    <v-flex xs12 sm6 md2 d-flex>
                      <v-select :items="instruments" label="Instruments" solo menu-props="offset-y" class="field"></v-select>
                     </v-flex>
-                    <v-flex sm1 d-flex>
+                    <v-flex xs12 sm6 md2 d-flex>
                         <span @click="runGeoloc">Autour de moi</span>
                     </v-flex>
                 </v-layout>
@@ -120,14 +120,15 @@ export default {
 <style scoped lang="scss">
     section {
         width: 100%;
-        height: 180px;
+        height: auto;
         background: #8833f8;
+        padding: 20px 0px;
 
         h2 {
             font-family: 'Shrikhand', cursive;
             text-align: center;
             color: white;
-            font-size: 30px
+            font-size: 30px;
         }
         // select{appearance: auto}
         

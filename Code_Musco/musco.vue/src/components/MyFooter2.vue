@@ -2,8 +2,14 @@
     <footer>
         <v-footer height="auto" class="black"> 
             <v-layout justify-center row wrap>
-                <v-btn flat round id="faqBtn">FAQ</v-btn>
-                <v-btn flat round id="mlBtn">Mentions légales</v-btn>
+                <v-btn flat round id="faqBtn" :to="{
+                    path:'/faq',
+                    name:'faq'
+                    }">FAQ</v-btn>
+                <v-btn flat round id="mlBtn" :to="{
+                    path:'/mentions',
+                    name:'mentions'
+                    }">Mentions légales</v-btn>
                 <v-btn flat round id="contBtn">Contact</v-btn>
                 
                 <v-flex

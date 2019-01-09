@@ -31,6 +31,18 @@ export default new Router({
       path: '/annonces',
       name: 'annonces',
       component: () => import('./components/Annonces/PageAnnonces')
+    },
+
+    {
+      path: '/faq',
+      name: 'faq',
+      component: () => import('./components/Faq')
+    },
+
+    {
+      path: '/mentions',
+      name: 'mentions',
+      component: () => import('./components/MentionsLegales')
     }
   ]
 })

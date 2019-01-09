@@ -3,19 +3,19 @@
         <figure id="picture">
             <img src="@/assets/Images/photo_header.jpg" alt="Studio">
         </figure>
-        <About/>
+        <Presentation/>
         <!-- <News/> -->
         <MyNews/>
     </div>
 </template>
 
 <script>
-import About from '@/components/About'
+import Presentation from '@/components/Presentation'
 // import News from '@/components/News.vue'
 import MyNews from '@/components/MyNews'
 export default {
     components: {
-        About,
+        Presentation,
         // News,
         MyNews
     }

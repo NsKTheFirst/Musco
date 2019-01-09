@@ -90,7 +90,8 @@ export default {
             transition: 0.2s;
             
             &:hover {
-                box-shadow: 12px 12px 10px darkgrey
+                box-shadow: 12px 12px 10px darkgrey;
+                border: solid 5px #8833f8
             }
             .profil{
                 height: 100%;

@@ -1,15 +1,32 @@
 const userModel = function userModel(connection) {
 
+  const auth = require("./../utils/auth");
+  const table = "users";
     // Requête de création
-    const create = function createUser(clbk, data) {
-      const sql = "INSERT INTO users (nom, prenom, pseudo, mdp, mail, avatar, soundcloud, youtube, facebook, localisation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      const payload = [data.nom, data.prenom, data.pseudo, data.mdp, data.mail, data.avatar, data.soundcloud, data.youtube, data.facebook, data.localisation];
+    // const create = function createUser(clbk, data) {
+    //   const sql = "INSERT INTO users (nom, prenom, pseudo, mdp, mail, avatar, soundcloud, youtube, facebook, localisation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    //   const payload = [data.nom, data.prenom, data.pseudo, data.mdp, data.mail, data.avatar, data.soundcloud, data.youtube, data.facebook, data.localisation];
   
-      connection.query(sql, payload, (err, res) => {
-        // console.log(this.sql); // affiche la dernière requête SQL, pratique pour deboguer
-        if (err) return clbk(err, null);
-        return clbk(null, res);
-      });
+    //   connection.query(sql, payload, (err, res) => {
+    //     // console.log(this.sql); // affiche la dernière requête SQL, pratique pour deboguer
+    //     if (err) return clbk(err, null);
+    //     return clbk(null, res);
+    //   });
+    // };
+
+    const create = function createUser(clbk, payload) {
+      const sql = `INSERT INTO ${table} (nom, prenom, pseudo, mdp, mail, avatar, soundcloud, youtube, facebook, localisation) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+      const { nom, prenom, pseudo, avatar, mail, mdp, soundcloud, youtube, facebook, localisation } = payload;
+      const query = connection.query(
+        sql,
+        [nom, prenom, pseudo, mdp, mail, avatar, soundcloud, youtube, facebook, localisation],
+        (err, res) => {
+          if (err) return clbk(err, null);
+          console.log(query.sql);
+          return clbk(null, res);
+        }
+      );
+      console.log("last db query =>", query.sql);
     };
   
     // Requête de suppression
@@ -51,6 +68,15 @@ const userModel = function userModel(connection) {
         return clbk(null, results);
       });
     };
+
+    const getByMail = function getUserByMail(clbk, mail) {
+      const sql = `SELECT * FROM ${table} WHERE mail = ?`;
+      const q = connection.query(sql, mail, (err, user) => {
+        if (err) return clbk(err, null);
+        return clbk(null, ...user);
+      });
+      console.log(q.sql);
+    };
     
   
     return {
@@ -58,6 +84,7 @@ const userModel = function userModel(connection) {
       remove,
       update,
       get,
+      getByMail
     };
   };
   

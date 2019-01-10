@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import auth from "./utils/auth";
 import Accueil from './views/Accueil.vue'
 
 Vue.use(Router)
@@ -43,6 +44,37 @@ export default new Router({
       path: '/mentions',
       name: 'mentions',
       component: () => import('./components/MentionsLegales')
-    }
+    },
+
+    {
+      path: "/dashboard",
+      name: "dashboard",
+      beforeEnter: (to, from, next) => {
+        if (!auth.getLocalToken()) next("/login");
+        else next();
+      },
+      children: [
+        {
+          name: "my-dashboard",
+          path: "me",
+          component: () =>
+            import(/* webpackChunkName: "dashboard-me" */ "./views/DashboardMe.vue")
+        },
+        {
+          name: "user-manager",
+          path: "manage-users",
+          component: () =>
+            import(/* webpackChunkName: "dashboard-users" */ "./views/DashboardUsersManager.vue")
+        },
+        // {
+        //   name: "user-products",
+        //   path: "manage-products",
+        //   component: () =>
+        //     import(/* webpackChunkName: "dashboard" */ "./views/DashboardProductsManager.vue")
+        // }
+      ],
+      component: () =>
+        import(/* webpackChunkName: "dashboard" */ "./views/Dashboard.vue")
+    },
   ]
 })

@@ -1,6 +1,6 @@
 const userModel = function userModel(connection) {
 
-  const auth = require("./../utils/auth");
+  // const auth = require("./../utils/auth");
   const table = "users";
     // Requête de création
     // const create = function createUser(clbk, data) {
@@ -58,7 +58,7 @@ const userModel = function userModel(connection) {
     const get = function getFullUser(clbk, id_user) {
       let sql;
       if (id_user && !isNaN(id_user)) {
-        sql = "SELECT *, m.date AS 'date', m.sujet, m.message, m.id_emetteur, a.annonce, a.date as 'a_date', ufu.id_user_followed FROM users AS u INNER JOIN messages AS m ON u.id_user = m.id_receveur INNER JOIN annonces AS a ON u.id_user = a.id_annonce_owner INNER JOIN user_follows_user AS ufu ON u.id_user = ufu.id_user_followed WHERE u.id_user IN (?)";
+        sql = "SELECT *, m.date AS 'date', m.sujet, m.message, m.id_emetteur, a.annonce, a.date as 'a_date', ufu.id_user_followed FROM users AS u LEFT JOIN messages AS m ON u.id_user = m.id_receveur LEFT JOIN annonces AS a ON u.id_user = a.id_annonce_owner LEFT JOIN user_follows_user AS ufu ON u.id_user = ufu.id_user_followed WHERE u.id_user IN (?)";
       } else {
         sql = "SELECT * FROM users";
       }
@@ -70,7 +70,7 @@ const userModel = function userModel(connection) {
     };
 
     const getByMail = function getUserByMail(clbk, mail) {
-      const sql = `SELECT * FROM ${table} WHERE mail = ?`;
+      const sql = `SELECT *, m.date AS 'date', m.sujet, m.message, m.id_emetteur, a.annonce, a.date as 'a_date', ufu.id_user_followed FROM ${table} AS u LEFT JOIN messages AS m ON u.id_user = m.id_receveur LEFT JOIN annonces AS a ON u.id_user = a.id_annonce_owner LEFT JOIN user_follows_user AS ufu ON u.id_user = ufu.id_user_followed WHERE u.mail = ?`;
       const q = connection.query(sql, mail, (err, user) => {
         if (err) return clbk(err, null);
         return clbk(null, ...user);

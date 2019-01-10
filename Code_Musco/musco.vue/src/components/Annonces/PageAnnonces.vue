@@ -24,8 +24,8 @@
             <article>
                 <div>
                     <h4 id="date">{{ annonce.date }}</h4>
-                    <h4 id="cat">categorie: {{ annonce.categorie }}</h4>
-                    <h4 id="skill"> skill: {{ annonce.skill }}</h4>
+                    <h4 id="cat">Categorie: {{ annonce.categorie }}</h4>
+                    <h4 id="skill">Skill: {{ annonce.skill }}</h4>
                 </div>
                 <p id="annonce">{{ annonce.annonce }}</p>
             </article>

@@ -54,7 +54,7 @@ const userModel = function userModel(connection) {
       });
     };
   
-    // Requête de récupération
+    // Requête de récupération par id
     const get = function getFullUser(clbk, id_user) {
       let sql;
       if (id_user && !isNaN(id_user)) {
@@ -69,6 +69,7 @@ const userModel = function userModel(connection) {
       });
     };
 
+    // Requête de récupération par mail
     const getByMail = function getUserByMail(clbk, mail) {
       const sql = `SELECT *, m.date AS 'date', m.sujet, m.message, m.id_emetteur, a.annonce, a.date as 'a_date', ufu.id_user_followed FROM ${table} AS u LEFT JOIN messages AS m ON u.id_user = m.id_receveur LEFT JOIN annonces AS a ON u.id_user = a.id_annonce_owner LEFT JOIN user_follows_user AS ufu ON u.id_user = ufu.id_user_followed WHERE u.mail = ?`;
       const q = connection.query(sql, mail, (err, user) => {

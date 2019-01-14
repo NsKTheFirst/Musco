@@ -10,7 +10,7 @@
                     path:'/mentions',
                     name:'mentions'
                     }">Mentions légales</v-btn>
-                <v-btn flat round id="contBtn">Contact</v-btn>
+                <v-btn flat round id="contBtn"><a href="mailto:nicolas_jouenne@live.fr">Contact</a></v-btn>
                 <v-btn icon id="fbBtn" href='https://fr-fr.facebook.com/'><i class="fab fa-facebook-square fa-2x"></i></v-btn>
                 <v-btn icon id="twitterBtn" href='https://twitter.com/?lang=fr'><i class="fab fa-twitter-square fa-2x"></i></v-btn>
                 <!-- <a href="https://fr-fr.facebook.com/" id="fbBtn"><i class="fab fa-facebook-square"></i></a>
@@ -38,6 +38,14 @@ export default {
 <style scoped lang="scss">
     footer {
         margin-top: 30px;
+
+        a {
+            text-decoration: none;
+            color: white;
+            &:hover {
+                color: #8833f8
+            }
+        }
 
         #faqBtn, #mlBtn, #contBtn {
             color: white;

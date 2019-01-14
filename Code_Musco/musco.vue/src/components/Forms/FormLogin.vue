@@ -88,6 +88,13 @@ export default {
 
             console.log("@checkLogin", errors, this.logs);
 
+            // const closeFormLog = function closeFormLog() {
+            //     console.log(checkMail());
+            //     // if(this.checkMail.res && this.checkPass.res) {
+            //         // this.dialog = false;
+            //         // console.log("good");
+            //     // }
+            // };
             return errors === 0;
         },
         login(evt) {
@@ -101,7 +108,7 @@ export default {
                 .catch(err => {
                     console.error(err);
                 });
-             this.dialog = false;   
+            //  this.dialog = false;   
             }
         }
     }

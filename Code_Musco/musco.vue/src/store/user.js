@@ -35,7 +35,8 @@ export default {
           })
           .then(res => {
             auth.setLocalToken(res.data.token);
-            context.commit("setUser", res.data.user)
+            window.localStorage.setItem('user', JSON.stringify(res.data.user));
+            context.commit("setUser", res.data.user);
             resolve(res);
           })
           .catch(err => {

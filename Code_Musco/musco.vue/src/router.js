@@ -60,12 +60,12 @@ export default new Router({
           component: () =>
             import(/* webpackChunkName: "dashboard-me" */ "./views/DashboardMe.vue")
         },
-        {
-          name: "user-manager",
-          path: "manage-users",
-          component: () =>
-            import(/* webpackChunkName: "dashboard-users" */ "./views/DashboardUsersManager.vue")
-        },
+        // {
+        //   name: "user-manager",
+        //   path: "manage-users",
+        //   component: () =>
+        //     import(/* webpackChunkName: "dashboard-users" */ "./views/DashboardUsersManager.vue")
+        // },
         // {
         //   name: "user-products",
         //   path: "manage-products",

@@ -32,7 +32,7 @@ const userModel = function userModel(connection) {
     // Requête de suppression
     const remove = function deleteUser(clbk, id_user) {
       // la clause SQL IN permet de chercher une valeur dans un tableau
-      const sql = "DELETE FROM users WHERE id_user IN (?)";
+      const sql = "DELETE FROM users WHERE id_user = ?";
       console.log(sql + " " + id_user);
 
   
@@ -45,9 +45,9 @@ const userModel = function userModel(connection) {
   
     // Requête de mise à jour
     const update = function editUser(clbk, users) {
-      const sql = "UPDATE users SET nom = ?, prenom = ?,pseudo = ?, mdp = ?, mail = ?, avatar = ?, soundcloud = ?, youtube = ?, facebook = ?, localisation = ? WHERE id_user IN (?)";
-      const payload = [users.nom, users.prenom,users.pseudo, users.mdp, users.mail, users.avatar, users.soundcloud, users.youtube, users.facebook, users.localisation, users.id_user];
-      connection.query(sql, payload, function (err, res, fields) {
+      const sql = "UPDATE users SET nom = ?, prenom = ?,pseudo = ?, mdp = ?, mail = ?, avatar = ?, presentation = ?, soundcloud = ?, youtube = ?, facebook = ?, localisation = ? WHERE id_user = ?";
+      const payload = [users.nom, users.prenom,users.pseudo, users.mdp, users.mail, users.avatar, users.presentation, users.soundcloud, users.youtube, users.facebook, users.localisation, users.id_user];
+      connection.query(sql, payload, function (err, res) { //retrait de fields dans les paramètres
         // console.log(this.sql); // affiche la dernière requête SQL, pratique pour deboguer
         if (err) return clbk(err, null);
         return clbk(null, res);
@@ -58,7 +58,7 @@ const userModel = function userModel(connection) {
     const get = function getFullUser(clbk, id_user) {
       let sql;
       if (id_user && !isNaN(id_user)) {
-        sql = "SELECT *, m.date AS 'date', m.sujet, m.message, m.id_emetteur, a.annonce, a.date as 'a_date', ufu.id_user_followed FROM users AS u LEFT JOIN messages AS m ON u.id_user = m.id_receveur LEFT JOIN annonces AS a ON u.id_user = a.id_annonce_owner LEFT JOIN user_follows_user AS ufu ON u.id_user = ufu.id_user_followed WHERE u.id_user IN (?)";
+        sql = "SELECT *, m.date AS 'date', m.sujet, m.message, m.id_emetteur, a.annonce, a.date as 'a_date', ufu.id_user_followed FROM users AS u LEFT JOIN messages AS m ON u.id_user = m.id_receveur LEFT JOIN annonces AS a ON u.id_user = a.id_annonce_owner LEFT JOIN user_follows_user AS ufu ON u.id_user = ufu.id_user_followed WHERE u.id_user = ?";
       } else {
         sql = "SELECT * FROM users";
       }

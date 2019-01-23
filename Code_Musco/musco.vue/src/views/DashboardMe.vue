@@ -1,22 +1,46 @@
 <template>
-    <div>
-        <h1 class="titre">Mon profil</h1>
-        {{ infos }}
-        <figure>
-            <img :src="getAvatar(infos.avatar)" :alt="infos.pseudo">
-        </figure>
-        <h2 class="titre2">{{ infos.pseudo }}</h2>
-        <div id="boutons">
-            <i class="fas fa-plus-square fa-3x"></i>
-            <i class="fas fa-pen-square fa-3x"></i>
-        </div>
-        <h2 class="titre2">Présentation</h2>
-        <div class="pres" v-if="infos.presentation">{{ infos.presentation }}</div>
-        <div id="boutons">
-            <i v-if="!infos.presentation" class="fas fa-plus-square fa-3x"></i>
-            <i class="fas fa-pen-square fa-3x"></i>
-        </div>
-    </div>
+    <v-container fill-height fluid grid-list-xl>
+        <v-layout wrap>
+            <v-flex>
+            <h1 class="titre">Mon profil</h1>
+            {{ infos }}
+            <figure>
+                <img :src="getAvatar(infos.avatar)" :alt="infos.pseudo">
+            </figure>
+            <h2 class="titre2">{{ infos.pseudo }}</h2>
+            <div id="boutons">
+                <i class="fas fa-plus-square fa-3x"></i>
+                <i class="fas fa-pen-square fa-3x"></i>
+            </div>
+            <v-layout wrap>
+                <v-flex xs12 sm6 offset-sm3>
+                    <!-- <v-card flat>
+                        <v-card-title primary-title> -->
+                            <div>
+                                <h2 class="titre2">Présentation</h2>
+                            </div>
+                        <!-- </v-card-title>    -->
+                        <div class="pres" v-if="infos.presentation">
+                            <div class="preText">{{ infos.presentation }}</div>
+                        </div>
+                        <div id="boutons">
+                            <i v-if="!infos.presentation" class="fas fa-plus-square fa-3x"></i>
+                            <i class="fas fa-pen-square fa-3x"></i>
+                        </div>
+                        <!-- <v-card-actions>
+                            <v-btn flat v-if="!infos.presentation"><i class="fas fa-plus-square fa-3x"></i></v-btn>
+                            <v-btn flat><i class="fas fa-pen-square fa-3x"></i></v-btn>
+                        </v-card-actions>
+                    </v-card> -->
+                </v-flex>
+            </v-layout>
+            <!-- <div id="boutons">
+                <i v-if="!infos.presentation" class="fas fa-plus-square fa-3x"></i>
+                <i class="fas fa-pen-square fa-3x"></i>
+            </div> -->
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -53,7 +77,9 @@ export default {
         img {
             border-radius: 50%;
             border: solid 5px #8833f8;
-            margin: auto  
+            margin: auto;
+            width: 250px;
+            height: 250px  
         }
     }
 
@@ -87,9 +113,22 @@ export default {
     }
 
     .pres {
+        // margin: auto;
         text-align: center;
         font-family: 'Montserrat', sans-serif;
-        font-size: 18px
+        font-size: 18px;
+        width: 100%;
+        height: auto;
+        display: flex;
+        // flex-wrap: wrap;
+        justify-content: center;
+
+        .presText {
+            margin: auto;
+            width: 100%;
+            flex-wrap: wrap
+            
+        }
     }
 
 

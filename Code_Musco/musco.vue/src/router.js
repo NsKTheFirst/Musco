@@ -60,6 +60,12 @@ export default new Router({
           component: () =>
             import(/* webpackChunkName: "dashboard-me" */ "./views/DashboardMe.vue")
         },
+        {
+          name: "my-annonces",
+          path: "annonces",
+          component: () => 
+            import("./views/MyAnnonces.vue")
+        }
         // {
         //   name: "user-manager",
         //   path: "manage-users",

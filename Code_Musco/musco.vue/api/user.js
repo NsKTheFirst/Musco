@@ -37,7 +37,7 @@ const userAPi = function userAPi(connection) {
         // sinon si le mail n'existe pas en bdd, retourner une erreur au client
         else if (!user) return res.status(401).send("unknown mail");
 
-        // sinon  le mail a été trouvé, comparer le password avec son crypt/salt
+        // si le mail a été trouvé, comparer le password avec son crypt/salt
         bcrypt.compare(req.body.user.mdp, user.mdp).then(function(match) {
           // si le password est invalide, retourner une erreur au client
           if (!match) return res.status(401).send("login failed"); 

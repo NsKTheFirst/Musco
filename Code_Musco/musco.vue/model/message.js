@@ -15,11 +15,11 @@ const messageModel = function messageModel(connection) {
     // Requête de suppression
     const remove = function deleteMessage(clbk, id_message) {
       // la clause SQL IN permet de chercher une valeur dans un tableau
-      const sql = "DELETE FROM messages WHERE id_message IN (?)";
+      const sql = "DELETE FROM messages WHERE id_message = ?";
       console.log(sql + id_message);
 
   
-      connection.query(q, id_message, function (err, res, fields) {
+      connection.query(sql, id_message, function (err, res, fields) {
         // console.log(this.sql); // affiche la dernière requête SQL, pratique pour deboguer
         if (err) return clbk(res, null);
         return clbk(null, res);
@@ -28,7 +28,7 @@ const messageModel = function messageModel(connection) {
   
     // Requête de mise à jour
     const update = function editMessage(clbk, messages) {
-      const sql = "UPDATE messages SET date = ?, sujet = ?, message = ?, id_emetteur = ?, id_receveur = ? WHERE id_message IN (?)";
+      const sql = "UPDATE messages SET date = ?, sujet = ?, message = ?, id_emetteur = ?, id_receveur = ? WHERE id_message = ?";
       const payload = [messages.date, messages.sujet, messages.message, messages.id_emetteur, messages.id_receveur, messages.id_message];
       connection.query(sql, payload, function (err, res, fields) {
         // console.log(this.sql); // affiche la dernière requête SQL, pratique pour deboguer
@@ -41,7 +41,7 @@ const messageModel = function messageModel(connection) {
     const get = function getMessage(clbk, id_message) {
       let sql;
       if (id_message && !isNaN(id_message)) {
-        sql = "SELECT *, u.pseudo, u.avatar FROM messages AS m INNER JOIN users AS u ON u.id_user = m.id_emetteur WHERE m.id_message IN (?)";
+        sql = "SELECT *, u.pseudo, u.avatar FROM messages AS m INNER JOIN users AS u ON u.id_user = m.id_emetteur WHERE m.id_message = ?";
       } else {
         sql = "SELECT * FROM messages";
       }

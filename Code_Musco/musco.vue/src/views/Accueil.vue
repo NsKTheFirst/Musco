@@ -5,6 +5,7 @@
         </figure>
         <Presentation/>
         <!-- <News/> -->
+        <Infos/>
         <MyNews/>
     </div>
 </template>
@@ -12,11 +13,13 @@
 <script>
 import Presentation from '@/components/Presentation'
 // import News from '@/components/News.vue'
+import Infos from '@/components/Infos.vue'
 import MyNews from '@/components/MyNews'
 export default {
     components: {
         Presentation,
         // News,
+        Infos,
         MyNews
     }
 }

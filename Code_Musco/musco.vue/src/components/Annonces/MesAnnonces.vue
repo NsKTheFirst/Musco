@@ -14,16 +14,21 @@
                 </article>
                 <div id="boutons">
                     <i class="far fa-trash-alt fa-2x" @click='delAnnonce(annonce.id_annonce)'></i>
-                    <i class="fas fa-pen-square fa-2x" @click='editAnnonce(annonce.id_annonce)'></i>
+                    <i class="fas fa-pen-square fa-2x" @click='editAnnonce(annonce.id_annonce, annonce)'></i>
                 </div>
             <!-- </div> -->
         </div>
+        <EditAnnonce/>
     </main>
 </template>
 
 <script>
 import axios from 'axios'
+import EditAnnonce from '@/components/Forms/EditAnnonce'
 export default {
+    components: {
+        EditAnnonce
+    },
     data () {
         return {
             annonces: []
@@ -40,9 +45,12 @@ export default {
             });
         },
 
-        editAnnonce(id) {
-            console.log(id);
-            this.$ebus.$emit('editAnnonce');
+        editAnnonce(id, annonce) {
+            // console.log(id);
+            this.$ebus.$emit("id", id);
+            this.$ebus.$emit("editAnnonce");
+            this.$ebus.$emit("annonce", annonce);
+
         },
 
         delAnnonce(id) {
@@ -59,8 +67,7 @@ export default {
     created() {
         this.infos = JSON.parse(window.localStorage.getItem('user'));
         this.getAnnonce()
-    },
-
+    }
     // updated() {
     //     this.getAnnonce();
     // }

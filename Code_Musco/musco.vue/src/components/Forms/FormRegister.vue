@@ -66,6 +66,13 @@ export default {
                 soundcloud: "soundcloudNico",
                 youtube: "youtubeNico",
                 facebook: "facebookNico",
+                localisation: {
+                    userlat: null,
+                    userlon: null
+                }
+            },
+            options: {
+                enableHighAccuracy: true,
             }
         }
     },
@@ -73,14 +80,31 @@ export default {
         this.$ebus.$on("openFormReg", this.openFormReg);
     },
     methods: {
+        geoloc() {
+            const self = this
+            var geoSuccess = function(position) { // Ceci s'exécutera si l'utilisateur accepte la géolocalisation
+                var startPos = position;
+                self.user.localisation.userlat = startPos.coords.latitude;
+                self.user.localisation.userlon = startPos.coords.longitude;
+                // console.log("lat: "+self.user.localisation.userlat+" - lon: "+self.user.localisation.userlon);
+                console.log(self.user.localisation);
+            };
+            var geoFail = function() { // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
+                console.log("refus");
+            };
+            navigator.geolocation.getCurrentPosition(geoSuccess, geoFail, self.options);
+            console.log(self.user.localisation);
+            return self.user.localisation
+        },
+        
         openFormReg() {
             this.dialog = true;
         },
 
         checkRegister() {
-      return true;
-      this.logs = [];
-      const fd = new FormData(this.$refs.form);
+            return true;
+            this.logs = [];
+            const fd = new FormData(this.$refs.form);
 
       const isFormValueOk = function isFormValueOk() {
         let errors = 0;
@@ -144,9 +168,10 @@ export default {
     },
     register() {
       const check = this.checkRegister();
+      const loc = this.geoloc();
 
       // if (!check.errors) {
-      if (check) {
+      if (check && loc) {
         // console.log(check.data);
         this.$store
           // .dispatch("user/register", check.data)
@@ -155,13 +180,15 @@ export default {
             console.log("res@ajax-register", res);
             this.logLevel = "success";
             this.logs = ["all good"];
+            this.$router.push({ path: `/dashboard/me` });
+            this.dialog = false;
           })
           .catch(err => {
             console.error("error@ajax-register", err);
             this.logLevel = "error";
             this.logs = [err];
           });
-          this.dialog = false
+          
       }
     }
   }

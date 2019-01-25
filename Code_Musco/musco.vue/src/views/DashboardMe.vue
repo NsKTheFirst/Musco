@@ -9,8 +9,8 @@
             </figure>
             <h2 class="titre2">{{ infos.pseudo }}</h2>
             <div id="boutons">
-                <i class="fas fa-plus-square fa-3x"></i>
-                <i class="fas fa-pen-square fa-3x"></i>
+                <i v-if="!infos.avatar" class="fas fa-plus-square fa-3x"></i>
+                <i v-if="infos.avatar" class="fas fa-pen-square fa-3x"></i>
             </div>
             <v-layout wrap>
                 <v-flex xs12 sm6 offset-sm3>
@@ -25,7 +25,7 @@
                         </div>
                         <div id="boutons">
                             <i v-if="!infos.presentation" class="fas fa-plus-square fa-3x"></i>
-                            <i class="fas fa-pen-square fa-3x"></i>
+                            <i v-if="infos.presentation" class="fas fa-pen-square fa-3x"></i>
                         </div>
                         <!-- <v-card-actions>
                             <v-btn flat v-if="!infos.presentation"><i class="fas fa-plus-square fa-3x"></i></v-btn>
@@ -96,7 +96,6 @@ export default {
         margin-bottom: 30px;
 
         .fa-plus-square {
-            margin-right: 30px;
             color: #8833f8;
             &:hover {
                 cursor: pointer;
@@ -104,7 +103,6 @@ export default {
         }
 
         .fa-pen-square {
-            margin-left: 30px;
             color: #01dc0e;
             &:hover {
                 cursor: pointer;

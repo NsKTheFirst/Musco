@@ -65,6 +65,11 @@ export default new Router({
           path: "annonces",
           component: () => 
             import("./views/MyAnnonces.vue")
+        },
+        {
+          name: "my-messages",
+          path: "messages",
+          component: () => import("./views/MyMessages.vue")
         }
         // {
         //   name: "user-manager",

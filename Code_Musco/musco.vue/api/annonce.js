@@ -27,6 +27,13 @@ const annonceAPi = function annonceAPi(connection) {
       }, req.params.id_annonce);
     });
 
+    router.get('/annonces/owner/:id_annonce_owner', (req, res) => {
+      annonceModel.get((err, dataset) => {
+        if (err) return res.status(500).send(err);
+        else return res.status(200).send(dataset);
+      }, req.params.id_annonce_owner);
+    });
+
   
     router.get('/annonces', (req, res) => {
       annonceModel.getAll((err, dataset) => {
@@ -36,11 +43,12 @@ const annonceAPi = function annonceAPi(connection) {
     });
   
     router.delete('/annonces', (req, res) => {
+      console.log(req.body);
       annonceModel.remove((err, dataset) => {
         console.log("ça va del ou pas");
         if (err) return res.status(500).send(err);
         return res.status(200).send(dataset);
-      }, req.body.id_user); // tableau d'ids ici ...
+      }, req.body.id_annonce); // tableau d'ids ici ...
     });
   
     router.patch('/annonces', (req, res) => {

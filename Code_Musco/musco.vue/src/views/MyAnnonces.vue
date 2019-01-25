@@ -1,11 +1,13 @@
 <template>
-    <div>lsqjhmljfhmsljqhfmqlhmlsfh</div>
+    <MesAnnonces/>
 </template>
 
 <script>
-import axios from 'axios'
+import MesAnnonces from '@/components/Annonces/MesAnnonces'
 export default {
-    
+    components: {
+        MesAnnonces
+    }
 }
 </script>
 

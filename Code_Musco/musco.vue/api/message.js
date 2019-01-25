@@ -17,6 +17,14 @@ const messageAPi = function messageAPi(connection) {
         res.send(dataset);
       }, req.params.id_message);
     });
+    
+    router.get('/messages/owned/:id_receveur', (req, res) => {
+      messageModel.getOwned((err, dataset) => {
+        if (err) res.send(err);
+        res.send(dataset);
+      }, req.params.id_receveur);
+    });
+    
   
     router.get('/messages', (req, res) => {
       messageModel.get( (err, dataset) => {

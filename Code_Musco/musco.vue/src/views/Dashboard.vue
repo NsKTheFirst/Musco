@@ -242,6 +242,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#dashboard_content {
+  width: 80%;
+  margin: auto;
+  padding: 0% 10%
+}
 .dashBtn {
   color: #01dc0e;
   &:hover {

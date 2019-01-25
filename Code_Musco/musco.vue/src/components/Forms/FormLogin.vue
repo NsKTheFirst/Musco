@@ -104,11 +104,12 @@ export default {
                 .dispatch("user/login", this.user)
                 .then(res => {
                     this.$router.push({ path: `/dashboard/me` });
+                    this.dialog = false
                 })
                 .catch(err => {
                     console.error(err);
                 });
-            //  this.dialog = false;   
+             ;   
             }
         }
     }

@@ -44,15 +44,15 @@ export default {
         
         geoloc() {
             
-            const that = this
+            const self = this
             var geoSuccess = function(position) { // Ceci s'exécutera si l'utilisateur accepte la géolocalisation
                 var startPos = position;
-                that.userlat = startPos.coords.latitude;
-                that.userlon = startPos.coords.longitude;
-                console.log("lat: "+that.userlat+" - lon: "+that.userlon);
+                self.userlat = startPos.coords.latitude;
+                self.userlon = startPos.coords.longitude;
+                console.log("lat: "+self.userlat+" - lon: "+self.userlon);
                 // Fonction d'initialisation de la carte
                 
-                that.initMap();
+                self.initMap();
             };
             var geoFail = function() { // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
                 console.log("refus");

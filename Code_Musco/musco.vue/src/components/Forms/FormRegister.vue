@@ -9,22 +9,22 @@
                     <v-container grid-list-md>
                         <v-layout wrap>
                             <v-flex xs12>
-                                <v-text-field label="Nom*" type="text" required v-model="user.nom"></v-text-field>
+                                <v-text-field label="Nom*" type="text" v-model="user.nom"></v-text-field>
                             </v-flex>
                             <v-flex xs12>
-                                <v-text-field label="Prénom*" type="text" required v-model="user.prenom"></v-text-field>
+                                <v-text-field label="Prénom*" type="text" v-model="user.prenom"></v-text-field>
                             </v-flex>
                             <v-flex xs12>
-                                <v-text-field label="Pseudo*" type="text" required v-model="user.pseudo"></v-text-field>
+                                <v-text-field label="Pseudo*" type="text" v-model="user.pseudo"></v-text-field>
                             </v-flex>
                             <v-flex xs12>
-                                <v-text-field label="Email*" type="mail" required v-model="user.mail"></v-text-field>
+                                <v-text-field label="Email*" type="mail" v-model="user.mail"></v-text-field>
                             </v-flex>
                             <v-flex xs12>
-                                <v-text-field label="Mot de passe*" type="password" required v-model="user.mdp"></v-text-field>
+                                <v-text-field label="Mot de passe*" type="password" v-model="user.mdp"></v-text-field>
                             </v-flex>
                             <v-flex xs12>
-                                <v-text-field label="Confirmer mot de passe*" type="password" required v-model="user.confirmMdp"></v-text-field>
+                                <v-text-field label="Confirmer mot de passe*" type="password" v-model="user.confirmMdp"></v-text-field>
                             </v-flex>
                             <v-flex xs12>
                                 <v-text-field label="Soundcloud (lien embed)" v-model="user.soundcloud"></v-text-field>

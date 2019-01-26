@@ -61,7 +61,7 @@ export default {
             cat: ['Audio', 'Video', 'Instruments'],
             audioskill: ['Mixage', 'Beat making', 'Composition'],
             videoskill: ['Réalisation', 'Post-produciton'],
-            instruments: ['Cuivres', 'Cordes', 'Claviers/Piano', 'Instruments à vent', 'Percussions', 'Chant', 'Autres'],
+            instruments: ['Cuivres', 'Cordes', 'Claviers/Piano', 'Instruments à vent', 'Percussions', 'Chant'],
             // map: null,
             // userlat: null,
             // userlon: null,

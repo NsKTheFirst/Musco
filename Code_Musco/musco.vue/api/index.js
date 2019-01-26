@@ -12,11 +12,13 @@ const api = (function api() {
     const userRouter = require("./user")(database.connection); // module api user
     const annonceRouter = require("./annonce")(database.connection);
     const messageRouter = require("./message")(database.connection);
+    const skillsRouter = require("./skills")(database.connection);
   
     // aggrégation des routeurs dans un tableau
     routers.push(userRouter);
     routers.push(annonceRouter);
     routers.push(messageRouter);
+    routers.push(skillsRouter);
   
     return { // définition des propriétés publiques du module @root/api/index.js
       version: APIVersion,

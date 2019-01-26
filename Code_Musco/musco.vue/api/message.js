@@ -28,6 +28,7 @@ const messageAPi = function messageAPi(connection) {
   
     router.get('/messages', (req, res) => {
       messageModel.get( (err, dataset) => {
+        if (err) res.send(err);
         res.send(dataset);
       }, null);
     });
@@ -43,7 +44,7 @@ const messageAPi = function messageAPi(connection) {
     router.patch('/messages', (req, res) => {
       messageModel.update((err, dataset) => {
         if (err) return res.status(500).send(err);
-        else return res.status(200).send(dataset);
+        return res.status(200).send(dataset);
       }, req.body); // un tableau d'ids ici ...
     });
   

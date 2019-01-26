@@ -29,9 +29,13 @@ export default {
     components: {
         EditAnnonce
     },
+
+    // props: [
+    //     "annonces"
+    // ],
     data () {
         return {
-            annonces: []
+            annonces: [],
         }
     },
     methods: {
@@ -45,6 +49,11 @@ export default {
             });
         },
 
+        editValidate() {
+            // this.$ebus.$on("editValidate");
+            this.getAnnonce();
+        },
+
         editAnnonce(id, annonce) {
             // console.log(id);
             this.$ebus.$emit("id", id);
@@ -52,12 +61,27 @@ export default {
             this.$ebus.$emit("annonce", annonce);
 
         },
+        // editAnnonce(id, editableAnn) {
+        //     // console.log(id);
+        //     this.$ebus.$emit("id", id);
+        //     this.$ebus.$emit("editAnnonce");
+        //     this.$ebus.$emit("annonce", editableAnn);
+
+        // },
 
         delAnnonce(id) {
             console.log(id);
             const url ="http://localhost:5000/api/v1/annonces";
             axios.delete(url, { data: { id_annonce: id } }).then(res => {
                 console.log(res.data);
+                const url2 = "http://localhost:5000/api/v1/annonce_needs_skills";
+                axios.delete(url2, { data: { id_annonce_skill: id } }).then(res => {
+                    console.log(res.data);
+                }).catch(err => {
+                    console.log(err);
+                });
+                this.getAnnonce();
+                console.log(this.annonces);
             }).catch(err => {
                 console.log(err);
             });
@@ -66,10 +90,34 @@ export default {
     },
     created() {
         this.infos = JSON.parse(window.localStorage.getItem('user'));
-        this.getAnnonce()
-    }
-    // updated() {
-    //     this.getAnnonce();
+        this.getAnnonce();
+        // this.editableAnnonce();
+    },
+    computed: {
+        refresh: function() {
+            this.$ebus.$on("editValidate");
+            this.editValidate();
+        }
+    },
+    // computed: {
+    //     delAnnonce: function(id) {
+    //         console.log(id);
+    //         const url ="http://localhost:5000/api/v1/annonces";
+    //         axios.delete(url, { data: { id_annonce: id } }).then(res => {
+    //             console.log(res.data);
+    //             this.annonces = res.data
+    //         }).catch(err => {
+    //             console.log(err);
+    //         });
+    //     }
+    // }
+// ****************************************************    
+    // watch: {
+    //     refresh: function() {
+    //         this.$ebus.$on("editValidate");
+    //         this.editValidate();
+    //     }
+    //     // this.getAnnonce();
     // }
 }
 </script>

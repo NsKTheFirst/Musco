@@ -42,6 +42,13 @@ const annonceModel = function annonceModel (connection) {
             return clbk(null, results);
         });
     };
+    const getOsa = function getOwnedSimpleAnnonce(clbk, id_annonce_owner) {
+        const sql = "SELECT * FROM annonces WHERE id_annonce_owner = ?";
+        connection.query(sql, [id_annonce_owner], (error, results) => {
+            if (error) return clbk(error, null);
+            return clbk(null, results);
+        });
+    };
 
     const getAll = function getAllAnnonce(clbk) {
         const sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , u.avatar AS 'avatar', u.pseudo,u.localisation, s.categorie, s.skill FROM annonces AS a LEFT JOIN users AS u ON a.id_annonce_owner = u.id_user LEFT JOIN annonce_needs_skills AS ans ON a.id_annonce = ans.id_annonce_skill LEFT JOIN skills AS s ON ans.id_skills_needed = s.id_skill ORDER BY a.id_annonce DESC";
@@ -52,7 +59,7 @@ const annonceModel = function annonceModel (connection) {
     };
 
     const get = function getOwnedAnnonce(clbk, id_annonce_owner) {
-        const sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , s.categorie, s.skill FROM annonces AS a LEFT JOIN annonce_needs_skills AS ans ON a.id_annonce = ans.id_annonce_skill LEFT JOIN skills AS s ON ans.id_skills_needed = s.id_skill WHERE a.id_annonce_owner = ? ORDER BY a.id_annonce DESC";
+        const sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date, ans.id_skills_needed, s.categorie, s.skill FROM annonces AS a LEFT JOIN annonce_needs_skills AS ans ON a.id_annonce = ans.id_annonce_skill LEFT JOIN skills AS s ON ans.id_skills_needed = s.id_skill WHERE a.id_annonce_owner = ? ORDER BY a.id_annonce DESC";
         connection.query(sql, [id_annonce_owner], (error, results) => {
             if (error) return clbk(error, null);
             return clbk(null, results);
@@ -94,7 +101,8 @@ const annonceModel = function annonceModel (connection) {
         get,
         getAll,
         getOne,
-        getLast
+        getLast,
+        getOsa
     };
 };
 

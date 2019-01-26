@@ -12,10 +12,10 @@
                     <v-container grid-list-md>
                         <v-layout wrap>
                             <v-flex xs12>
-                                <v-text-field label="Email*" type="mail" required v-model="user.mail"></v-text-field>
+                                <v-text-field label="Email*" type="mail" v-model="user.mail"></v-text-field>
                             </v-flex>
                             <v-flex xs12>
-                                <v-text-field label="Password*" type="password" required v-model="user.mdp"></v-text-field>
+                                <v-text-field label="Password*" type="password" v-model="user.mdp"></v-text-field>
                             </v-flex>
                         </v-layout>
                     </v-container>

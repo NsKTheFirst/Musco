@@ -34,6 +34,12 @@ const annonceAPi = function annonceAPi(connection) {
       }, req.params.id_annonce_owner);
     });
 
+    router.get('/annonces/simple_owned/:id_annonce_owner', (req, res) => {
+      annonceModel.getOsa((err, dataset) => {
+        if (err) return res.status(500).send(err);
+        else return res.status(200).send(dataset);
+      }, req.params.id_annonce_owner);
+    })
   
     router.get('/annonces', (req, res) => {
       annonceModel.getAll((err, dataset) => {
@@ -52,6 +58,7 @@ const annonceAPi = function annonceAPi(connection) {
     });
   
     router.patch('/annonces', (req, res) => {
+      console.log(req.body);
       annonceModel.update((err, dataset) => {
         if (err) return res.status(500).send(err);
         else return res.status(200).send(dataset);

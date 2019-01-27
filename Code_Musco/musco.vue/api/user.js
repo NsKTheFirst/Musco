@@ -98,7 +98,30 @@ const userAPi = function userAPi(connection) {
         else return res.status(200).send(dataset);
       }, req.body); // un tableau d'ids ici ...
     });
-  
+    
+    router.get('/ufu/:id_following_user', (req, res) => {
+      userModel.getUfu((err, dataset) => {
+        if (err) return res.status(500).send(err);
+        else return res.status(200).send(dataset);
+      }, req.params.id_following_user);
+    });
+
+    router.post('/ufu', (req, res) => {
+      userModel.createUfu((err, dataset) => {
+        if (err) return res.status(500).send(err);
+        else return res.status(200).send(dataset);
+      }, req.body);
+    });
+
+    router.delete('/ufu', (req,res) => {
+      userModel.removeUfu((err, results) => {
+        if (err) return res.status(500).send(err);
+        else return res.status(200).send(results);
+      }, req.body.id_ufu);
+    });
+
+
+
     return router;
   };
   

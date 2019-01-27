@@ -16,7 +16,10 @@
             <div class="profil">
                 <!-- <router-link>    -->
                     <figure>
-                        <img :src="getAvatar(annonce.avatar)" :alt="annonce.pseudo">
+                        <img :src="getAvatar(annonce.avatar)" :alt="annonce.pseudo" :to="{
+                                path: '/profil',
+                                name: 'profil'
+                        }">
                     </figure>
                 <!-- </router-link>  -->
                 <h3 id="pseudo">{{ annonce.pseudo }}</h3>
@@ -31,16 +34,14 @@
             </article>
             <!-- </router-link> -->
         </div>
-        <back-to-top bottom="120px" right="50px">
-            <button type="button" class="btn btn-info btn-to-top"><i class="fas fa-chevron-up"></i></button>
-        </back-to-top>
+        <BackToTop/>
     </div>   
 </template>
 
 <script>
 import Recherche from '@/components/Annonces/Recherche.vue'
 import Map from '@/components/Map.vue'
-import BackToTop from 'vue-backtotop'
+import BackToTop from '@/components/BackToTop.vue'
 import axios from 'axios'
 export default {
     name: "PageAnnonces",
@@ -127,6 +128,8 @@ export default {
                     border: solid 3px #8833f8;
                     border-radius: 50%;
                     &:hover {
+                        cursor: pointer;
+                        box-shadow: 3px 3px 8px grey;
                         border: solid 3px #01dc0e
                     }
                     
@@ -156,28 +159,6 @@ export default {
             p {
                 font-size: 12px;
             }
-        }
-    }
-    .btn-to-top {
-        width: 60px;
-        height: 60px;
-        color: #8833f8;
-        background: #01dc0e;
-        padding: 3px 8px;
-        border-radius: 50%;
-        font-size: 40px;
-        line-height: 42px;
-        box-shadow: 6px 6px 10px darkgrey;
-        transition: 0.2s;
-        opacity: 0.6;
-        outline: none;
-
-
-        &:hover {
-            background: #8833f8;
-            color: #01dc0e;
-            // text-decoration: none;
-            box-shadow: 8px 8px 10px darkgrey
         }
     }
 </style>

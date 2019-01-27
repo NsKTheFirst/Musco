@@ -35,6 +35,12 @@ export default new Router({
     },
 
     {
+      path: '/profil',
+      name: 'profil',
+      component: () => import('./components/Profil')
+    },
+
+    {
       path: '/faq',
       name: 'faq',
       component: () => import('./components/Faq')
@@ -69,20 +75,16 @@ export default new Router({
         {
           name: "my-messages",
           path: "messages",
-          component: () => import("./views/MyMessages.vue")
+          component: () => 
+            import("./views/MyMessages.vue")
+        },
+        {
+          name: "mes-suivis",
+          path :"suivis",
+          component: () => 
+            import("./views/MesSuivis.vue")
         }
-        // {
-        //   name: "user-manager",
-        //   path: "manage-users",
-        //   component: () =>
-        //     import(/* webpackChunkName: "dashboard-users" */ "./views/DashboardUsersManager.vue")
-        // },
-        // {
-        //   name: "user-products",
-        //   path: "manage-products",
-        //   component: () =>
-        //     import(/* webpackChunkName: "dashboard" */ "./views/DashboardProductsManager.vue")
-        // }
+        
       ],
       component: () =>
         import(/* webpackChunkName: "dashboard" */ "./views/Dashboard.vue")

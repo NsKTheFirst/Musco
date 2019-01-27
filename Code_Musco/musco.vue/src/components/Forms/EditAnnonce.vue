@@ -97,7 +97,6 @@ export default {
         },
 
         checkSkill() {
-            const self = this
             console.log("checkSkill" + " " + this.annonce.skill);
             console.log(this.skills.indexOf(this.annonce.skill));
             console.log(this.fullSkills);
@@ -129,11 +128,11 @@ export default {
         this.$ebus.$on("editAnnonce", this.editAnnonce);
         this.getSkills();
         // console.log(this.fullSkills);
-        this.fullSkills.forEach(function(s){
-            // console.log(s);
-            this.skills.push(s);
-        });
-        console.log(this.skills);
+        // this.fullSkills.forEach(function(s){
+        //     // console.log(s);
+        //     this.skills.push(s);
+        // });
+        // console.log(this.skills);
         
         
     }

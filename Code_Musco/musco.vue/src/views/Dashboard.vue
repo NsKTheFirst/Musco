@@ -1,205 +1,79 @@
 <template>
-  <!-- <section>
-    <div>
-      <v-toolbar-title>
-        <v-btn v-if="responsive" class="dashBtn" icon @click="onClickBtn">
-          <v-icon>dashboard</v-icon>
-        </v-btn>
-      </v-toolbar-title>
-    </div>
-    <v-navigation-drawer id="dashboard" app dark v-model="drawer" value="mobil" mobile-break-point="1264" width="260">
-      <v-layout class="fill-height" tag="v-list" column>
-        <v-list-tile v-for="(link, i) in links" :key="i" :to="link.to" :active-class="color" class="v-list-item">
-          <v-list-tile-action>
-            <v-icon>{{ link.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title v-text="link.text"/>
-        </v-list-tile>
-      </v-layout>
-    </v-navigation-drawer>
-    <router-view id="dashboard_content"/>
-  </section> -->
-
-<!-- ***Vuetify navigation drawer**** -->
   <section>
-  <!-- <v-layout
-    wrap
-    style="height: 200px;"
-  >
-    <v-container>
-      <v-layout justify-center>
-        <v-btn
-          color="pink"
-          dark
-          @click.stop="drawer = !drawer"
-        >
-          <v-icon>dashboard</v-icon>
-        </v-btn>
-      </v-layout>
-    </v-container> -->
-  <!-- <v-layout
-    wrap
-    style="height: 200px;"
-  > -->
-    <v-toolbar-title>
+      <v-toolbar-title>
         <v-btn class="dashBtn" icon @click="drawer = !drawer">
           <v-icon id="dashIcon">dashboard</v-icon>
         </v-btn>
       </v-toolbar-title>
-  <!-- </v-layout> -->
-    <v-navigation-drawer
-      v-model="drawer"
-      
-      app
-      absolute
-      dark
-      temporary
-    
-    >
-
-      <!-- <v-layout class="fill-height" tag="v-list" column> -->
-      <v-list class="pa-1">
-        <v-list-tile v-for="(link, i) in links" :key="i" :to="link.to" :active-class="color" class="v-list-item">
-          <v-list-tile-action>
-            <v-icon>{{ link.icon }}</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title v-text="link.text"/>
-        </v-list-tile>
-      </v-list>
-      <!-- </v-layout> -->
-      <!-- <v-list class="pa-1">
-        <v-list-tile v-if="mini" @click.stop="mini = !mini">
-          <v-list-tile-action>
-            <v-icon>chevron_right</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
-
-        <v-list-tile avatar tag="div">
-          <v-list-tile-avatar>
-            <img src="https://randomuser.me/api/portraits/men/85.jpg">
-          </v-list-tile-avatar>
-
-          <v-list-tile-content>
-            <v-list-tile-title>John Leider</v-list-tile-title>
-          </v-list-tile-content>
-
-          <v-list-tile-action>
-            <v-btn icon @click.stop="mini = !mini">
-              <v-icon>chevron_left</v-icon>
-            </v-btn>
-          </v-list-tile-action>
-        </v-list-tile>
-      </v-list>
-
-      <v-list class="pt-0" dense>
-        <v-divider light></v-divider>
-
-        <v-list-tile
-          v-for="item in items"
-          :key="item.title"
-          @click=""
-        >
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list> -->
-    </v-navigation-drawer>
-  <!-- </v-layout> -->
-  <router-view id="dashboard_content"/>
-  </section>
-
-
-  <!-- *** Gui dashboard *** -->
-  <!-- <section id="dashboard" class="page dashboard">
-    <h1 id="title" class="title">Dashboard</h1>
-
-    <nav id="nav_dashboard" class="nav">
-      <ul class="list">
-        <router-link
-          exact-active-class="is-selected"
-          class="clickable item"
-          tag="li"
-          to="/dashboard/me"
-        >
-          <span>infos</span>
-        </router-link>
-
-        <router-link
-          exact-active-class="is-selected"
-          class="clickable item"
-          tag="li"
-          to="/dashboard/annonces"
-        >
-          <span>Mes annonces</span>
-        </router-link>
-
-        <router-link
-          exact-active-class="is-selected"
-          class="clickable item"
-          tag="li"
-          to="/dashboard/manage-products"
-        >
-          <span>manage products</span>
-        </router-link>
-        <li class="clickable" @click="logout">logout</li>
-      </ul>
-    </nav>
-
+      <v-navigation-drawer
+        v-model="drawer"
+        app
+        absolute
+        dark
+        temporary
+      >
+        <v-list class="pa-1">
+          <v-list-tile v-for="(link, i) in links" :key="i" :to="link.to" :active-class="color" class="v-list-item">
+            <v-list-tile-action>
+              <v-icon>{{ link.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-title v-text="link.text"/>
+          </v-list-tile>
+        </v-list>
+      </v-navigation-drawer>
     <router-view id="dashboard_content"/>
-  </section> -->
+    <BackToTop/>
+  </section>
 </template>
 
 <script>
 import auth from "@/utils/auth.js"
-// import mapMutations from 'vuex'
-// import mapState from 'vuex'
+import BackToTop from '@/components/BackToTop'
 export default {
-   data () {
-      return {
-        links: [
-          {
-            to: '/dashboard/me',
-            icon: 'person',
-            text: 'Mon profil'
-          },
-          {
-            to: '/dashboard/annonces',
-            icon: 'announcement',
-            text: 'Mes annonces'
-          },
-          {
-            to: '/dashboard/messages',
-            icon: 'email',
-            text: 'Mes messages'
-          },
-          {
-            to: 'dashboard/suivis',
-            icon: 'people',
-            text: 'Mes suivis'
-          },
-          {
-            to: 'dashboard/prods',
-            icon: 'library_music',
-            text: 'Mes produtions',
-          },
-        ],
-        responsive: false,
-        color: "green",
-        drawer: null,
+  components: {
+    BackToTop
+  },
+  data () {
+    return {
+      links: [
+        {
+          to: '/dashboard/me',
+          icon: 'person',
+          text: 'Mon profil'
+        },
+        {
+          to: '/dashboard/annonces',
+          icon: 'announcement',
+          text: 'Mes annonces'
+        },
+        {
+          to: '/dashboard/messages',
+          icon: 'email',
+          text: 'Mes messages'
+        },
+        {
+          to: '/dashboard/suivis',
+          icon: 'people',
+          text: 'Mes suivis'
+        },
+        {
+          to: '/dashboard/prods',
+          icon: 'library_music',
+          text: 'Mes produtions',
+        },
+      ],
+      responsive: false,
+      color: "green",
+      drawer: null,
         // mobil: null,
         // items: [
         //   { title: 'Home', icon: 'dashboard' },
         //   { title: 'About', icon: 'question_answer' }
         // ],
-        mini: false,
-        right: null
-      }
-    },
+      mini: false,
+      right: null
+    }
+  },
 
   // computed: {
     // ...mapState(['setDrawer', 'toggleDrawer']),

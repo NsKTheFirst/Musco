@@ -12,18 +12,21 @@
                 <div class="profil">
                     <!-- <router-link>    -->
                         <figure>
-                            <img :src="getAvatar(annonce.avatar)" :alt="annonce.pseudo">
+                            <img :src="getAvatar(annonce.avatar)" :alt="annonce.pseudo" :to="{
+                                path: '/profil',
+                                name: 'profil'
+                            }">
                         </figure>
                     <!-- </router-link>  -->
-                    <h3 id="pseudo">{{ annonce.pseudo }}</h3>
+                    <h3 class="pseudo">{{ annonce.pseudo }}</h3>
                 </div>
                 <article>
                     <div>
-                        <h4 id="date">{{ annonce.date }}</h4>
-                        <h4 id="cat">Categorie: {{ annonce.categorie }}</h4>
-                        <h4 id="skill">Skill: {{ annonce.skill }}</h4>
+                        <h4 class="date">{{ annonce.date }}</h4>
+                        <h4 class="cat">Categorie: {{ annonce.categorie }}</h4>
+                        <h4 class="skill">Skill: {{ annonce.skill }}</h4>
                     </div>
-                    <p id="annonce">{{ annonce.annonce }}</p>
+                    <p class="annonce">{{ annonce.annonce }}</p>
                 </article>
                 <!-- </router-link> -->
 
@@ -108,13 +111,18 @@ export default {
                         width: 100%;
                         border: solid 3px #8833f8;
                         border-radius: 50%;
-                    
+                        &:hover {
+                            cursor: pointer;
+                            box-shadow: 3px 3px 8px grey;
+                            border: solid 3px #01dc0e
+                        }
                     }
                 }
                 h3 {
                     text-align: center;
                     line-height: 50px;
-                    font-family: 'Shrikhand', cursive
+                    font-family: 'Shrikhand', cursive;
+                    font-size: 20px
                 }
             }
 

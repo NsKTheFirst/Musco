@@ -12,7 +12,10 @@
                 <div class="profil">
                     <!-- <router-link>    -->
                         <figure>
-                            <img :src="getAvatar(annonce.avatar)" :alt="annonce.pseudo">
+                            <img :src="getAvatar(annonce.avatar)" :alt="annonce.pseudo" :to="{
+                                path: '/profil',
+                                name: 'profil'
+                            }">
                         </figure>
                     <!-- </router-link>  -->
                     <h3 id="pseudo">{{ annonce.pseudo }}</h3>

@@ -78,14 +78,45 @@ const userModel = function userModel(connection) {
       });
       console.log(q.sql);
     };
-    
+
+    // ********* Requêtes sur la table user_follow_user *********
+    // Requête de récupération
+    const getUfu = function getUfu(clbk, id_following_user) {
+      const sql = "SELECT * FROM user_follows_user WHERE id_following_user = ?";
+      connection.query(sql, id_following_user, (err, results) => {
+        if (err) return clbk(err, null);
+        return clbk(null, results);
+      });
+    };
+
+    // Requête d'envoi
+    const createUfu = function createUfu(clbk, data) {
+      const sql = "INSERT INTO user_follows_user (id_following_user, id_user_followed) VALUES (?, ?)";
+      const payload = [data.id_following_user, data.id_user_followed];
+      connection.query(sql, payload, (err, results) => {
+        if (err) return clbk(err, null);
+        return clbk(null, results);
+      });
+    };
+
+    // Requête de suppression
+    const removeUfu = function removeUfu(clbk, id_ufu) {
+      const sql = "DELETE FROM user_follows_user WHERE id_ufu = ?";
+      connection.query(sql, id_ufu, (err, results) => {
+        if (err) return clbk(err, null);
+        return clbk(null, results);
+      });
+    };
   
     return {
       create,
       remove,
       update,
       get,
-      getByMail
+      getByMail,
+      getUfu,
+      createUfu,
+      removeUfu
     };
   };
   

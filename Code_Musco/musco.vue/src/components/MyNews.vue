@@ -2,7 +2,7 @@
     <main>
         <h2>Les dernières annonces</h2>
         <section id="news">
-            <div class="annonces" v-for="(annonce, a) in annonces" :key="a">
+            <div class="annonces" v-for="(annonce, a) in annonces" :key="a" @click="detailAnnonce(annonce)">
                 <!-- <router-link
                 :to="{
                     path: `/annonces/${annonce.id}/`,
@@ -32,13 +32,18 @@
 
             </div>
         </section> 
+        <DetailAnnonce/>
     </main>
 </template>
 
 <script>
 import axios from 'axios'
+import DetailAnnonce from '@/components/Forms/DetailAnnonce'
 export default {
     name: "MyNews",
+    components: {
+        DetailAnnonce
+    },
     data () {
         return {
             annonces: []
@@ -57,6 +62,10 @@ export default {
             }).catch(err => {
                 console.log(err);
             });
+        },
+        detailAnnonce(annonce) {
+            this.$ebus.$emit("detailAnnonce");
+            this.$ebus.$emit("emitAnnonce", annonce);
         }
     },
     created() {
@@ -94,7 +103,8 @@ export default {
             
             &:hover {
                 box-shadow: 12px 12px 10px darkgrey;
-                border: solid 5px #8833f8
+                border: solid 5px #8833f8;
+                cursor: pointer
             }
             .profil{
                 height: 100%;

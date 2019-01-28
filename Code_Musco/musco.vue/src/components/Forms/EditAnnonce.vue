@@ -24,7 +24,7 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="#8833f8" flat @click="dialog = false">Annuler</v-btn>
-                    <v-btn color="#01dc0e" flat @click="sendEditAnnonce">Valider</v-btn>
+                    <v-btn color="#01dc0e" flat @click="checkAnnonce">Valider</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -76,6 +76,17 @@ export default {
                 console.log(err);
             });
         },
+
+        checkAnnonce() {
+            if (!this.editableAnn.date || !this.editableAnn.annonce || !this.editAns.id_skills_needed) {
+                alert("Remplir les champs obligatoires!");
+            } else {
+                if (confirm("Voulez- vous poster cette annonce?")) {
+                    this.dialog = false;
+                    this.sendEditAnnonce();
+                }
+            };
+        },
         
         sendEditAnnonce() {
             const self = this;
@@ -93,7 +104,7 @@ export default {
                 console.log(err);
             });
             this.$ebus.$emit("editValidate");
-            this.dialog = false;
+            // this.dialog = false;
         },
 
         checkSkill() {

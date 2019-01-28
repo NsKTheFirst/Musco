@@ -9,7 +9,7 @@
                     <v-container grid-list-md>
                         <v-layout wrap>
                             <v-flex xs12>
-                                <v-select :items="skills" label="Skill" solo menu-props="offset-y" class="field" v-model="ans.id_skills_needed" @change="checkSkill"></v-select>
+                                <v-select :items="skills" label="Skill*" solo menu-props="offset-y" class="field" v-model="ans.id_skills_needed" @change="checkSkill"></v-select>
                             </v-flex>
                             <v-flex xs12>
                                 <v-text-field label="Annonce*" type="text" v-model="annonce.annonce"></v-text-field>
@@ -24,7 +24,7 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="#8833f8" flat @click="dialog = false">Annuler</v-btn>
-                    <v-btn color="#01dc0e" flat @click="sendAnnonce">Ajouter</v-btn>
+                    <v-btn color="#01dc0e" flat @click="checkAnnonce">Ajouter</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -41,7 +41,7 @@ export default {
             skills: [],
             annonce: {},
             ans: {},
-            newAnnonce: []
+            // newAnnonce: []
         }
     },
 
@@ -72,6 +72,16 @@ export default {
             console.log(this.ans.id_skills_needed); 
             console.log(this.ans); 
         },
+        checkAnnonce() {
+            if (!this.annonce.date || !this.annonce.annonce || !this.ans.id_skills_needed) {
+                alert("Remplir les champs obligatoires!");
+            } else {
+                if (confirm("Voulez- vous poster cette annonce?")) {
+                    this.dialog = false;
+                    this.sendAnnonce();
+                }
+            };
+        },
         postAnnonce() {
             this.dialog = true;
         },
@@ -85,6 +95,7 @@ export default {
                 console.log(this.ans);
                 this.sendAns();
                 this.dialog = false;
+                alert("Annonce postée")
             }).catch(err => {
                 console.log(err);
             });

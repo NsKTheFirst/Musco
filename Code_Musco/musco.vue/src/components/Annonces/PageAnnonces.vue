@@ -6,7 +6,7 @@
         <Recherche/>
         <Map/>
         
-        <div class="annonces" v-for="(annonce, a) in annonces" :key="a">
+        <div class="annonces" v-for="(annonce, a) in annonces" :key="a" @click="detailAnnonce(annonce)">
             <!-- <router-link
             :to="{
                 path: `/annonces/${annonce.id}/`,
@@ -35,6 +35,7 @@
             <!-- </router-link> -->
         </div>
         <BackToTop/>
+        <DetailAnnonce/>
     </div>   
 </template>
 
@@ -42,17 +43,23 @@
 import Recherche from '@/components/Annonces/Recherche.vue'
 import Map from '@/components/Map.vue'
 import BackToTop from '@/components/BackToTop.vue'
+import DetailAnnonce from '@/components/Forms/DetailAnnonce'
 import axios from 'axios'
 export default {
     name: "PageAnnonces",
     components: {
         Recherche,
         Map,
-        BackToTop
+        BackToTop,
+        DetailAnnonce
     },
     data () {
         return {
-            annonces: []
+            annonces: [],
+            categorie: "",
+            audioSkill: "",
+            videoSkill: "",
+            instrument: ""
         };
     },
     methods: {
@@ -65,14 +72,65 @@ export default {
             const url = "http://localhost:5000/api/v1/annonces";
             axios.get(url).then(res => {
                 this.annonces = res.data;
+                console.log(this.annonces);   
             }).catch(err => {
                 console.log(err);
             });
+            // console.log(this.annonces);
+        },
+        getCat() {
+            const url = "http://localhost:5000/api/v1/annonces/categorie/";
+            axios.get(url + this.categorie).then(res => {
+                this.annonces = res.data;
+                console.log(this.annonces);
+            }).catch(err => {
+                console.log(err);
+            });
+        },
+        detailAnnonce(annonce) {
+            this.$ebus.$emit("detailAnnonce");
+            this.$ebus.$emit("emitAnnonce", annonce);
         }
+        // filteredAnnonces: function() {
+        //     if (this.categorie) {
+        //         this.getCat();
+        //     }
+        // }
     },
     created() {
+        this.infos = JSON.parse(window.localStorage.getItem('user'));
         this.getAnnonce();
-    }
+        this.$ebus.$on("emitCat", cat => {
+            this.categorie = cat;
+            console.log(this.categorie);
+            this.getCat();
+        });
+        this.$ebus.$on("emitAudioSkill", audioSkill => {
+            this.audioSkill = audioSkill;
+            console.log(this.audioSkill);
+        });
+        this.$ebus.$on("emitVideoSkill", videoSkill => {
+            this.videoSkill = videoSkill;
+            console.log(this.videoSkill);
+        });
+        this.$ebus.$on("instrument", instrument => {
+            this.instrument = instrument;
+            console.log(this.instrument);
+        });
+        // if (this.categorie) {
+        //     this.getCat();
+        // };
+    },
+    // computed: {
+    //     filteredAnnonces: function() {
+    //         if (this.categorie) {
+    //             this.getCat();
+    //         }
+    //     }
+    // },
+    // updated() {
+    //     this.filteredAnnonces()
+    // }
 }
 </script>
 
@@ -108,6 +166,7 @@ export default {
         &:hover {
             box-shadow: 12px 12px 10px darkgrey;
             border: solid 5px #8833f8;
+            cursor: pointer
             // img {
             //     border: solid 3px #01dc0e
             // }

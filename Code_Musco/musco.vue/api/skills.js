@@ -53,7 +53,7 @@ const skillsAPi = function skillsAPi(connection) {
           if (err) return res.status(500).send(err);
           else return res.status(200).send(dataset);
         }, req.body); // un tableau d'ids ici ...
-      });
+    });
 
     return router;
 };

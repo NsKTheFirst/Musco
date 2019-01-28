@@ -27,16 +27,16 @@
                 <option value="autres">Autres</option>
             </select> -->
                     <v-flex xs12 sm6 md2 d-flex>
-                     <v-select :items="cat" label="Catégorie" solo menu-props="offset-y" class="field"></v-select>
+                     <v-select :items="cat" label="Catégorie" solo menu-props="offset-y" class="field" v-model="newCat" @change="emitCat(newCat)"></v-select>
                     </v-flex>
                     <v-flex xs12 sm6 md2 d-flex>
-                     <v-select :items="audioskill" label="Audio skills" solo menu-props="offset-y" class="field"></v-select>
+                     <v-select :items="audioskill" label="Audio skills" solo menu-props="offset-y" class="field" v-model="newAudioSkill" @change="emitAudioSkill(newAudioSkill)"></v-select>
                     </v-flex>
                     <v-flex xs12 sm6 md2 d-flex>
-                     <v-select :items="videoskill" label="Video skills" solo menu-props="offset-y" class="field"></v-select>
+                     <v-select :items="videoskill" label="Video skills" solo menu-props="offset-y" class="field" v-model="newVideoSkill" @change="emitVideoSkill(newVideoSkill)"></v-select>
                     </v-flex>
                     <v-flex xs12 sm6 md2 d-flex>
-                     <v-select :items="instruments" label="Instruments" solo menu-props="offset-y" class="field"></v-select>
+                     <v-select :items="instruments" label="Instruments" solo menu-props="offset-y" class="field" v-model="newInstrument" @change="emitInstrument(newInstrument)"></v-select>
                     </v-flex>
                     <v-flex xs12 sm6 md2 d-flex>
                         <span @click="runGeoloc">Autour de moi</span>
@@ -62,6 +62,10 @@ export default {
             audioskill: ['Mixage', 'Beat making', 'Composition'],
             videoskill: ['Réalisation', 'Post-produciton'],
             instruments: ['Cuivres', 'Cordes', 'Claviers/Piano', 'Instruments à vent', 'Percussions', 'Chant'],
+            newCat: [],
+            newAudioSkill: [],
+            newVideoSkill:[],
+            newInstrument: []
             // map: null,
             // userlat: null,
             // userlon: null,
@@ -76,6 +80,18 @@ export default {
     methods: {
         runGeoloc() {
             this.$ebus.$emit("runGeoloc");
+        },
+        emitCat(cat) {
+            this.$ebus.$emit('emitCat', cat);
+        },
+        emitAudioSkill(audioSkill) {
+            this.$ebus.$emit('emitAudioSkill', audioSkill);
+        },
+        emitVideoSkill(videoSkill) {
+            this.$ebus.$emit('emitVideoSkill', videoSkill);
+        },
+        emitInstrument(instrument) {
+            this.$ebus.$emit('emitInstrument', instrument);
         }
         // initMap() {
         //             // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"

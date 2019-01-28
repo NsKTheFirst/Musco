@@ -82,7 +82,7 @@ const userModel = function userModel(connection) {
     // ********* Requêtes sur la table user_follow_user *********
     // Requête de récupération
     const getUfu = function getUfu(clbk, id_following_user) {
-      const sql = "SELECT * FROM user_follows_user WHERE id_following_user = ?";
+      const sql = "SELECT ufu.id_ufu, ufu.id_following_user, ufu.id_user_followed, users.avatar, users.pseudo FROM `user_follows_user` AS ufu LEFT JOIN users ON users.id_user = ufu.id_user_followed WHERE ufu.id_following_user = ?";
       connection.query(sql, id_following_user, (err, results) => {
         if (err) return clbk(err, null);
         return clbk(null, results);

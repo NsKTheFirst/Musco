@@ -64,7 +64,7 @@ const annonceModel = function annonceModel (connection) {
             if (error) return clbk(error, null);
             return clbk(null, results);
         });
-    }
+    };
 
     //     let sql;
     //     if (id_annonce && !isNaN(id_annonce)) {
@@ -79,20 +79,36 @@ const annonceModel = function annonceModel (connection) {
     //     });
     //   };
 
-      const getLast = function getLastAnnonce(clbk) {
-          console.log("yoyoyoyoy");
-          const sql = `
+    const getLast = function getLastAnnonce(clbk) {
+        console.log("yoyoyoyoy");
+        const sql = `
             SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , u.avatar AS 'avatar', u.pseudo,u.localisation, s.categorie, s.skill FROM annonces AS a 
             INNER JOIN users AS u ON a.id_annonce_owner = u.id_user 
             INNER JOIN annonce_needs_skills AS ans ON a.id_annonce = ans.id_annonce_skill 
             INNER JOIN skills AS s ON ans.id_skills_needed = s.id_skill 
             ORDER BY a.id_annonce DESC LIMIT 3`;
-          connection.query(sql, (error, results) => {
-              console.log(results);
-              if (error) return clbk(error, null);
-              return clbk(null, results);
-          });
-      };
+        connection.query(sql, (error, results) => {
+            console.log(results);
+            if (error) return clbk(error, null);
+            return clbk(null, results);
+        });
+    };
+
+    const getByCat = function getByCat(clbk, categorie) {
+        const sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , u.avatar AS 'avatar', u.pseudo,u.localisation, s.categorie, s.skill FROM skills AS s LEFT JOIN annonce_needs_skills AS ans ON s.id_skill = ans.id_skills_needed LEFT JOIN annonces AS a ON a.id_annonce = ans.id_annonce_skill LEFT JOIN users AS u ON a.id_annonce_owner = u.id_user WHERE s.categorie = ? ORDER BY a.id_annonce DESC";
+        connection.query(sql, categorie, (error, results) => {
+            if (error) return clbk(error, null);
+            return clbk(null, results);
+        });
+    };
+
+    const getBySkill = function getByCat(clbk, skill) {
+        const sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , u.avatar AS 'avatar', u.pseudo,u.localisation, s.categorie, s.skill FROM skills AS s LEFT JOIN annonce_needs_skills AS ans ON s.id_skill = ans.id_skills_needed LEFT JOIN annonces AS a ON a.id_annonce = ans.id_annonce_skill LEFT JOIN users AS u ON a.id_annonce_owner = u.id_user WHERE s.skill = ? ORDER BY a.id_annonce DESC";
+        connection.query(sql, skill, (error, results) => {
+            if (error) return clbk(error, null);
+            return clbk(null, results);
+        });
+    };
 
     return {
         create,
@@ -102,7 +118,9 @@ const annonceModel = function annonceModel (connection) {
         getAll,
         getOne,
         getLast,
-        getOsa
+        getOsa,
+        getByCat,
+        getBySkill
     };
 };
 

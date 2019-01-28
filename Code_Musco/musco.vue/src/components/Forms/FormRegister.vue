@@ -106,26 +106,26 @@ export default {
             this.logs = [];
             const fd = new FormData(this.$refs.form);
 
-      const isFormValueOk = function isFormValueOk() {
-        let errors = 0;
-        for (let arr of fd) {
-          if (!arr[1]) errors += 1;
-        }
-        const res = errors === 0;
+            const isFormValueOk = function isFormValueOk() {
+                let errors = 0;
+                for (let arr of fd) {
+                    if (!arr[1]) errors += 1;
+                }
+                const res = errors === 0;
 
-        if (!res) {
-          this.logs.push("please fill all the fields");
-        }
-        return res;
-      }.bind(this);
+                if (!res) {
+                    this.logs.push("please fill all the fields");
+                }
+                return res;
+            }.bind(this);
 
-      const isPassMatch = function isPassMatch() {
-        const res = this.user.mdp === this.user.confirmMdp;
-        if (!res) {
-          this.logs.push("the confirm-password doesn't match password");
-        }
-        return res;
-      }.bind(this);
+            const isPassMatch = function isPassMatch() {
+            const res = this.user.mdp === this.user.confirmMdp;
+            if (!res) {
+                this.logs.push("the confirm-password doesn't match password");
+            }
+            return res;
+            }.bind(this);
 
       // const isPassLengthValid = function isPassLengthValid() {
       //   const res = this.user.mdp.length >= this.passwordMinLength;
@@ -137,60 +137,60 @@ export default {
       //   return res;
       // }.bind(this);
 
-      const isPassSequenceOk = function isPassSequenceOk() {
-        return true;
-      };
+            const isPassSequenceOk = function isPassSequenceOk() {
+                return true;
+            };
 
-      const runTestsSuite = function runTestsSuite(acc, fn) {
-        acc += fn() === false ? 1 : 0;
-        return acc;
-      };
+            const runTestsSuite = function runTestsSuite(acc, fn) {
+                acc += fn() === false ? 1 : 0;
+                return acc;
+            };
 
       // const tests = [isPassSequenceOk];
-      const tests = [
-        isFormValueOk,
-        isPassMatch,
-        isPassLengthValid,
-        isPassSequenceOk
-      ];
+            const tests = [
+                isFormValueOk,
+                isPassMatch,
+                isPassLengthValid,
+                isPassSequenceOk
+            ];
 
-      this.logs.errorCount = tests.reduce(runTestsSuite, 0);
+            this.logs.errorCount = tests.reduce(runTestsSuite, 0);
 
-      this.logLevel = !this.logs.errorCount ? null : "warning";
-      const data = !this.logs.errorCount
-        ? formUtils.convertFormDataToObject(fd)
-        : null;
+            this.logLevel = !this.logs.errorCount ? null : "warning";
+            const data = !this.logs.errorCount
+            ? formUtils.convertFormDataToObject(fd)
+            : null;
 
-      return {
-        errors: this.logs.errorCount !== 0,
-        data
-      };
-    },
-    register() {
-      const check = this.checkRegister();
-      const loc = this.geoloc();
+            return {
+                errors: this.logs.errorCount !== 0,
+                data
+            };
+        },
+        register() {
+            const check = this.checkRegister();
+            const loc = this.geoloc();
 
-      // if (!check.errors) {
-      if (check && loc) {
-        // console.log(check.data);
-        this.$store
-          // .dispatch("user/register", check.data)
-          .dispatch("user/register", this.user)
-          .then(res => {
-            console.log("res@ajax-register", res);
-            this.logLevel = "success";
-            this.logs = ["all good"];
-            this.$router.push({ path: `/dashboard/me` });
-            this.dialog = false;
-          })
-          .catch(err => {
-            console.error("error@ajax-register", err);
-            this.logLevel = "error";
-            this.logs = [err];
-          });
+            // if (!check.errors) {
+            if (check && loc) {
+            // console.log(check.data);
+                this.$store
+                // .dispatch("user/register", check.data)
+                .dispatch("user/register", this.user)
+                .then(res => {
+                    console.log("res@ajax-register", res);
+                    this.logLevel = "success";
+                    this.logs = ["all good"];
+                    this.$router.push({ path: `/dashboard/me` });
+                    this.dialog = false;
+                })
+                .catch(err => {
+                 console.error("error@ajax-register", err);
+                    this.logLevel = "error";
+                    this.logs = [err];
+                });
           
-      }
+            }
+        }
     }
-  }
 }
 </script>

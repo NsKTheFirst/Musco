@@ -1,5 +1,5 @@
 <template>
-    <back-to-top bottom="120px" right="50px">
+    <back-to-top bottom="200px" right="20px">
             <button type="button" class="btn btn-info btn-to-top"><i class="fas fa-chevron-up"></i></button>
     </back-to-top>
 </template>

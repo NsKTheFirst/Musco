@@ -39,13 +39,29 @@ const annonceAPi = function annonceAPi(connection) {
         if (err) return res.status(500).send(err);
         else return res.status(200).send(dataset);
       }, req.params.id_annonce_owner);
-    })
+    });
   
     router.get('/annonces', (req, res) => {
       annonceModel.getAll((err, dataset) => {
         if (err) return res.status(500).send(err);
         else return res.status(200).send(dataset);
       }, null);
+    });
+
+    router.get('/annonces/categorie/:categorie', (req, res) => {
+      annonceModel.getByCat((err, dataset) => {
+        console.log(dataset);
+        if (err) return res.status(500).send(err);
+        else return res.status(200).send(dataset);
+      }, req.params.categorie);
+    });
+
+    router.get('/annonces/skill/:skill', (req, res) => {
+      annonceModel.getBySkill((err, dataset) => {
+        console.log(dataset);
+        if (err) return res.status(500).send(err);
+        else return res.status(200).send(dataset);
+      }, req.params.skill);
     });
   
     router.delete('/annonces', (req, res) => {

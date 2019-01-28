@@ -32,21 +32,21 @@
             </v-container>
             <div class="boutons">
                 <div class="btns">
-                    <span class="repondre" @click="repMess(message.id_emetteur)">Répondre</span>
+                    <span class="repondre" @click="sendMess(message.id_emetteur)">Répondre</span>
                     <span class="suppr" @click="delMessage(message.id_message)">Supprimer</span>
                 </div>
             </div>
         </article>
-        <RepMessage/>
+        <SendMessage/>
     </main>
 </template>
 
 <script>
 import axios from 'axios'
-import RepMessage from '@/components/Forms/RepMessage'
+import SendMessage from '@/components/Forms/SendMessage'
 export default {
     components: {
-        RepMessage
+        SendMessage
     },
     data() {
         return {
@@ -73,14 +73,17 @@ export default {
             const url = "http://localhost:5000/api/v1/messages";
             axios.delete(url, { data: { id_message: id } }).then(res => {
                 console.log(res.data);
-                this.getMessages();
+                if (confirm("Voulez-vous supprimer ce message?")) {
+                    alert("Message supprimé!");
+                    this.getMessages();
+                }
             }).catch(err => {
                 console.log(err);
             })
         },
-        repMess(idEm) {
+        sendMess(idEm) {
             this.$ebus.$emit("emetId", idEm);
-            this.$ebus.$emit("repMess")
+            this.$ebus.$emit("sendMess")
             console.log(idEm);
         }
     },    

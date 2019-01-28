@@ -65,8 +65,7 @@ const skillsModel = function skillsModel(connection) {
         create,
         remove,
         update,
-        getAns
-
+        getAns,
     }
 };
 

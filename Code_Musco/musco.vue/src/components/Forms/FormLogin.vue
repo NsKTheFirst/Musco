@@ -3,7 +3,7 @@
         <v-dialog v-model="dialog" persistent max-width="600px">
             <v-card>
                 <v-card-title>
-                    <span class="headline">Se connecter</span>
+                    <span id="titreLog">Se connecter</span>
                 </v-card-title>
                 <ul id="logs">
                     <li v-for="(log, k) in logs" :key="k">{{log}}</li>
@@ -60,15 +60,19 @@ export default {
             const checkMail = function checkMail(mail) {
             const res = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
             mail);
-            if (!res) this.logs["mailFormat"] = "Please enter a valid mail address";
-            return res;
+            if (!res) {
+                this.logs["mailFormat"] = "Veuillez entrer une adresse mail valide";
+                alert(this.logs.mailFormat);
+                } else {
+                return res;
+                }
             };
 
             const checkPass = function checkPass(mdp) {
             // const res = ta regex ici :D;
             const res = true;
             if (!res)
-                this.logs["passwordFormat"] = `Required password pattern: ${
+                this.logs["passwordFormat"] = `Format de mot de passe requis: ${
                 this.passwordPattern.hint
                 }`;
             return res;
@@ -104,16 +108,26 @@ export default {
                 .dispatch("user/login", this.user)
                 .then(res => {
                     this.$router.push({ path: `/dashboard/me` });
-                    this.dialog = false
+                    this.dialog = false;
+                    this.$ebus.$emit("logged")
                 })
                 .catch(err => {
                     console.error(err);
+                    alert("Veuillez vérifier vos identifiants")
                 });
-             ;   
+               
             }
         }
     }
 }
 </script>
 
+<style lang="scss" scoped>
+    #titreLog {
+        text-align: center;
+        font-family: 'Shrikhand', cursive;
+        font-size: 25px;
+        margin: auto
+    }
+</style>
 

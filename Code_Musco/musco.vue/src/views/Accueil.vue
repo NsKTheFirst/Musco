@@ -4,7 +4,6 @@
             <img src="@/assets/Images/photo_header.jpg" alt="Studio">
         </figure>
         <Presentation/>
-        <!-- <News/> -->
         <Infos/>
         <MyNews/>
     </div>
@@ -12,13 +11,11 @@
 
 <script>
 import Presentation from '@/components/Presentation'
-// import News from '@/components/News.vue'
 import Infos from '@/components/Infos.vue'
 import MyNews from '@/components/MyNews'
 export default {
     components: {
         Presentation,
-        // News,
         Infos,
         MyNews
     }

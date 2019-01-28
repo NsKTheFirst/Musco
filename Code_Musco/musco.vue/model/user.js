@@ -54,7 +54,7 @@ const userModel = function userModel(connection) {
       });
     };
   
-    // Requête de récupération par id
+    // Requête de récupération full par id
     const get = function getFullUser(clbk, id_user) {
       let sql;
       if (id_user && !isNaN(id_user)) {
@@ -64,6 +64,15 @@ const userModel = function userModel(connection) {
       }
       connection.query(sql, [id_user], (error, results) => {
         // console.log(this.sql); // affiche la dernière requête SQL, pratique pour deboguer
+        if (error) return clbk(error, null);
+        return clbk(null, results);
+      });
+    };
+
+    // Requête de récupération simple par id
+    const getSimple = function getSimple(clbk, id_user) {
+      const sql = "SELECT * FROM users WHERE id_user = ?";
+      connection.query(sql, [id_user], (error, results) => {
         if (error) return clbk(error, null);
         return clbk(null, results);
       });
@@ -113,6 +122,7 @@ const userModel = function userModel(connection) {
       remove,
       update,
       get,
+      getSimple,
       getByMail,
       getUfu,
       createUfu,

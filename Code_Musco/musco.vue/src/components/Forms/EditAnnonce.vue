@@ -3,7 +3,7 @@
         <v-dialog v-model="dialog" persistent max-width="600px">
             <v-card>
                 <v-card-title>
-                    <span class="headline">Modifier annonce</span>
+                    <span id="titreEdit">Modifier annonce</span>
                 </v-card-title>
                 <v-card-text>
                     <v-container grid-list-md>
@@ -43,7 +43,6 @@ export default {
             fullSkills: [],
             skills: [],
             editAns: {}
-            // ans: [],
 
         }
     },
@@ -70,7 +69,7 @@ export default {
             axios.get(url).then(res => {
                 console.log(res.data);
                 this.fullSkills = res.data;
-                console.log(this.fullSkills);
+                // console.log(this.fullSkills);
                 this.extractSkills()
             }).catch(err => {
                 console.log(err);
@@ -90,7 +89,7 @@ export default {
         
         sendEditAnnonce() {
             const self = this;
-            console.log(this.editableAnn);
+            // console.log(this.editableAnn);
             const url = "http://localhost:5000/api/v1/annonces";
             axios.patch(url, this.editableAnn).then(res => {
                 console.log(res.data);
@@ -151,5 +150,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+    #titreEdit {
+        text-align: center;
+        font-family: 'Shrikhand', cursive;
+        font-size: 25px;
+        margin: auto
+    }
 </style>

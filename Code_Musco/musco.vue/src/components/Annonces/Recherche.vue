@@ -4,39 +4,17 @@
             <h2>Rechercher</h2>
             <v-container grid-list-xl id:="container">
                 <v-layout wrap justify-center>
-            <!-- <select  name="categorie" id="cat">
-                <option value="audio">Audio</option>
-                <option value="video">Video</option>
-                <option value="instruments">Instruments</option>
-            </select>
-            <select name="audioSkills" id="audioSkills" placeholder="Audio skills">
-                <option value="mixage">Mixage</option>
-                <option value="beat making">Beat making</option>
-                <option value="composition">Composition</option>
-            </select>
-            <select name="videoSkills" id="videoSkills" placeholder="Video skills">
-                <option value="realisation">Réalisation</option>
-                <option value="post production">Post production</option>
-
-            </select>
-            <select name="instruments" id="instruments">
-                <option value="cuivres">Cuivres</option>
-                <option value="cordes">Cordes</option>
-                <option value="vent">Instruments à vent</option>
-                <option value="percussion">Percussions</option>
-                <option value="autres">Autres</option>
-            </select> -->
                     <v-flex xs12 sm6 md2 d-flex>
                      <v-select :items="cat" label="Catégorie" solo menu-props="offset-y" class="field" v-model="newCat" @change="emitCat(newCat)"></v-select>
                     </v-flex>
                     <v-flex xs12 sm6 md2 d-flex>
-                     <v-select :items="audioskill" label="Audio skills" solo menu-props="offset-y" class="field" v-model="newAudioSkill" @change="emitAudioSkill(newAudioSkill)"></v-select>
+                     <v-select :items="audioskill" label="Audio skills" solo menu-props="offset-y" class="field" v-model="newAudioSkill" @change="emitSkill(newAudioSkill)"></v-select>
                     </v-flex>
                     <v-flex xs12 sm6 md2 d-flex>
-                     <v-select :items="videoskill" label="Video skills" solo menu-props="offset-y" class="field" v-model="newVideoSkill" @change="emitVideoSkill(newVideoSkill)"></v-select>
+                     <v-select :items="videoskill" label="Video skills" solo menu-props="offset-y" class="field" v-model="newVideoSkill" @change="emitSkill(newVideoSkill)"></v-select>
                     </v-flex>
                     <v-flex xs12 sm6 md2 d-flex>
-                     <v-select :items="instruments" label="Instruments" solo menu-props="offset-y" class="field" v-model="newInstrument" @change="emitInstrument(newInstrument)"></v-select>
+                     <v-select :items="instruments" label="Instruments" solo menu-props="offset-y" class="field" v-model="newInstrument" @change="emitSkill(newInstrument)"></v-select>
                     </v-flex>
                     <v-flex xs12 sm6 md2 d-flex>
                         <span @click="runGeoloc">Autour de moi</span>
@@ -45,23 +23,18 @@
             </v-container>
         
         </section>
-        <!-- <figure id="carte">
-            <div id="map">
-            </div>
-        </figure> -->
     </div>
 </template>
 
 <script>
-// import L from "leaflet"
 export default {
     name: "Recherche",
     data() {
         return {
             cat: ['Audio', 'Video', 'Instruments'],
             audioskill: ['Mixage', 'Beat making', 'Composition'],
-            videoskill: ['Réalisation', 'Post-produciton'],
-            instruments: ['Cuivres', 'Cordes', 'Claviers/Piano', 'Instruments à vent', 'Percussions', 'Chant'],
+            videoskill: ['Réalisation', 'Post production'],
+            instruments: ['Cuivres', 'Cordes', 'Clavier/Piano', 'Instruments à vent', 'Percussions', 'Chant'],
             newCat: [],
             newAudioSkill: [],
             newVideoSkill:[],
@@ -72,11 +45,7 @@ export default {
             // macarte: {}
         }
     },
-    // computed: {
-    //     runGeoloc() {
-    //         this.$ebus.$emit("runGeoloc");
-    //     }
-    // },
+
     methods: {
         runGeoloc() {
             this.$ebus.$emit("runGeoloc");
@@ -84,52 +53,10 @@ export default {
         emitCat(cat) {
             this.$ebus.$emit('emitCat', cat);
         },
-        emitAudioSkill(audioSkill) {
-            this.$ebus.$emit('emitAudioSkill', audioSkill);
-        },
-        emitVideoSkill(videoSkill) {
-            this.$ebus.$emit('emitVideoSkill', videoSkill);
-        },
-        emitInstrument(instrument) {
-            this.$ebus.$emit('emitInstrument', instrument);
+        emitSkill(skill) {
+            this.$ebus.$emit('emitSkill', skill);
         }
-        // initMap() {
-        //             // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
-                    
-        //             var macarte = L.map('map').setView([this.userlat, this.userlon], 12);
-        //             // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
-        //             L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
-        //                 // Il est toujours bien de laisser le lien vers la source des données
-        //                 attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
-        //                 minZoom: 1,
-        //                 maxZoom: 20
-        //             }).addTo(macarte);
-                    
-        //             // Nous ajoutons un marqueur
-        //             var marker = L.marker([this.userlat, this.userlon]).addTo(macarte);
-        //         },
-        
-        // geoloc() {
-        //     const that = this
-        //     var geoSuccess = function(position) { // Ceci s'exécutera si l'utilisateur accepte la géolocalisation
-        //         var startPos = position;
-        //         that.userlat = startPos.coords.latitude;
-        //         that.userlon = startPos.coords.longitude;
-        //         console.log("lat: "+that.userlat+" - lon: "+that.userlon);
-        //         // Fonction d'initialisation de la carte
-                
-        //         that.initMap();
-        //     };
-        //     var geoFail = function() { // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
-        //         console.log("refus");
-        //     };
-        //     navigator.geolocation.getCurrentPosition(geoSuccess,geoFail);
-        // }
     },
-    // mounted() {
-        
-    //     this.geoloc()
-    // }
 }
 </script>
 
@@ -145,15 +72,8 @@ export default {
             text-align: center;
             color: white;
             font-size: 30px;
+            letter-spacing: 3px
         }
-        // select{appearance: auto}
-        
-        // .btn {
-        //     color: white;
-        //     font-family: 'Montserrat', sans-serif;
-        //     font-weight: 700;
-            
-        // }
         span {
             border: 1px solid #01dc0e;
             padding: 5px;
@@ -173,18 +93,6 @@ export default {
                 cursor: pointer;
             }
         }
-
-        // #carte {
-        //     height: 300px;
-        //     width: 100%;
-        //     display: block;
-
-        //     #map {
-        //         height: 100%;
-        //         width: 100%;
-        //         display: block
-        //     }
-        // }
     }
 </style>
 

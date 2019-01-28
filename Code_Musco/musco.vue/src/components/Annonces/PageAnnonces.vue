@@ -6,22 +6,11 @@
         <Recherche/>
         <Map/>
         
-        <div class="annonces" v-for="(annonce, a) in annonces" :key="a" @click="detailAnnonce(annonce)">
-            <!-- <router-link
-            :to="{
-                path: `/annonces/${annonce.id}/`,
-                name: 'annonceDetail',
-                params: {id: annonce.id_annonce, annonce: annonce.annonce, annonce_owner: annonce.annonce_owner, date: annonce.date, avatar: annonce.avatar, pseudo: annonce.pseudo, categorie: annonce.categorie, skill: annonce.skil}
-            }"> -->
+        <div class="annonces" v-for="(annonce, a) in annonces" :key="a" @click="detailAnnonce($event,annonce)">
             <div class="profil">
-                <!-- <router-link>    -->
                     <figure>
-                        <img :src="getAvatar(annonce.avatar)" :alt="annonce.pseudo" :to="{
-                                path: '/profil',
-                                name: 'profil'
-                        }">
+                        <img :src="getAvatar(annonce.avatar)" :alt="annonce.pseudo" @click="toProfil($event, annonce.annonce_owner)">
                     </figure>
-                <!-- </router-link>  -->
                 <h3 id="pseudo">{{ annonce.pseudo }}</h3>
             </div>
             <article>
@@ -32,7 +21,6 @@
                 </div>
                 <p id="annonce">{{ annonce.annonce }}</p>
             </article>
-            <!-- </router-link> -->
         </div>
         <BackToTop/>
         <DetailAnnonce/>
@@ -57,88 +45,79 @@ export default {
         return {
             annonces: [],
             categorie: "",
-            audioSkill: "",
-            videoSkill: "",
-            instrument: ""
+            skill: "",
+            annoncesMemory: [],
+            event: null
         };
     },
     methods: {
         getAvatar(url) {
-            console.log(url);
+            // console.log(url);
             return url ? require(`@/assets/Avatars/${url}`) : require("@/assets/Avatars/avatar_par_defaut.jpg");
         },
 
         getAnnonce() {
-            const url = "http://localhost:5000/api/v1/annonces";
-            axios.get(url).then(res => {
-                this.annonces = res.data;
-                console.log(this.annonces);   
-            }).catch(err => {
-                console.log(err);
-            });
-            // console.log(this.annonces);
+            return new Promise((resolve, reject) => {
+                const url = "http://localhost:5000/api/v1/annonces";
+                axios.get(url).then(res => {
+                    this.annonces = res.data;
+                    this.annoncesMemory = this.annonces
+                    // console.log(this.annonces);
+                    return resolve(); 
+                }).catch(err => {
+                    console.log(err);
+                    reject()
+                });
+            })
         },
-        getCat() {
-            const url = "http://localhost:5000/api/v1/annonces/categorie/";
-            axios.get(url + this.categorie).then(res => {
-                this.annonces = res.data;
-                console.log(this.annonces);
-            }).catch(err => {
-                console.log(err);
-            });
-        },
-        detailAnnonce(annonce) {
+        detailAnnonce(evt, annonce) {
             this.$ebus.$emit("detailAnnonce");
             this.$ebus.$emit("emitAnnonce", annonce);
+            this.event = evt;
+        },
+        toProfil(evt, owner) {
+            if (evt.target !== this.event) {
+                this.dialog = false;
+                this.$router.push({ path: `/profil`});
+                this.$ebus.$emit("owner", owner);
+                console.log(owner);
+            }
         }
-        // filteredAnnonces: function() {
-        //     if (this.categorie) {
-        //         this.getCat();
-        //     }
-        // }
+        
     },
     created() {
         this.infos = JSON.parse(window.localStorage.getItem('user'));
-        this.getAnnonce();
-        this.$ebus.$on("emitCat", cat => {
-            this.categorie = cat;
-            console.log(this.categorie);
-            this.getCat();
+        this.getAnnonce().then(annonces => {
+            // this.annoncesMemory = this.annonces
+            this.$ebus.$on("emitCat", cat => {
+                // console.log("annonces okay", this.annonces)
+                this.categorie = cat;
+                // console.log(this.categorie);
+                // const memory = this.annonces.slice();
+                // console.log(memory)
+                this.annonces = this.annoncesMemory.filter(annonce => {
+                    // console.log(this.annoncesMemory);
+                    return annonce.categorie === this.categorie.toLowerCase()
+                })
+            });
+            this.$ebus.$on("emitSkill", skill => {
+                this.skill = skill;
+                // console.log(this.skill);
+                this.annonces = this.annoncesMemory.filter(annonce => {
+                    // console.log(annonce.skill, this.skill);
+                    if (!annonce.skill) return false;
+                    return annonce.skill.toLowerCase() === this.skill.toLowerCase()
+                })
+                // console.log("herrrre", s);
+            });
+        }).catch(err => {
+            console.error(err);
         });
-        this.$ebus.$on("emitAudioSkill", audioSkill => {
-            this.audioSkill = audioSkill;
-            console.log(this.audioSkill);
-        });
-        this.$ebus.$on("emitVideoSkill", videoSkill => {
-            this.videoSkill = videoSkill;
-            console.log(this.videoSkill);
-        });
-        this.$ebus.$on("instrument", instrument => {
-            this.instrument = instrument;
-            console.log(this.instrument);
-        });
-        // if (this.categorie) {
-        //     this.getCat();
-        // };
     },
-    // computed: {
-    //     filteredAnnonces: function() {
-    //         if (this.categorie) {
-    //             this.getCat();
-    //         }
-    //     }
-    // },
-    // updated() {
-    //     this.filteredAnnonces()
-    // }
 }
 </script>
 
-<style scoped lang="scss">
-    // #glob {
-    //     position: relative;
-    // }
-    
+<style scoped lang="scss">  
     #picture {
         margin-bottom: -6px
     }

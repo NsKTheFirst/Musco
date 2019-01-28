@@ -16,8 +16,8 @@
                     name:'annonces'
                     }">Annonces</v-btn>
                 <v-menu offset-y transition="slide-y-transition" bottom>
-                    <v-btn flat id="compteBtn" slot="activator" v-if="this.infos">Mon compte</v-btn>
-                    <v-list v-if="this.infos">
+                    <v-btn flat id="compteBtn" slot="activator" v-if="logged">Mon compte</v-btn>
+                    <v-list v-if="logged">
                         <v-list-tile :to="{path:'/dashboard/me'}">
                             <v-list-tile-title>
                                 Mon profil
@@ -29,8 +29,8 @@
                             </v-list-tile-title>
                         </v-list-tile>
                     </v-list>
-                    <v-btn flat id="connexionBtn" slot="activator" v-if="!this.infos">Connexion</v-btn> <!-- ajouter v-if="!infos" -->
-                    <v-list v-if="!this.infos"> <!-- ajouter v-if="!infos" -->
+                    <v-btn flat id="connexionBtn" slot="activator" v-if="!logged">Connexion</v-btn> <!-- ajouter v-if="!infos" -->
+                    <v-list v-if="!logged"> <!-- ajouter v-if="!infos" -->
                         <v-list-tile v-for="link in links" :key="link.text" @click="openForm">
                             <v-list-tile-title>
                                 {{ link.text }}
@@ -48,7 +48,7 @@
                             <span id="purple2"></span>
                         </div>
                     </v-btn>
-                    <v-list v-if="!this.infos">
+                    <v-list v-if="!logged">
                         <v-list-tile v-for="lien in liens" :key="lien.text" :to="lien.to">
                             <v-list-tile-title>
                                 {{ lien.text }}
@@ -60,7 +60,7 @@
                             </v-list-tile-title>
                         </v-list-tile>
                     </v-list>
-                    <v-list v-if="this.infos">
+                    <v-list v-if="this.logged">
                         <v-list-tile v-for="lien in liens" :key="lien.text" :to="lien.to">
                             <v-list-tile-title>
                                 {{ lien.text }}
@@ -102,8 +102,8 @@ export default {
                     to: '/annonces'
                 },
             ],
-            infos: null
-            // logged: false 
+            // infos: null,
+            logged: false
         }
     },
     methods: {
@@ -117,16 +117,22 @@ export default {
                 this.$ebus.$emit("openFormReg");
             };
         },
+        isLogged() {
+            this.logged = auth.isLoggedIn();
+        },
         logout() {
             // auth.logUserOut(this);
             window.localStorage.clear('user');
+            this.logged = false
         }
     },
 
     created() {
-        this.infos = JSON.parse(window.localStorage.getItem('user'));
-        console.log(localStorage.length);
-        console.log(this.infos);
+        this.$ebus.$on("logged", this.isLogged);
+        this.isLogged();
+        // this.infos = JSON.parse(window.localStorage.getItem('user'));
+        // console.log(localStorage.length);
+        // console.log(this.infos);
     },
 
     

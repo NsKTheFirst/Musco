@@ -3,21 +3,10 @@
         <h2>Les dernières annonces</h2>
         <section id="news">
             <div class="annonces" v-for="(annonce, a) in annonces" :key="a" @click="detailAnnonce(annonce)">
-                <!-- <router-link
-                :to="{
-                    path: `/annonces/${annonce.id}/`,
-                    name: 'annonceDetail',
-                    params: {id: annonce.id_annonce, annonce: annonce.annonce, annonce_owner: annonce.annonce_owner, date: annonce.date, avatar: annonce.avatar, pseudo: annonce.pseudo, categorie: annonce.categorie, skill: annonce.skil}
-                }"> -->
                 <div class="profil">
-                    <!-- <router-link>    -->
                         <figure>
-                            <img :src="getAvatar(annonce.avatar)" :alt="annonce.pseudo" :to="{
-                                path: '/profil',
-                                name: 'profil'
-                            }">
+                            <img :src="getAvatar(annonce.avatar)" :alt="annonce.pseudo" @click="toProfil($event, annonce.annonce_owner)">
                         </figure>
-                    <!-- </router-link>  -->
                     <h3 class="pseudo">{{ annonce.pseudo }}</h3>
                 </div>
                 <article>
@@ -28,8 +17,6 @@
                     </div>
                     <p class="annonce">{{ annonce.annonce }}</p>
                 </article>
-                <!-- </router-link> -->
-
             </div>
         </section> 
         <DetailAnnonce/>
@@ -66,6 +53,14 @@ export default {
         detailAnnonce(annonce) {
             this.$ebus.$emit("detailAnnonce");
             this.$ebus.$emit("emitAnnonce", annonce);
+        },
+        toProfil(evt, owner) {
+            if (evt.target !== this.event) {
+                this.dialog = false;
+                this.$router.push({ path: `/profil`});
+                this.$ebus.$emit("owner", owner);
+                console.log(owner);
+            }
         }
     },
     created() {

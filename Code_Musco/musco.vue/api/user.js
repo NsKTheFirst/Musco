@@ -20,6 +20,13 @@ const userAPi = function userAPi(connection) {
         res.send(dataset);
       }, req.params.id_user);
     });
+
+    router.get('/user/simple/:id_user', (req, res) => {
+      userModel.getSimple((err, dataset) => {
+        if (err) return res.status(500).send(err);
+        res.status(200).send(dataset);
+      }, req.params.id_user);
+    });
   
     // router.get('/user', (req, res) => {
     //   userModel.get( (err, dataset) => {
@@ -74,7 +81,7 @@ const userAPi = function userAPi(connection) {
 
     router.get("/user", auth.authenticate, (req, res) => {
       // router.get("/user", (req, res) => {
-        userModel.getAll((err, users) => {
+        userModel.get((err, users) => {
           if (err) return res.status(520).send(err);
           // si pas d'erreur sql, on retourne un status 200 accompagné des users sans les mots de passe et les mails (removeSensitiveInfo)
           return res.status(200).send(users.map(user => {

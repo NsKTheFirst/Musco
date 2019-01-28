@@ -65,32 +65,11 @@ export default {
       responsive: false,
       color: "green",
       drawer: null,
-        // mobil: null,
-        // items: [
-        //   { title: 'Home', icon: 'dashboard' },
-        //   { title: 'About', icon: 'question_answer' }
-        // ],
-      mini: false,
-      right: null
     }
   },
 
-  // computed: {
-    // ...mapState(['setDrawer', 'toggleDrawer']),
-    // inputValue: {
-    //   get() {
-    //     return this.$store.drawer
-    //   },
-    //   set(val) {
-    //     this.setDrawer(val)
-    //   }
-    // }
-  // },
-  
   methods: {
-    // ...mapMutations(['setDrawer', 'toggleDrawer']),
     onClickBtn() {
-      this.mobil = !null;
       this.drawer= !null;
     },
     logout() {
@@ -132,44 +111,8 @@ export default {
 }
 #dashboard {
   .v-list-item {
-    // color: white;
     padding: 10px;
     border-radius: 4px
   }
 }
-.green {
-  background: #01dc0e
-}
-
-// #dashboard {
-//   display: grid;
-//   grid-template-columns: 160px repeat(5, 1fr);
-//   grid-template-rows: 32px repeat(2, 1fr);
-// }
-// #nav_dashboard {
-//   grid-column: 1 / 2;
-//   margin-top: 30px;
-
-//   .list {
-//     margin: 0;
-//     align-items: flex-start;
-//     flex-direction: column;
-
-//     .item {
-//       width: 100%;
-//       display: flex;
-//       justify-content: space-between;
-//     }
-//   }
-// }
-// #title {
-//   margin: 0;
-//   line-height: 32px;
-//   grid-column: 2 / 7;
-//   grid-row: 1 / 2;
-// }
-// #dashboard_content {
-//   grid-column: 2 / 7;
-//   grid-row: 2;
-// }
 </style>

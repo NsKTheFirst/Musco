@@ -3,7 +3,7 @@
         <v-dialog v-model="dialog" persistent max-width="600px">
             <v-card>
                 <v-card-title>
-                    <span class="headline">Création de compte</span>
+                    <span id="titreReg">Création de compte</span>
                 </v-card-title>
                 <v-card-text>
                     <v-container grid-list-md>
@@ -66,10 +66,7 @@ export default {
                 soundcloud: "soundcloudNico",
                 youtube: "youtubeNico",
                 facebook: "facebookNico",
-                localisation: {
-                    userlat: null,
-                    userlon: null
-                }
+                // localisation: {}
             },
             options: {
                 enableHighAccuracy: true,
@@ -114,7 +111,8 @@ export default {
                 const res = errors === 0;
 
                 if (!res) {
-                    this.logs.push("please fill all the fields");
+                    this.logs.push("Veuillez remplir les champs obligatoires");
+                    alert(this.logs);
                 }
                 return res;
             }.bind(this);
@@ -122,7 +120,8 @@ export default {
             const isPassMatch = function isPassMatch() {
             const res = this.user.mdp === this.user.confirmMdp;
             if (!res) {
-                this.logs.push("the confirm-password doesn't match password");
+                this.logs.push("Les mots de passe ne correspondent pas");
+                alert(this.logs);
             }
             return res;
             }.bind(this);
@@ -168,10 +167,12 @@ export default {
         },
         register() {
             const check = this.checkRegister();
-            const loc = this.geoloc();
+            // this.geoloc();
+            console.log(this.user);
+            // const loc = this.geoloc();
 
             // if (!check.errors) {
-            if (check && loc) {
+            if (check) {
             // console.log(check.data);
                 this.$store
                 // .dispatch("user/register", check.data)
@@ -194,3 +195,12 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    #titreReg {
+        text-align: center;
+        font-family: 'Shrikhand', cursive;
+        font-size: 25px;
+        margin: auto
+    }
+</style>

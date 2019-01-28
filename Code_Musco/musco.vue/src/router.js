@@ -53,6 +53,12 @@ export default new Router({
     },
 
     {
+      path: '/profil',
+      name: 'profil',
+      component: () => import('./components/Profil.vue')
+    },
+
+    {
       path: "/dashboard",
       name: "dashboard",
       beforeEnter: (to, from, next) => {

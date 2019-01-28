@@ -83,8 +83,8 @@ export default {
     mounted() {
         this.$ebus.$on("emitAnnonce", annonce => {
             this.annonce = annonce;
-            console.log(this.annonce);
-            console.log(this.infos);
+            // console.log(this.annonce);
+            // console.log(this.infos);
         });
 
     },

@@ -6,10 +6,7 @@
                 <v-layout row>
                     <v-flex xs2>
                         <figure>
-                            <img :src="getAvatar(message.avatar)" :alt="message.pseudo" class="avatar" :to="{
-                                path: '/profil',
-                                name: 'profil'
-                            }">
+                            <img :src="getAvatar(message.avatar)" :alt="message.pseudo" class="avatar" @click="toProfil($event, message.id_emetteur)">
                         </figure>
                         <h3 class="pseudo">{{ message.pseudo }}</h3>
                     </v-flex>
@@ -85,6 +82,15 @@ export default {
             this.$ebus.$emit("emetId", idEm);
             this.$ebus.$emit("sendMess")
             console.log(idEm);
+        },
+
+        toProfil(evt, owner) {
+            if (evt.target !== this.event) {
+                this.dialog = false;
+                this.$router.push({ path: `/profil`});
+                this.$ebus.$emit("owner", owner);
+                console.log(owner);
+            }
         }
     },    
     created() {

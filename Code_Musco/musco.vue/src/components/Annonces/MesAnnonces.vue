@@ -108,11 +108,8 @@ export default {
         this.getAnnonce();
         // this.editableAnnonce();
     },
-    computed: {
-        refresh: function() {
-            this.$ebus.$on("editValidate");
-            this.editValidate();
-        }
+    updated() {
+        this.$ebus.$on("editValidate", this.editValidate);
     },
 
 // ****************************************************    
@@ -148,7 +145,8 @@ export default {
             height: auto;
             margin: auto;
             border: solid 5px #8833f8;
-            border-radius: 10px
+            border-radius: 10px;
+            margin-top: 30px;
         }
 
         #ajout {

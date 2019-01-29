@@ -9,6 +9,7 @@ const annonceAPi = function annonceAPi(connection) {
         else console.log("ça poste");
         return res.status(200).send(dataset);  
       }, req.body); // post datas ici ...
+      console.log(req.body);
     });
   
   

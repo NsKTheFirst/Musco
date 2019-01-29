@@ -4,7 +4,7 @@
         <div class="carte" v-for="(suivi, s) in suivis" :key="s">
             <div class="avat">
                 <figure>
-                    <img :src="getAvatar(suivi.avatar)" :alt="suivi.pseudo" class="avatar" @click="toProfil($event, suivi.id_user_followed)">
+                    <img :src="getAvatar(suivi.avatar)" :alt="suivi.pseudo" class="avatar" @click="toProfil(suivi.id_user_followed)">
                 </figure>
             </div>
             <div class="avatbtns">
@@ -64,13 +64,12 @@ export default {
             this.$ebus.$emit("sendMess")
             console.log(idEm);
         },
-        toProfil(evt, owner) {
-            if (evt.target !== this.event) {
+        toProfil(owner) {
                 this.dialog = false;
-                this.$router.push({ path: `/profil`});
-                this.$ebus.$emit("owner", owner);
-                console.log(owner);
-            }
+                // console.log(this.$route);
+                this.$router.push({ path: `/profil/${owner}`});
+                // this.$ebus.$emit("owner", owner);
+                // console.log(owner);
         }
     },
     created() {

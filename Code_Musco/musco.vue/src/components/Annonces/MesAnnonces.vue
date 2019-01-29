@@ -58,8 +58,12 @@ export default {
             });
         },
 
-        editValidate() {
-            // this.$ebus.$on("editValidate");
+        // editValidate() {
+        //     // this.$ebus.$on("editValidate");
+        //     this.getAnnonce();
+        // },
+
+        annonceSent() {
             this.getAnnonce();
         },
 
@@ -109,7 +113,9 @@ export default {
         // this.editableAnnonce();
     },
     updated() {
-        this.$ebus.$on("editValidate", this.editValidate);
+        this.$ebus.$on("editValidate", this.getAnnonce);
+        // this.$ebus.$emit("annonceSent", this.annonceSent);
+        // this.getAnnonce();
     },
 
 // ****************************************************    
@@ -188,5 +194,11 @@ export default {
                 cursor:pointer
             }
         }
+
+    // @media screen and (min-width:768px) and (max-width:959px) {
+
+    // }
+
+    // @media screen and (max-width:767px) {
     // }
 </style>

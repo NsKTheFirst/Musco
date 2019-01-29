@@ -53,7 +53,7 @@ export default new Router({
     },
 
     {
-      path: '/profil',
+      path: '/profil/:id',
       name: 'profil',
       component: () => import('./components/Profil.vue')
     },

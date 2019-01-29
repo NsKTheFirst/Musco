@@ -85,6 +85,8 @@
 
 <script>
 import auth from "@/utils/auth.js"
+import FormLogin from '@/components/Forms/FormLogin.vue'
+import FormRegister from '@/components/Forms/FormRegister.vue'
 export default {
     data() {
         return {
@@ -130,35 +132,13 @@ export default {
     created() {
         this.$ebus.$on("logged", this.isLogged);
         this.isLogged();
-        // this.infos = JSON.parse(window.localStorage.getItem('user'));
-        // console.log(localStorage.length);
-        // console.log(this.infos);
     },
-
-    
-    // watch: {
-    //     checkLogged: function() {
-    //         if(localStorage.length > 0) {
-    //             this.logged = true
-    //         }
-    //     }
-    // }
-
-    // computed: {
-    //     checkLogged: function() {
-    //         if (window.localStorage.length <= 0) {
-    //         return this.logged = false
-    //         } else {
-    //             return this.logged =true
-    //         }
-    //     }
-    // }
 
 } 
 </script>
 
 <style scoped lang="scss">
-    @media screen and (min-width:960px) {
+    @media screen and (min-width:959px) {
         nav {
             font-family: 'Shrikhand', cursive;
             z-index: 5;
@@ -168,7 +148,7 @@ export default {
             }
 
             .co {
-             color: #01dc0e
+                color: #01dc0e
             }
 
             #title {
@@ -192,7 +172,7 @@ export default {
                 display: none
             }
         }
-    } 
+    }
 
     @media screen and (min-width:768px) and (max-width:959px) {
         nav {
@@ -204,11 +184,11 @@ export default {
             }
 
             .co {
-             color: #01dc0e
+                color: #01dc0e
             }
-
+        
             #title {
-                font-size: 30px
+                font-size: 30px;
             }
 
             #purple, #purple2 {
@@ -216,7 +196,6 @@ export default {
                 height: 8px;
                 background: #8833f8;
                 display: block;
-                // flex-direction: column;
             }
 
             #green {
@@ -225,7 +204,6 @@ export default {
                 background: #01dc0e;
                 display: block;
                 margin: 6px 0px
-                // flex-direction: column;
             }
 
             #burger {
@@ -234,8 +212,6 @@ export default {
                 margin: auto;
                 display: flex;
                 flex-direction: column;
-                // align-content: space-around;
-                // flex-wrap: wrap;
                 &:hover {
                     color: #01dc0e
                 }
@@ -253,19 +229,18 @@ export default {
             }
 
             .co {
-             color: #01dc0e
+                color: #01dc0e
             }
-
+        
             #title {
                 font-size: 30px
             }
-
+        
             #purple, #purple2 {
                 width: 35px;
                 height: 6px;
                 background: #8833f8;
                 display: block;
-                // flex-direction: column;
             }
 
             #green {
@@ -274,7 +249,6 @@ export default {
                 background: #01dc0e;
                 display: block;
                 margin: 4px 0px
-                // flex-direction: column;
             }
 
             #burger {
@@ -283,8 +257,6 @@ export default {
                 margin: auto;
                 display: flex;
                 flex-direction: column;
-                // align-content: space-around;
-                // flex-wrap: wrap;
                 &:hover {
                     color: #01dc0e
                 }

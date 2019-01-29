@@ -12,7 +12,7 @@
                                 <v-select :items="skills" label="Skill*" solo menu-props="offset-y" class="field" v-model="ans.id_skills_needed" @change="checkSkill"></v-select>
                             </v-flex>
                             <v-flex xs12>
-                                <v-text-field label="Annonce*" type="text" v-model="annonce.annonce"></v-text-field>
+                                <v-textarea outline placeholder="Annonce*" type="text" v-model="annonce.annonce"></v-textarea>
                             </v-flex>
                             <v-flex xs12>
                                 <v-text-field label="Date*" type="date" v-model="annonce.date"></v-text-field>
@@ -40,12 +40,36 @@ export default {
             fullSkills: [],
             skills: [],
             annonce: {},
+            localisation: {
+                annLat: null,
+                annLon: null
+            },
             ans: {},
+            options: {
+                enableHighAccuracy: true
+            }
             // newAnnonce: []
         }
     },
 
     methods: {
+        geoloc() {
+            const self = this
+            var geoSuccess = function(position) { // Ceci s'exécutera si l'utilisateur accepte la géolocalisation
+                var startPos = position;
+                self.localisation.annLat = startPos.coords.latitude;
+                self.localisation.annLon = startPos.coords.longitude;
+                // console.log("lat: "+self.user.localisation.userlat+" - lon: "+self.user.localisation.userlon);
+                console.log(self.localisation);
+            };
+            var geoFail = function() { // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
+                console.log("refus");
+            };
+            navigator.geolocation.getCurrentPosition(geoSuccess, geoFail, self.options);
+            console.log(self.annonce);
+            return self.localisation
+        },
+
         getSkills() {
             const url = "http://localhost:5000/api/v1/skills";
             axios.get(url).then(res => {
@@ -78,12 +102,15 @@ export default {
             } else {
                 if (confirm("Voulez- vous poster cette annonce?")) {
                     this.dialog = false;
+                    this.annonce.localisation = JSON.stringify(this.localisation);
+                    console.log(this.localisation);
                     this.sendAnnonce();
                 }
             };
         },
         postAnnonce() {
             this.dialog = true;
+            this.geoloc();
         },
         sendAnnonce() {
             console.log(this.annonce);
@@ -99,6 +126,7 @@ export default {
             }).catch(err => {
                 console.log(err);
             });
+            this.$ebus.$emit("annonceSend");
         },
         sendAns() {
             const url = "http://localhost:5000/api/v1/annonce_needs_skills";

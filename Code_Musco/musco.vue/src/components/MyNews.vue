@@ -2,7 +2,7 @@
     <main>
         <h2>Les dernières annonces</h2>
         <section id="news">
-            <div class="annonces" v-for="(annonce, a) in annonces" :key="a" @click="detailAnnonce(annonce)">
+            <div class="annonces" v-for="(annonce, a) in annonces" :key="a" @click="detailAnnonce($event, annonce)">
                 <div class="profil">
                         <figure>
                             <img :src="getAvatar(annonce.avatar)" :alt="annonce.pseudo" @click="toProfil($event, annonce.annonce_owner)">
@@ -33,7 +33,8 @@ export default {
     },
     data () {
         return {
-            annonces: []
+            annonces: [],
+            event: null
         };
     },
     methods: {
@@ -50,16 +51,15 @@ export default {
                 console.log(err);
             });
         },
-        detailAnnonce(annonce) {
+        detailAnnonce(evt, annonce) {
             this.$ebus.$emit("detailAnnonce");
             this.$ebus.$emit("emitAnnonce", annonce);
+            this.event = evt;  //Met l'event de click sur l'annonce dans data pour pouvoir faire une comparaison avec l'event de click sur l'avatar
         },
         toProfil(evt, owner) {
             if (evt.target !== this.event) {
                 this.dialog = false;
-                this.$router.push({ path: `/profil`});
-                this.$ebus.$emit("owner", owner);
-                console.log(owner);
+                this.$router.push({ path: `/profil/${owner}`});
             }
         }
     },

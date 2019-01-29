@@ -3,7 +3,7 @@
         <v-layout wrap>
             <v-flex>
             <h1 class="titre">Mon profil</h1>
-            {{ infos }}
+            <!-- {{ infos }} -->
             <figure>
                 <img :src="getAvatar(infos.avatar)" :alt="infos.pseudo">
             </figure>
@@ -80,10 +80,15 @@ export default {
         margin-bottom: 30px
     }
     figure {
-        display: flex;
-        justify-content: center;
+        // display: block;
+        // margin: auto;
+        
+        // display: flex;
+        // justify-content: center;
     
         img {
+            display: block;
+            margin: auto;
             border-radius: 50%;
             border: solid 5px #8833f8;
             margin: auto;
@@ -131,12 +136,64 @@ export default {
         justify-content: center;
 
         .presText {
-            margin: auto;
+            // margin: auto;
             width: 100%;
             flex-wrap: wrap
             
         }
     }
 
+    // @media screen and (min-width:768px) and (max-width:959px) {
 
+    // }
+
+    @media screen and (max-width:767px) {
+        .titre {
+        text-align: center;
+        font-family: 'Shrikhand', cursive;
+        font-size: 30px;
+        margin-bottom: 30px
+        }
+
+        figure {
+        // display: flex;
+        // justify-content: center;
+    
+            img {
+                display: block;
+                margin: auto;
+                border-radius: 50%;
+                border: solid 5px #8833f8;
+                margin: auto;
+                width: 125px;
+                height: 125px  
+            }
+        }
+
+        .titre2 {
+            text-align: center;
+            font-family: 'Shrikhand', cursive;
+            font-size: 25px;
+            margin-bottom: 10px
+        }
+
+        .pres {
+        // margin: auto;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            width: 100%;
+            height: auto;
+            display: flex;
+            // flex-wrap: wrap;
+            justify-content: center;
+
+            .presText {
+                // margin: auto;
+                width: 100%;
+                flex-wrap: wrap
+            
+        }
+    }
+    }
 </style>

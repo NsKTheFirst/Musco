@@ -14,8 +14,6 @@
 </template>
 
 <script>
-// import MyNav from '@/components/MyNav.vue'
-// import MyFooter from '@/components/MyFooter.vue'
 import Navbar from '@/components/Navbar'
 import MyFooter2 from '@/components/MyFooter2'
 import FormLogin from '@/components/Forms/FormLogin.vue'

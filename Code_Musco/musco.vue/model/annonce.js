@@ -1,12 +1,13 @@
 const annonceModel = function annonceModel (connection) {
     // Requête de création
     const create = function createAnnonce (clbk, data) {
-        const sql = "INSERT INTO annonces (annonce, id_annonce_owner, date) VALUES (?, ?, ?)";
-        const payload = [data.annonce, data.id_annonce_owner, data.date];
-        connection.query(sql, payload, (err, res) => {
+        const sql = "INSERT INTO annonces (annonce, id_annonce_owner, date, localisation) VALUES (?, ?, ?, ?)";
+        const payload = [data.annonce, data.id_annonce_owner, data.date, data.localisation];
+        const query = connection.query(sql, payload, (err, res) => {
             if (err) return clbk(err, null);
             return clbk(null, res);
         });
+        console.log(query.sql);
     };
 
     // Requête de suppression
@@ -32,8 +33,8 @@ const annonceModel = function annonceModel (connection) {
     // Requêtes de récupération
     const getOne = function getOneAnnonce(clbk, id_annonce) {
         const sql = `
-            SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , u.avatar AS 'avatar', 
-            u.pseudo, u.localisation, s.categorie, s.skill FROM annonces AS a 
+            SELECT a.id_annonce, a.annonce, a.id_annonce_owner, a.localisation AS 'annonce_owner', a.date , u.avatar AS 'avatar', 
+            u.pseudo, s.categorie, s.skill FROM annonces AS a 
             LEFT JOIN users AS u ON a.id_annonce_owner = u.id_user 
             LEFT JOIN annonce_needs_skills AS ans ON a.id_annonce = ans.id_annonce_skill 
             LEFT JOIN skills AS s ON ans.id_skills_needed = s.id_skill WHERE a.id_annonce = ?`;
@@ -51,7 +52,7 @@ const annonceModel = function annonceModel (connection) {
     };
 
     const getAll = function getAllAnnonce(clbk) {
-        const sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , u.avatar AS 'avatar', u.pseudo,u.localisation, s.categorie, s.skill FROM annonces AS a LEFT JOIN users AS u ON a.id_annonce_owner = u.id_user LEFT JOIN annonce_needs_skills AS ans ON a.id_annonce = ans.id_annonce_skill LEFT JOIN skills AS s ON ans.id_skills_needed = s.id_skill ORDER BY a.id_annonce DESC";
+        const sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date, a.localisation, u.avatar AS 'avatar', u.pseudo, s.categorie, s.skill FROM annonces AS a LEFT JOIN users AS u ON a.id_annonce_owner = u.id_user LEFT JOIN annonce_needs_skills AS ans ON a.id_annonce = ans.id_annonce_skill LEFT JOIN skills AS s ON ans.id_skills_needed = s.id_skill ORDER BY a.id_annonce DESC";
         connection.query(sql, (error, results) => {
             if (error) return clbk(error, null);
             return clbk(null, results);
@@ -66,23 +67,10 @@ const annonceModel = function annonceModel (connection) {
         });
     };
 
-    //     let sql;
-    //     if (id_annonce && !isNaN(id_annonce)) {
-    //       sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , u.avatar AS 'avatar', u.pseudo, u.localisation, s.categorie, s.skill FROM annonces AS a INNER JOIN users AS u ON a.id_annonce_owner = u.id_user INNER JOIN annonce_needs_skills AS ans ON a.id_annonce = ans.id_annonce_skill INNER JOIN skills AS s ON ans.id_annonce_skill = s.id_skill WHERE a.id_annonce IN (?)";
-    //     } else {
-    //       sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , u.avatar AS 'avatar', u.pseudo,u.localisation, s.categorie, s.skill FROM annonces AS a INNER JOIN users AS u ON a.id_annonce_owner = u.id_user INNER JOIN annonce_needs_skills AS ans ON a.id_annonce = ans.id_annonce_skill INNER JOIN skills AS s ON ans.id_skills_needed = s.id_skill ORDER BY a.id_annonce DESC";
-    //     }
-    //     connection.query(sql, [id_annonce], (error, results) => {
-    //       // console.log(this.sql); // affiche la dernière requête SQL, pratique pour deboguer
-    //       if (error) return clbk(error, null);
-    //       return clbk(null, results);
-    //     });
-    //   };
-
     const getLast = function getLastAnnonce(clbk) {
         console.log("yoyoyoyoy");
         const sql = `
-            SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , u.avatar AS 'avatar', u.pseudo,u.localisation, s.categorie, s.skill FROM annonces AS a 
+            SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , u.avatar AS 'avatar', u.pseudo, s.categorie, s.skill FROM annonces AS a 
             INNER JOIN users AS u ON a.id_annonce_owner = u.id_user 
             INNER JOIN annonce_needs_skills AS ans ON a.id_annonce = ans.id_annonce_skill 
             INNER JOIN skills AS s ON ans.id_skills_needed = s.id_skill 
@@ -95,7 +83,7 @@ const annonceModel = function annonceModel (connection) {
     };
 
     const getByCat = function getByCat(clbk, categorie) {
-        const sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , u.avatar AS 'avatar', u.pseudo,u.localisation, s.categorie, s.skill FROM skills AS s LEFT JOIN annonce_needs_skills AS ans ON s.id_skill = ans.id_skills_needed LEFT JOIN annonces AS a ON a.id_annonce = ans.id_annonce_skill LEFT JOIN users AS u ON a.id_annonce_owner = u.id_user WHERE s.categorie = ? ORDER BY a.id_annonce DESC";
+        const sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date, a.localisation, u.avatar AS 'avatar', u.pseudo, s.categorie, s.skill FROM skills AS s LEFT JOIN annonce_needs_skills AS ans ON s.id_skill = ans.id_skills_needed LEFT JOIN annonces AS a ON a.id_annonce = ans.id_annonce_skill LEFT JOIN users AS u ON a.id_annonce_owner = u.id_user WHERE s.categorie = ? ORDER BY a.id_annonce DESC";
         connection.query(sql, categorie, (error, results) => {
             if (error) return clbk(error, null);
             return clbk(null, results);
@@ -103,7 +91,7 @@ const annonceModel = function annonceModel (connection) {
     };
 
     const getBySkill = function getByCat(clbk, skill) {
-        const sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date , u.avatar AS 'avatar', u.pseudo,u.localisation, s.categorie, s.skill FROM skills AS s LEFT JOIN annonce_needs_skills AS ans ON s.id_skill = ans.id_skills_needed LEFT JOIN annonces AS a ON a.id_annonce = ans.id_annonce_skill LEFT JOIN users AS u ON a.id_annonce_owner = u.id_user WHERE s.skill = ? ORDER BY a.id_annonce DESC";
+        const sql = "SELECT a.id_annonce, a.annonce, a.id_annonce_owner AS 'annonce_owner', a.date, a.localisation, u.avatar AS 'avatar', u.pseudo, s.categorie, s.skill FROM skills AS s LEFT JOIN annonce_needs_skills AS ans ON s.id_skill = ans.id_skills_needed LEFT JOIN annonces AS a ON a.id_annonce = ans.id_annonce_skill LEFT JOIN users AS u ON a.id_annonce_owner = u.id_user WHERE s.skill = ? ORDER BY a.id_annonce DESC";
         connection.query(sql, skill, (error, results) => {
             if (error) return clbk(error, null);
             return clbk(null, results);

@@ -61,7 +61,8 @@ export default {
                 const url = "http://localhost:5000/api/v1/annonces";
                 axios.get(url).then(res => {
                     this.annonces = res.data;
-                    this.annoncesMemory = this.annonces
+                    this.annoncesMemory = this.annonces;
+                    this.$ebus.$emit("annonces", this.annonces);
                     // console.log(this.annonces);
                     return resolve(); 
                 }).catch(err => {
@@ -73,14 +74,12 @@ export default {
         detailAnnonce(evt, annonce) {
             this.$ebus.$emit("detailAnnonce");
             this.$ebus.$emit("emitAnnonce", annonce);
-            this.event = evt;
+            this.event = evt;  //Met l'event de click sur l'annonce dans data pour pouvoir faire une comparaison avec l'event de click sur l'avatar
         },
         toProfil(evt, owner) {
             if (evt.target !== this.event) {
                 this.dialog = false;
-                this.$router.push({ path: `/profil`});
-                this.$ebus.$emit("owner", owner);
-                console.log(owner);
+                this.$router.push({ path: `/profil/${owner}`});
             }
         }
         
@@ -93,8 +92,6 @@ export default {
                 // console.log("annonces okay", this.annonces)
                 this.categorie = cat;
                 // console.log(this.categorie);
-                // const memory = this.annonces.slice();
-                // console.log(memory)
                 this.annonces = this.annoncesMemory.filter(annonce => {
                     // console.log(this.annoncesMemory);
                     return annonce.categorie === this.categorie.toLowerCase()
@@ -104,11 +101,9 @@ export default {
                 this.skill = skill;
                 // console.log(this.skill);
                 this.annonces = this.annoncesMemory.filter(annonce => {
-                    // console.log(annonce.skill, this.skill);
                     if (!annonce.skill) return false;
                     return annonce.skill.toLowerCase() === this.skill.toLowerCase()
                 })
-                // console.log("herrrre", s);
             });
         }).catch(err => {
             console.error(err);

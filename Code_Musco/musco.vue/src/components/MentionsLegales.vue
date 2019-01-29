@@ -1,6 +1,6 @@
 <template>
     <section>
-        <p style="text-align:center" id="title">MENTIONS LEGALES :</p>
+        <h1 style="text-align:center">MENTIONS LEGALES</h1>
 
         <p style="text-align:justify">Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'économie numérique, dite L.C.E.N., nous portons à la connaissance des utilisateurs et visiteurs du site : <a href="http://www.musco.nicolasjouenne.com" target="_blank">www.musco.nicolasjouenne.com</a> les informations suivantes :</p>
 
@@ -74,10 +74,11 @@ export default {
         font-family: 'Montserrat', sans-serif;
         padding: 30px;
 
-        #title {
+        h1 {
             font-family: 'Shrikhand', cursive;
             font-size: 35px;
-            margin-bottom: 40px
+            margin-bottom: 40px;
+            margin-top: 50px
         }
     }
 </style>

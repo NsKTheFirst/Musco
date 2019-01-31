@@ -5,14 +5,14 @@
             <h1 class="titre">Mon profil</h1>
             <!-- {{ infos }} -->
             <figure>
-                <img :src="getAvatar(infos.avatar)" :alt="infos.pseudo">
+                <img :src="getAvatar(user.avatar)" :alt="user.pseudo">
             </figure>
-            <h2 class="titre2">{{ infos.pseudo }}</h2>
+            <h2 class="titre2">{{ user.pseudo }}</h2>
             <div id="boutons">
-                <i v-if="!infos.avatar" class="fas fa-plus-square fa-3x" @click="addImg(infos.id_user)"></i>
-                <i v-if="infos.avatar" class="fas fa-pen-square fa-3x" @click="addImg(infos.id_user)"></i>
+                <i v-if="!user.avatar" class="fas fa-plus-square fa-3x" @click="addImg(user.id_user)"></i>
+                <i v-if="user.avatar" class="fas fa-pen-square fa-3x" @click="addImg(user.id_user)"></i>
             </div>
-            <Upload/>
+            <Upload :mimes="['image/jpg']" :multiple="true"/>
             <v-layout wrap>
                 <v-flex xs12 sm6 offset-sm3>
                     <!-- <v-card flat>
@@ -21,12 +21,12 @@
                                 <h2 class="titre2">Présentation</h2>
                             </div>
                         <!-- </v-card-title>    -->
-                        <div class="pres" v-if="infos.presentation">
-                            <div class="preText">{{ infos.presentation }}</div>
+                        <div class="pres" v-if="user.presentation">
+                            <div class="preText">{{ user.presentation }}</div>
                         </div>
                         <div id="boutons">
-                            <i v-if="!infos.presentation" class="fas fa-plus-square fa-3x"></i>
-                            <i v-if="infos.presentation" class="fas fa-pen-square fa-3x"></i>
+                            <i v-if="!user.presentation" class="fas fa-plus-square fa-3x"></i>
+                            <i v-if="user.presentation" class="fas fa-pen-square fa-3x"></i>
                         </div>
                         <!-- <v-card-actions>
                             <v-btn flat v-if="!infos.presentation"><i class="fas fa-plus-square fa-3x"></i></v-btn>
@@ -46,6 +46,7 @@
 
 <script>
 import Upload from '@/components/Upload'
+// import axios from 'axios'
 export default {
     // computed: {
     //     infos() {
@@ -55,11 +56,27 @@ export default {
     components: {
         Upload
     },
+    data() {
+        return {
+            userId: null,
+            user: {}
+        }
+    },
     methods: {
         getAvatar(url) {
             console.log(url);
             return url ? require(`@/assets/Avatars/${url}`) : require("@/assets/Avatars/avatar_par_defaut.jpg");
         },
+        // getUser() {
+        //     const url = "http://localhost:5000/api/v1/user/simple/";
+        //     axios.get(url + this.userId).then(res => {
+        //         this.user = res.data;
+        //         console.log(this.user);
+        //         console.log(this.user.id_user);
+        //     }).catch(err => {
+        //         console.log(err);
+        //     })
+        // },
 
         addImg() {
             this.$ebus.$emit("addImg");
@@ -67,7 +84,18 @@ export default {
         }
     },
     created() {
-        this.infos = JSON.parse(window.localStorage.getItem('user'))
+        this.infos = JSON.parse(window.localStorage.getItem('user'));
+        this.userId = this.infos.id_user;
+        this.user.id_user = this.infos.id_user;
+        this.user.pseudo = this.infos.pseudo;
+        this.user.avatar = this.infos.avatar;
+        this.user.presentation = this.infos.presentation;
+        this.user.facebook = this.infos.facebook;
+        this.user.soundcloud = this.infos.soundcloud;
+        this.user.youtube = this.infos.youtube;
+        console.log(this.user);
+        // this.getUser();
+        
     }
 }
 </script>

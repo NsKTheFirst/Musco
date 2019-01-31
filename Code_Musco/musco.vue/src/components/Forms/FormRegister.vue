@@ -66,7 +66,6 @@ export default {
                 soundcloud: "soundcloudNico",
                 youtube: "youtubeNico",
                 facebook: "facebookNico",
-                // localisation: {}
             },
             options: {
                 enableHighAccuracy: true,
@@ -77,23 +76,6 @@ export default {
         this.$ebus.$on("openFormReg", this.openFormReg);
     },
     methods: {
-        geoloc() {
-            const self = this
-            var geoSuccess = function(position) { // Ceci s'exécutera si l'utilisateur accepte la géolocalisation
-                var startPos = position;
-                self.user.localisation.userlat = startPos.coords.latitude;
-                self.user.localisation.userlon = startPos.coords.longitude;
-                // console.log("lat: "+self.user.localisation.userlat+" - lon: "+self.user.localisation.userlon);
-                console.log(self.user.localisation);
-            };
-            var geoFail = function() { // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
-                console.log("refus");
-            };
-            navigator.geolocation.getCurrentPosition(geoSuccess, geoFail, self.options);
-            console.log(self.user.localisation);
-            return self.user.localisation
-        },
-        
         openFormReg() {
             this.dialog = true;
         },
@@ -167,22 +149,17 @@ export default {
         },
         register() {
             const check = this.checkRegister();
-            // this.geoloc();
             console.log(this.user);
-            // const loc = this.geoloc();
-
-            // if (!check.errors) {
-            if (check) {
-            // console.log(check.data);
+            if (check && confirm("Valider ces informations?")) {
                 this.$store
-                // .dispatch("user/register", check.data)
                 .dispatch("user/register", this.user)
                 .then(res => {
                     console.log("res@ajax-register", res);
                     this.logLevel = "success";
                     this.logs = ["all good"];
-                    this.$router.push({ path: `/dashboard/me` });
+                    this.$router.push({ path: `/` });
                     this.dialog = false;
+                    alert("Compte créé, merci de vous connecter.")
                 })
                 .catch(err => {
                  console.error("error@ajax-register", err);

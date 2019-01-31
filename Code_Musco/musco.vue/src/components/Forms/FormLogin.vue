@@ -43,8 +43,8 @@ export default {
                 "8 caractère minimum dont au moins 1 majuscule, 1 nombre et 1 caractère spécial"
         },
       user: {
-        mail: "nico@owlab.io",
-        mdp: "12345678"
+        mail: "nico@owlab.io",    //nico@owlab.io
+        mdp: "12345678"       //12345678
       }
         }
     },

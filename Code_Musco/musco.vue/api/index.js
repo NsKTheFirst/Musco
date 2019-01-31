@@ -7,7 +7,7 @@ const api = (function api() {
       database: "musco" // base de donnée cible
     });
   
-    const routers = []; // on expotera ce tableau une fois rempli de routeurs...
+    const routers = []; // on exportera ce tableau une fois rempli de routeurs...
     // IMPORT DES ROUTES DE l'API USER
     const userRouter = require("./user")(database.connection); // module api user
     const annonceRouter = require("./annonce")(database.connection);

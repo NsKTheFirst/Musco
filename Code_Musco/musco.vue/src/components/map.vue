@@ -27,7 +27,7 @@ export default {
         this.$ebus.$on("runGeoloc", this.geoloc);
         this.$ebus.$on("annonces", annonces => {
             this.annonces = annonces;
-            console.log(this.annonces[0]);
+            console.log(this.annonces);
         });
     },
 
@@ -49,16 +49,25 @@ export default {
                 maxZoom: 20
             }).addTo(macarte);
             // Nous parcourons la liste des annonces
-            for (var annonce in annonces) {
-                console.log(annonce);
-                // var marker = L.marker([annonces[annonce].localisation.annLat, annonces[annonce].localisation.annLon]).addTo(macarte);
-                // marker.bindPopup("Annonce n°" + annonce.id_annonce);
+            for (var annonce of annonces) {
+                var loc = JSON.parse(annonce.localisation);
+                console.log(loc);
+                var myIcon = L.icon({
+			        iconUrl: require('../assets/MapIcons/marker_musco.png'),
+			        iconSize: [43, 43],
+			        iconAnchor: [25, 50],
+			        popupAnchor: [-3, -76],
+		});
+                if (loc) {
+                    var marker = L.marker([loc.annLat, loc.annLon], { icon: myIcon }).addTo(macarte);
+                    marker.bindPopup("Annonce n°" + annonce.id_annonce).openPopup();
+                }
                 // markerClusters.addLayer(marker);
             }
                     
             // Nous ajoutons un marqueur
-            var marker = L.marker([this.userlat, this.userlon]).addTo(macarte);
-            marker.bindPopup("Vous êtes ici").openPopup();
+            var marker2 = L.marker([this.userlat, this.userlon]).addTo(macarte);
+            marker2.bindPopup("Vous êtes ici").openPopup();
             // macarte.addLayer(markerClusters);
         },
         

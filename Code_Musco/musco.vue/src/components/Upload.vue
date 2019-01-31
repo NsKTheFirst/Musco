@@ -1,5 +1,5 @@
 <template>
-    <!-- <form ref="uploader" enctype="multipart/form-data" @submit="$event.preventDefault()"> -->
+    <form ref="uploader" enctype="multipart/form-data" @submit="$event.preventDefault()">
         <!-- CI DESSUS, ATTRIBUT REF => SIMILAIRE POUR SELECTIONNER
           document.querySelector("#uploader") ||
           this.$el.querySelector("uploader") || 
@@ -8,14 +8,15 @@
         <input type="file" id="file_picker" ref="filePicker" :multiple="multiple === true || null" @change="getLocalFiles($event.target.files)">
         <!-- <span @click="doClick()" id="icon">Parcourir</span> -->
         <!-- <button id="btn" :disabled="!files.length" class="btn">upload</button> -->
-    <!-- </form> -->
+    </form>
 </template> 
 <script>
 import axios from "axios";
 export default {
     data() {
         return {
-            userId: null
+            userId: null,
+            file: []
         }
     },
     props: [
@@ -43,7 +44,6 @@ export default {
     checkFilesExtensions([...files]) {
       var errors = 0;
       const log = [];
-
       files.forEach(file => {
         if (!this.mimes.includes(file.type)) {
           errors += 1;
@@ -60,14 +60,22 @@ export default {
     getLocalFiles(files) {
       // console.log("files", files);
       const check = this.checkFilesExtensions(files);
-      if (!check.errors) {
-        this.$parent.$emit('upload', files)
+      if (check.errors) {
+        this.files = files;
+        const fd = new FormData();
+        Array.from(files).forEach(f => {
+        fd.append("uploader", f, f.name);
+      });
+      axios.post("http://localhost:5000/upload/", fd).then(result => {
+        console.log(result);
+      }).catch(err => {
+        console.error(err);
+      });  
       } else {
         console.error("file-type not allowed >", check.log);
       }
     }
-  },
-  
+  } 
 };
 </script>
 
@@ -78,12 +86,12 @@ export default {
 #file_picker {
   display: none;
 }
-#icon {
+/* #icon {
   font-size: 2rem;
   font-weight: 600;
   cursor: pointer;
 }
 #icon:hover {
   color: #b2224b;
-}
+} */
 </style>

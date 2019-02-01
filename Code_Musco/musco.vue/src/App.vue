@@ -30,12 +30,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    appearance: scrollbarbutton-up ;
+    appearance: scrollbarbutton-up;
   }
 
   .leaflet-container {

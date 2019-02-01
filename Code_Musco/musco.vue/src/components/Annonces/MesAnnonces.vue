@@ -1,6 +1,8 @@
 <template>
     <main>
-        <h1>Mes annonces</h1>
+        <div id="titre">
+            <h1>Mes annonces</h1>
+        </div>
         <div id="ajout">
             <span id="btnAjout">
                 <i class="fas fa-plus-circle fa-4x" @click="ajoutAnnonce(infos.id_user)" id="plus"></i>
@@ -8,21 +10,23 @@
             <span id="ajann">Ajouter une annonce</span>
         </div>
         <div class="annonce" v-for="(annonce, a) in annonces" :key="a">
-            <!-- <div class="annCont"> -->
+            <div class="titreAnn">
                 <h3 class="numAnnonce">Annonce n° {{ annonce.id_annonce }}</h3>
-                <div class="infos">
-                    <h4>Catégorie: {{ annonce.categorie }}</h4>
-                    <h4>Skill: {{ annonce.skill }}</h4>
-                    <h4>Date : {{ annonce.date }}</h4>
-                </div>
-                <article>
+            </div>
+            <div class="infos">
+                <h4>Catégorie: {{ annonce.categorie }}</h4>
+                <h4>Skill: {{ annonce.skill }}</h4>
+                <h4>Date : {{ annonce.date }}</h4>
+            </div>
+            <article>
+                <div class="texte">
                     <p>{{ annonce.annonce }}</p>
-                </article>
-                <div class="boutons">
-                    <i class="fas fa-trash-alt fa-2x trash" @click='delAnnonce(annonce.id_annonce)'></i>
-                    <i class="fas fa-edit fa-2x pen" @click='editAnnonce(annonce.id_annonce, annonce)'></i>
                 </div>
-            <!-- </div> -->
+            </article>
+            <div class="boutons">
+                <i class="fas fa-edit fa-2x pen" @click='editAnnonce(annonce.id_annonce, annonce)'></i>
+                <i class="fas fa-trash-alt fa-2x trash" @click='delAnnonce(annonce.id_annonce)'></i>
+            </div>
         </div>
         <EditAnnonce/>
         <AjoutAnnonce/>
@@ -138,21 +142,14 @@ export default {
     //     display: flex;
     //     // flex-direction: column;
     //     justify-content: center;
-
-        h1 {
-            text-align: center;
-            font-family: 'Shrikhand', cursive;
-            font-size: 50px;
-            margin-bottom: 30px
-        }
-
-        .annonce {
-            width: 80%;
-            height: auto;
-            margin: auto;
-            border: solid 5px #8833f8;
-            border-radius: 10px;
-            margin-top: 30px;
+    @media screen and (min-width:959px) {
+        #titre {
+            h1 {
+                text-align: center;
+                font-family: 'Shrikhand', cursive;
+                font-size: 50px;
+                margin-bottom: 30px
+            }
         }
 
         #ajout {
@@ -173,32 +170,311 @@ export default {
             }
 
             #ajann {
-                    display: block;
-                    font-family: 'Montserrat', sans-serif;
-                    font-weight: bold;
-                    font-size: 18px;
-                    line-height: 50px
+                display: block;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 50px
             }
         }
 
-        .pen {
-            color: #01dc0e;
-            &:hover {
-                cursor: pointer
+        .annonce {
+            width: 80%;
+            height: auto;
+            margin: auto;
+            padding: 10px;
+            border: solid 5px #8833f8;
+            border-radius: 10px;
+            box-shadow: 8px 8px 10px darkgrey;
+            margin-top: 30px;
+            font-family: 'Montserrat', sans-serif;
+
+            .titreAnn {
+                width: 100%;
+                height: auto;
+
+                .numAnnonce {
+                    text-align: center;
+                    font-family: 'Shrikhand', cursive;
+                    font-size: 20px;
+                    margin-bottom: 10px
+                }
+            }
+
+            .infos {
+                width: 100%;
+                height: auto;
+                display: flex;
+                justify-content: space-around;
+                // margin-bottom: 10px;
+
+                h4 {
+                    font-size: 16px
+                }
+            }
+
+            article {
+                width: 100%;
+                height: auto;
+                margin: 10px;
+
+                .texte{
+                        width: 100%;
+                        height: auto;
+                        p {
+                            font-size: 16px;
+                            flex-wrap: wrap
+                        }
+                    }
+            }
+
+            .boutons {
+                width: 100%;
+                height: auto;
+                display: flex;
+                justify-content: space-around;
+
+                .pen {
+                    color: #01dc0e;
+                    &:hover {
+                        cursor: pointer
+                    }
+                }
+
+                .trash {
+                    color: #8833f8;
+                    &:hover {
+                        cursor:pointer
+                    }
+                }
+            }
+
+        }
+    }
+
+    @media screen and (min-width:768px) and (max-width:959px) {
+        #titre {
+            h1 {
+                text-align: center;
+                font-family: 'Shrikhand', cursive;
+                font-size: 50px;
+                margin-bottom: 30px
             }
         }
 
-        .trash {
-            color: #8833f8;
-            &:hover {
-                cursor:pointer
+        #ajout {
+            width: 100%;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            margin: 80px 0 100px;
+
+            #btnAjout {
+                // margin: auto;
+                display: block;
+                margin-right: 20px;
+                color: #01dc0e;
+                &:hover {
+                    cursor: pointer
+                }
+            }
+
+            #ajann {
+                display: block;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 50px
             }
         }
 
-    // @media screen and (min-width:768px) and (max-width:959px) {
+        .annonce {
+            width: 100%;
+            height: auto;
+            margin: auto;
+            padding: 10px;
+            border: solid 5px #8833f8;
+            border-radius: 10px;
+            box-shadow: 8px 8px 10px darkgrey;
+            margin-top: 30px;
+            font-family: 'Montserrat', sans-serif;
 
-    // }
+            .titreAnn {
+                width: 100%;
+                height: auto;
 
-    // @media screen and (max-width:767px) {
-    // }
+                .numAnnonce {
+                    text-align: center;
+                    font-family: 'Shrikhand', cursive;
+                    font-size: 22px;
+                    margin-bottom: 10px
+                }
+            }
+
+            .infos {
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                // margin-bottom: 10px;
+
+                h4 {
+                    font-size: 18px
+                }
+            }
+
+            article {
+                width: 100%;
+                height: auto;
+                margin: 10px;
+
+                .texte{
+                        width: 100%;
+                        height: auto;
+                        p {
+                            font-size: 18px;
+                            flex-wrap: wrap
+                        }
+                    }
+            }
+
+            .boutons {
+                width: 100%;
+                height: auto;
+                display: flex;
+                justify-content: space-around;
+
+                .pen {
+                    color: #01dc0e;
+                    &:hover {
+                        cursor: pointer
+                    }
+                }
+
+                .trash {
+                    color: #8833f8;
+                    &:hover {
+                        cursor:pointer
+                    }
+                }
+            }
+
+        }
+    }
+
+    @media screen and (max-width:767px) {
+        #titre {
+            h1 {
+                text-align: center;
+                font-family: 'Shrikhand', cursive;
+                font-size: 35px;
+                margin-bottom: 20px
+            }
+        }
+
+        #ajout {
+            width: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            margin: 80px 0px;
+
+            #btnAjout {
+                // margin: auto;
+                display: block;
+                color: #01dc0e;
+                &:hover {
+                    cursor: pointer
+                }
+            }
+
+            #ajann {
+                display: block;
+                font-family: 'Montserrat', sans-serif;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 50px
+            }
+        }
+
+        .annonce {
+            width: 100%;
+            height: auto;
+            margin: auto;
+            padding: 10px;
+            border: solid 5px #8833f8;
+            border-radius: 10px;
+            box-shadow: 8px 8px 10px darkgrey;
+            margin-top: 30px;
+            font-family: 'Montserrat', sans-serif;
+            // display: flex;
+            // flex-direction: column;
+
+            .titreAnn {
+                width: 100%;
+                height: auto;
+
+                .numAnnonce {
+                    text-align: center;
+                    font-family: 'Shrikhand', cursive;
+                    font-size: 22px;
+                    margin-bottom: 10px
+                }
+            }
+
+            .infos {
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                margin-bottom: 10px;
+
+                h4 {
+                    font-size: 17px
+                }
+            }
+
+            article {
+                width: 100%;
+                height: auto;
+                display: block;
+                display: flex;
+                align-content: center;
+
+                .texte{
+                        width: 100%;
+                        height: auto;
+                        p {
+                            font-size: 17px;
+                            flex-wrap: wrap
+                        }
+                    }
+            }
+
+            .boutons {
+                width: 100%;
+                height: auto;
+                display: flex;
+                justify-content: space-around;
+
+                .pen {
+                    color: #01dc0e;
+                    &:hover {
+                        cursor: pointer
+                    }
+                }
+
+                .trash {
+                    color: #8833f8;
+                    &:hover {
+                        cursor:pointer
+                    }
+                }
+            }
+
+        }
+    }
 </style>

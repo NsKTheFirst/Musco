@@ -44,6 +44,7 @@ export default {
             h2 {
                 font-size: 30px;
                 margin-top: 40px;
+                text-decoration: underline #8833f8;
                 &:hover {
                     cursor: pointer
                 }

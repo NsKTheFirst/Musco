@@ -179,7 +179,7 @@ export default {
         .titre {
         text-align: center;
         font-family: 'Shrikhand', cursive;
-        font-size: 30px;
+        font-size: 35px;
         margin-bottom: 30px
         }
 

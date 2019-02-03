@@ -21,6 +21,13 @@ app.post("/upload", upload.array("uploader"), function(req, res) {
     res.send("walou")
 });
 
+// app.use(function(req, res, next) {
+//     res.setHeader("Access-Control-Allow-Origin", '*');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
+//     res.setHeader("Access-Control-Allow-Headers", "Origin, Access-Control-Allow-Origin , X-Requested-With, x-authenticate,Content-Type, Accept");
+//     next();
+// });
+
 // *********************************
 app.use(cors());
 

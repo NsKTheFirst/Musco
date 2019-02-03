@@ -9,7 +9,7 @@
             </span>
             <span id="ajann">Ajouter une annonce</span>
         </div>
-        <div class="annonce" v-for="(annonce, a) in annonces" :key="a">
+        <article class="annonce" v-for="(annonce, a) in annonces" :key="a">
             <div class="titreAnn">
                 <h3 class="numAnnonce">Annonce n° {{ annonce.id_annonce }}</h3>
             </div>
@@ -18,16 +18,16 @@
                 <h4>Skill: {{ annonce.skill }}</h4>
                 <h4>Date : {{ annonce.date }}</h4>
             </div>
-            <article>
+            <div class="textAnn">
                 <div class="texte">
                     <p>{{ annonce.annonce }}</p>
                 </div>
-            </article>
+            </div>
             <div class="boutons">
                 <i class="fas fa-edit fa-2x pen" @click='editAnnonce(annonce.id_annonce, annonce)'></i>
                 <i class="fas fa-trash-alt fa-2x trash" @click='delAnnonce(annonce.id_annonce)'></i>
             </div>
-        </div>
+        </article>
         <EditAnnonce/>
         <AjoutAnnonce/>
     </main>
@@ -55,10 +55,11 @@ export default {
         getAnnonce() {
             const url = "http://localhost:5000/api/v1/annonces/owner/";
             axios.get(url + this.infos.id_user).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.annonces = res.data;
+                console.log("yep");
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             });
         },
 
@@ -68,6 +69,7 @@ export default {
         // },
 
         annonceSent() {
+            console.log("yep");
             this.getAnnonce();
         },
 
@@ -88,27 +90,32 @@ export default {
 
         delAnnonce(id) {
             console.log(id);
+            confirm("Voulez vous supprimer cette annonce?");
             const url ="http://localhost:5000/api/v1/annonces";
             axios.delete(url, { data: { id_annonce: id } }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 const url2 = "http://localhost:5000/api/v1/annonce_needs_skills";
                 axios.delete(url2, { data: { id_annonce_skill: id } }).then(res => {
-                    console.log(res.data);
+                    // console.log(res.data);
                 }).catch(err => {
-                    console.log(err);
+                    // console.log(err);
                 });
                 this.getAnnonce();
-                console.log(this.annonces);
+                // console.log(this.annonces);
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             });
 
         },
 
         ajoutAnnonce(annId) {
-            console.log(annId);
+            // console.log(annId);
             this.$ebus.$emit("annId", annId);
             this.$ebus.$emit("ajoutAnnonce");
+        },
+
+        yep() {
+            console.log("yep");
         }
     },
     created() {
@@ -118,7 +125,7 @@ export default {
     },
     updated() {
         this.$ebus.$on("editValidate", this.getAnnonce);
-        // this.$ebus.$emit("annonceSent", this.annonceSent);
+        this.$ebus.$on("annonceSent", this.getAnnonce);
         // this.getAnnonce();
     },
 
@@ -213,7 +220,7 @@ export default {
                 }
             }
 
-            article {
+            .textAnn {
                 width: 100%;
                 height: auto;
                 margin: 10px;
@@ -324,7 +331,7 @@ export default {
                 }
             }
 
-            article {
+            .textAnn {
                 width: 100%;
                 height: auto;
                 margin: 10px;
@@ -437,7 +444,7 @@ export default {
                 }
             }
 
-            article {
+            .textAnn {
                 width: 100%;
                 height: auto;
                 display: block;

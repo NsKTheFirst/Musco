@@ -60,25 +60,25 @@ export default {
                 self.localisation.annLat = startPos.coords.latitude;
                 self.localisation.annLon = startPos.coords.longitude;
                 // console.log("lat: "+self.user.localisation.userlat+" - lon: "+self.user.localisation.userlon);
-                console.log(self.localisation);
+                // console.log(self.localisation);
             };
             var geoFail = function() { // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
                 console.log("refus");
             };
             navigator.geolocation.getCurrentPosition(geoSuccess, geoFail, self.options);
-            console.log(self.annonce);
+            // console.log(self.annonce);
             return self.localisation
         },
 
         getSkills() {
             const url = "http://localhost:5000/api/v1/skills";
             axios.get(url).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.fullSkills = res.data;
-                console.log(this.fullSkills);
+                // console.log(this.fullSkills);
                 this.extractSkills()
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             });
         },
         extractSkills() {
@@ -87,14 +87,14 @@ export default {
                     // console.log(s.skill);
                     self.skills.push(s.skill);
                 });
-            console.log(this.skills);
+            // console.log(this.skills);
         },
         checkSkill() {
             var isn = this.skills.indexOf(this.ans.id_skills_needed);
             isn += 1;
             this.ans.id_skills_needed = isn;
-            console.log(this.ans.id_skills_needed); 
-            console.log(this.ans); 
+            // console.log(this.ans.id_skills_needed); 
+            // console.log(this.ans); 
         },
         checkAnnonce() {
             if (!this.annonce.date || !this.annonce.annonce || !this.ans.id_skills_needed) {
@@ -103,7 +103,7 @@ export default {
                 if (confirm("Voulez- vous poster cette annonce?")) {
                     this.dialog = false;
                     this.annonce.localisation = JSON.stringify(this.localisation);
-                    console.log(this.localisation);
+                    // console.log(this.localisation);
                     this.sendAnnonce();
                 }
             };
@@ -113,27 +113,28 @@ export default {
             this.geoloc();
         },
         sendAnnonce() {
-            console.log(this.annonce);
-            console.log(this.ans);
+            // console.log(this.annonce);
+            // console.log(this.ans);
             const url = "http://localhost:5000/api/v1/annonces";
             axios.post(url, this.annonce).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.ans.id_annonce_skill = res.data.insertId;
-                console.log(this.ans);
+                // console.log(this.ans);
                 this.sendAns();
                 this.dialog = false;
                 alert("Annonce postée")
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             });
-            this.$ebus.$emit("annonceSend");
+            
         },
         sendAns() {
             const url = "http://localhost:5000/api/v1/annonce_needs_skills";
             axios.post(url, this.ans).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
+                this.$ebus.$emit("annonceSent");
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             });
         }
     },
@@ -146,7 +147,7 @@ export default {
     mounted() {
         this.$ebus.$on("annId", annId => {
             this.annonce.id_annonce_owner = annId;
-            console.log(this.annonce);
+            // console.log(this.annonce);
         });
     }
 }

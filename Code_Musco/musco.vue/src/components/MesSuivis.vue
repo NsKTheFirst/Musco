@@ -15,6 +15,8 @@
                     <div class="btns">
                         <span class="mess" @click="sendMess(suivi.id_user_followed)">Envoyer un message</span>
                         <span class="del" @click="delSuivi(suivi.id_ufu, suivi.pseudo)">Ne plus suivre</span>
+                        <span class="mess2" @click="sendMess(suivi.id_user_followed)"><i class="fas fa-envelope fa-2x"></i></span>
+                        <span class="del2" @click="delSuivi(suivi.id_ufu, suivi.pseudo)"><i class="fas fa-user-slash fa-2x"></i></span>
                     </div>
                 </div>
             </div>
@@ -39,34 +41,34 @@ export default {
         getUfu() {
             const url = "http://localhost:5000/api/v1/ufu/";
             axios.get(url + this.infos.id_user).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.suivis = res.data;
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             });
-            console.log(this.suivis);
+            // console.log(this.suivis);
         },
         getAvatar(url) {
-            console.log(url);
+            // console.log(url);
             return url ? require(`@/assets/Avatars/${url}`) : require("@/assets/Avatars/avatar_par_defaut.jpg");
         },
 
         delSuivi(id, pseudo) {
             const url = "http://localhost:5000/api/v1/ufu";
             axios.delete(url, { data: { id_ufu: id } }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (confirm(`Voulez- vous arrêter de suivre ${pseudo}`)) {
                     alert("Arrêt du suivi!");
                     this.getUfu();
                 }
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             })
         },
         sendMess(idEm) {
             this.$ebus.$emit("emetId", idEm);
             this.$ebus.$emit("sendMess")
-            console.log(idEm);
+            // console.log(idEm);
         },
         toProfil(owner) {
                 this.dialog = false;
@@ -192,13 +194,17 @@ export default {
                                 box-shadow: 5px 5px 8px grey
                             }
                         }
+
+                        .mess2, .del2 {
+                            display: none
+                        }
                     }
                 }
             }
         }
     }
 
-    @media screen and (min-width:768px) and (max-width:959px) {  //80px
+    @media screen and (min-width:768px) and (max-width:959px) {
         #titre {
             font-size: 50px;
             font-family: 'Shrikhand', cursive;
@@ -305,6 +311,10 @@ export default {
                                 box-shadow: 5px 5px 8px grey
                             }
                         }
+
+                        .mess2, .del2 {
+                            display: none
+                        }
                     }
                 }
             }
@@ -381,42 +391,49 @@ export default {
                         width: 80%;
                         height: auto;
                         margin-left: 10%;
-                        margin-top: 3px;
+                        margin-top: 20px;
                         display: flex;
-                        flex-direction: column;
-                        align-content: space-between;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        // text-align: center;
 
-                        .mess {
-                            padding: 1px;
-                            color: #8833f8;
-                            background: #01dc0e;
-                            border: solid 2px #8833f8;
-                            border-radius: 5px;
-                            box-shadow: 3px 3px 8px grey;
-                            text-align: center;
-                            font-weight: bold;
-                            font-family: 'Monserrat', sans-serif;
-                            font-size: 10px;
-                            &:hover {
-                                cursor: pointer;
-                                box-shadow: 5px 5px 8px grey
-                            }
+                        // .mess {
+                        //     padding: 1px;
+                        //     color: #8833f8;
+                        //     background: #01dc0e;
+                        //     border: solid 2px #8833f8;
+                        //     border-radius: 5px;
+                        //     box-shadow: 3px 3px 8px grey;
+                        //     text-align: center;
+                        //     font-weight: bold;
+                        //     font-family: 'Monserrat', sans-serif;
+                        //     font-size: 10px;
+                            
+                        // }
+                        // .del {
+                        //     padding: 1px;
+                        //     color: #01dc0e;
+                        //     background: #8833f8;
+                        //     border: solid 2px #01dc0e;
+                        //     border-radius: 5px;
+                        //     box-shadow: 3px 3px 8px grey;
+                        //     text-align: center;
+                        //     font-weight: bold;
+                        //     font-family: 'Monserrat', sans-serif;
+                        //     font-size: 10px;
+                            
+                        // }
+
+                        .mess, .del {
+                            display: none
                         }
-                        .del {
-                            padding: 1px;
+                        
+                        .mess2 {
                             color: #01dc0e;
-                            background: #8833f8;
-                            border: solid 2px #01dc0e;
-                            border-radius: 5px;
-                            box-shadow: 3px 3px 8px grey;
-                            text-align: center;
-                            font-weight: bold;
-                            font-family: 'Monserrat', sans-serif;
-                            font-size: 10px;
-                            &:hover {
-                                cursor: pointer;
-                                box-shadow: 5px 5px 8px grey
-                            }
+                        }
+
+                        .del2 {
+                            color: #8833f8;
                         }
                     }
                 }

@@ -34,11 +34,11 @@ export default new Router({
       component: () => import('./components/Annonces/PageAnnonces')
     },
 
-    {
-      path: '/profil',
-      name: 'profil',
-      component: () => import('./components/Profil')
-    },
+    // {
+    //   path: '/profil',
+    //   name: 'profil',
+    //   component: () => import('./components/Profil')
+    // },
 
     {
       path: '/faq',

@@ -15,7 +15,7 @@
                                 <v-text-field label="Sujet*" type="text" v-model="message.sujet"></v-text-field>
                             </v-flex>
                             <v-flex xs12>
-                                <v-text-field label="Message*" type="text" v-model="message.message"></v-text-field>
+                                <v-textarea outline placeholder="Message*" type="text" v-model="message.message"></v-textarea>
                             </v-flex>
                         </v-layout>
                     </v-container>
@@ -58,11 +58,11 @@ export default {
             // console.log(this.message);
             const url = "http://localhost:5000/api/v1/messages";
             axios.post(url, this.message).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.dialog = false
                 alert("Message envoyé!");
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             }); 
         },
         annuler() {
@@ -73,13 +73,13 @@ export default {
     created() {
         this.$ebus.$on("sendMess", this.sendMess);
         this.infos = JSON.parse(window.localStorage.getItem('user'));
-        console.log(this.infos);
+        // console.log(this.infos);
     },
     mounted() {
         this.$ebus.$on("emetId", idEm => {
             this.message.id_receveur = idEm;
             this.message.id_emetteur = this.infos.id_user;
-            console.log(this.message);
+            // console.log(this.message);
         })
     }
 }

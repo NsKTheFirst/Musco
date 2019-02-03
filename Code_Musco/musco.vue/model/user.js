@@ -33,7 +33,7 @@ const userModel = function userModel(connection) {
   
     // Requête de mise à jour
     const update = function editUser(clbk, users) {
-      const sql = "UPDATE users SET nom = ?, prenom = ?,pseudo = ?, mdp = ?, mail = ?, avatar = ?, presentation = ?, soundcloud = ?, youtube = ?, facebook = ?, WHERE id_user = ?";
+      const sql = "UPDATE users SET nom = ?, prenom = ?,pseudo = ?, mdp = ?, mail = ?, avatar = ?, presentation = ?, soundcloud = ?, youtube = ?, facebook = ? WHERE id_user = ?";
       const payload = [users.nom, users.prenom,users.pseudo, users.mdp, users.mail, users.avatar, users.presentation, users.soundcloud, users.youtube, users.facebook, users.id_user];
       connection.query(sql, payload, function (err, res) { //retrait de fields dans les paramètres
         // console.log(this.sql); // affiche la dernière requête SQL, pratique pour deboguer

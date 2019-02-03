@@ -61,22 +61,23 @@ export default {
         },
         
         sendEditAnnonce() {
-            const self = this;
             // console.log(this.editableAnn);
             const url = "http://localhost:5000/api/v1/annonces";
             axios.patch(url, this.editableAnn).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
+                this.$ebus.$emit("editValidate");
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             });
-            this.$ebus.$emit("editValidate");
+            
             // this.dialog = false;
         },
     },
+
     mounted() {
         this.$ebus.$on("id", id => {
             this.annonceId = id;
-            console.log(this.annonceId);
+            // console.log(this.annonceId);
         });
         this.$ebus.$on("annonce", annonce => {
             this.annonce = annonce;
@@ -84,8 +85,8 @@ export default {
             this.editableAnn.annonce = this.annonce.annonce;
             this.editableAnn.date = this.annonce.date;
             this.editableAnn.id_annonce_owner = this.annonce.annonce_owner;
-            console.log(this.annonce);
-            console.log(this.editableAnn);
+            // console.log(this.annonce);
+            // console.log(this.editableAnn);
         });
     },
 

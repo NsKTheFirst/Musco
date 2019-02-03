@@ -96,24 +96,40 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#dashboard_content {
-  width: 80%;
-  margin: auto;
-  padding: 0% 10%
-}
-.dashBtn {
-  color: #01dc0e;
-  &:hover {
-    color: #8833f8
+  #dashboard_content {
+    width: 80%;
+    margin: auto;
+    padding: 0% 10%
   }
-  #dashIcon {
-    transition: none
+  .dashBtn {
+    color: #01dc0e;
+    &:hover {
+      color: #8833f8
+    }
+    #dashIcon {
+      transition: none
+    }
   }
-}
-#dashboard {
-  .v-list-item {
-    padding: 10px;
-    border-radius: 4px
+  #dashboard {
+    .v-list-item {
+      padding: 10px;
+      border-radius: 4px
+    }
   }
-}
+
+  @media screen and (min-width:768px) and (max-width:959px) {
+    #dashboard_content {
+      width: 90%;
+      margin: auto;
+      padding: 0% 10%
+    }
+  }
+
+  @media screen and (max-width:767px) {
+    #dashboard_content {
+      width: 90%;
+      margin: auto;
+      padding: 0% 10%
+    }
+  }
 </style>

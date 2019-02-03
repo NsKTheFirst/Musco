@@ -47,41 +47,41 @@ export default {
         getMessages() {
             const url = "http://localhost:5000/api/v1/messages/owned/";
             axios.get(url + this.infos.id_user).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 this.messages = res.data;
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             });
-            console.log(this.messages);
+            // console.log(this.messages);
         },
         getAvatar(url) {
-            console.log(url);
+            // console.log(url);
             return url ? require(`@/assets/Avatars/${url}`) : require("@/assets/Avatars/avatar_par_defaut.jpg");
         },
         delMessage(id) {
             const url = "http://localhost:5000/api/v1/messages";
             axios.delete(url, { data: { id_message: id } }).then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (confirm("Voulez-vous supprimer ce message?")) {
                     alert("Message supprimé!");
                     this.getMessages();
                 }
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             })
         },
         sendMess(idEm) {
             this.$ebus.$emit("emetId", idEm);
             this.$ebus.$emit("sendMess")
-            console.log(idEm);
+            // console.log(idEm);
         },
 
         toProfil(evt, owner) {
             if (evt.target !== this.event) {
                 this.dialog = false;
-                this.$router.push({ path: `/profil`});
+                this.$router.push({ path: `/profil/${owner}`});
                 this.$ebus.$emit("owner", owner);
-                console.log(owner);
+                // console.log(owner);
             }
         }
     },    

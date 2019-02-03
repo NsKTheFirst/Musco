@@ -43,8 +43,8 @@ export default {
                 "8 caractère minimum dont au moins 1 majuscule, 1 nombre et 1 caractère spécial"
         },
       user: {
-        mail: "nico@owlab.io",    //nico@owlab.io
-        mdp: "12345678"       //12345678
+        mail: "",    //nico@owlab.io
+        mdp: ""       //12345678
       }
         }
     },
@@ -90,17 +90,11 @@ export default {
 
             const errors = tests.reduce(runTestsSuite, 0);
 
-            console.log("@checkLogin", errors, this.logs);
+            // console.log("@checkLogin", errors, this.logs);
 
-            // const closeFormLog = function closeFormLog() {
-            //     console.log(checkMail());
-            //     // if(this.checkMail.res && this.checkPass.res) {
-            //         // this.dialog = false;
-            //         // console.log("good");
-            //     // }
-            // };
             return errors === 0;
         },
+
         login(evt) {
             const status = this.checkLogin();
             if (status) {
@@ -112,7 +106,7 @@ export default {
                     this.$ebus.$emit("logged")
                 })
                 .catch(err => {
-                    console.error(err);
+                    // console.error(err);
                     alert("Veuillez vérifier vos identifiants")
                 });
                

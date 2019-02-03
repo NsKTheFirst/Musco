@@ -39,10 +39,6 @@ export default {
             newAudioSkill: null,
             newVideoSkill: null,
             newInstrument: null
-            // map: null,
-            // userlat: null,
-            // userlon: null,
-            // macarte: {}
         }
     },
 
@@ -54,15 +50,15 @@ export default {
             this.$ebus.$emit('emitCat', cat);
             if (cat = "Audio") {
                 this.newVideoSkill = null;
-                console.log("audio");
+                // console.log(this.newCat);
                 this.newInstrument = null;
             } else if (cat = "Video") {
                 this.newAudioSkill = null;
-                console.log("video");
+                // console.log(this.newCat);
                 this.newInstrument = null;
             } else if (cat = "Instruments") {
                 this.newAudioSkill = null;
-                console.log("instrument");
+                // console.log(this.newCat);
                 this.newVideoSkill = null;
             } else if (this.newAudioSkill) {
                 cat = "Audio";
@@ -80,28 +76,28 @@ export default {
         },
         emitSkill(skill) {
             this.$ebus.$emit('emitSkill', skill);
-            // if (skill  = this.newAudioSkill) {
-            //     this.newCat = "Audio";
-            //     this.newVideoSkill = null;
-            //     this.newInstrument = null;
-            // } else if (skill = this.newVideoSkill) {
-            //     this.newCat = "Video";
-            //     this.newAudioSkill = null;
-            //     this.newInstrument = null;
-            // } else if (skill = this.newInstrument) {
-            //     this.newCat = "Instruments";
-            //     this.newAudioSkill = null;
-            //     this.newVideoSkill = null;
-            // } else if (newCat = "Audio") {
-            //     this.newVideoSkill = null;
-            //     this.newInstrument = null;
-            // } else if (newCat = "Video") {
-            //     this.newAudioSkill = null;
-            //     this.newInstrument = null;
-            // } else if (newCat = "Instruments") {
-            //     this.newAudioSkill = null;
-            //     this.newVideoSkill = null;
-            // }
+            if (skill  = this.newAudioSkill) {
+                this.newCat = "Audio";
+                this.newVideoSkill = null;
+                this.newInstrument = null;
+            } else if (skill = this.newVideoSkill) {
+                this.newCat = "Video";
+                this.newAudioSkill = null;
+                this.newInstrument = null;
+            } else if (skill = this.newInstrument) {
+                this.newCat = "Instruments";
+                this.newAudioSkill = null;
+                this.newVideoSkill = null;
+            } else if (newCat = "Audio") {
+                this.newVideoSkill = null;
+                this.newInstrument = null;
+            } else if (newCat = "Video") {
+                this.newAudioSkill = null;
+                this.newInstrument = null;
+            } else if (newCat = "Instruments") {
+                this.newAudioSkill = null;
+                this.newVideoSkill = null;
+            }
         }
     },
 }

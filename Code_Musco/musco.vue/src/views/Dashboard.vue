@@ -56,11 +56,6 @@ export default {
           icon: 'people',
           text: 'Mes suivis'
         },
-        {
-          to: '/dashboard/prods',
-          icon: 'library_music',
-          text: 'Mes produtions',
-        },
       ],
       responsive: false,
       color: "green",
@@ -96,32 +91,46 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  #dashboard_content {
-    width: 80%;
-    margin: auto;
-    padding: 0% 10%
-  }
-  .dashBtn {
-    color: #01dc0e;
-    &:hover {
-      color: #8833f8
+  @media screen and (min-width:959px) {
+    #dashboard_content {
+      width: 80%;
+      margin: auto;
+      padding: 0% 10%
     }
-    #dashIcon {
-      transition: none
+    .dashBtn {
+      color: #01dc0e;
+    
+      #dashIcon {
+        transition: none
+      }
+    }
+    #dashboard {
+      .v-list-item {
+        padding: 10px;
+        border-radius: 4px
+      }
     }
   }
-  #dashboard {
-    .v-list-item {
-      padding: 10px;
-      border-radius: 4px
-    }
-  }
-
   @media screen and (min-width:768px) and (max-width:959px) {
     #dashboard_content {
       width: 90%;
       margin: auto;
       padding: 0% 10%
+    }
+
+    .dashBtn {
+      color: #01dc0e;
+
+        #dashIcon {
+          transition: none
+        }
+    }
+
+    #dashboard {
+      .v-list-item {
+        padding: 10px;
+        border-radius: 4px
+      }
     }
   }
 
@@ -130,6 +139,20 @@ export default {
       width: 90%;
       margin: auto;
       padding: 0% 10%
+    }
+
+    .dashBtn {
+      color: #01dc0e;
+    
+      #dashIcon {
+        transition: none
+      }
+    }
+    #dashboard {
+      .v-list-item {
+        padding: 10px;
+        border-radius: 4px
+      }
     }
   }
 </style>

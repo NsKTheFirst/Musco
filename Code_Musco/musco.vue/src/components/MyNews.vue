@@ -41,7 +41,7 @@ export default {
     },
     methods: {
         getAvatar(url) {
-            console.log(url);
+            // console.log(url);
             return url ? require(`@/assets/Avatars/${url}`) : require("@/assets/Avatars/avatar_par_defaut.jpg");
         },
 
@@ -50,7 +50,7 @@ export default {
             axios.get(url).then(res => {
                 this.annonces = res.data;
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             });
         },
         detailAnnonce(evt, annonce) {

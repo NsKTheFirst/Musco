@@ -54,6 +54,10 @@ export default {
         font-family: 'Montserrat', 'sans-serif';
         font-size: 20px
     }
+
+    .headline {
+        text-align: center
+    }
     
     .mus {
             color: #8833f8;

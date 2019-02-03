@@ -29,8 +29,8 @@
                             </v-list-tile-title>
                         </v-list-tile>
                     </v-list>
-                    <v-btn flat id="connexionBtn" slot="activator" v-if="!logged">Connexion</v-btn> <!-- ajouter v-if="!infos" -->
-                    <v-list v-if="!logged"> <!-- ajouter v-if="!infos" -->
+                    <v-btn flat id="connexionBtn" slot="activator" v-if="!logged">Connexion</v-btn>
+                    <v-list v-if="!logged">
                         <v-list-tile v-for="link in links" :key="link.text" @click="openForm">
                             <v-list-tile-title>
                                 {{ link.text }}

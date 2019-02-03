@@ -71,7 +71,7 @@ export default {
                     // console.log(this.annonces);
                     return resolve(); 
                 }).catch(err => {
-                    console.log(err);
+                    // console.log(err);
                     reject()
                 });
             })
@@ -92,7 +92,6 @@ export default {
     created() {
         this.infos = JSON.parse(window.localStorage.getItem('user'));
         this.getAnnonce().then(annonces => {
-            // this.annoncesMemory = this.annonces
             this.$ebus.$on("emitCat", cat => {
                 // console.log("annonces okay", this.annonces)
                 this.categorie = cat;
@@ -111,7 +110,7 @@ export default {
                 })
             });
         }).catch(err => {
-            console.error(err);
+            // console.error(err);
         });
     },
 }
@@ -195,16 +194,11 @@ export default {
             article {
                 width: 80%;
                 height: auto;
-                // text-align: center;
-                // display: block;
-                // display: flex;
-                // flex-direction: column;
                 
                 .numero {
                     width: 100%;
                     height: auto;
                     margin-bottom: 10px;
-                    // display: block;
 
                     h4 {
                         font-size: 20px;
@@ -216,7 +210,6 @@ export default {
                 .infos {
                     height: auto;
                     width: 100%;
-                    // display: block;
                     display: flex;
                     justify-content: space-around;
                     margin-bottom: 10px;
@@ -252,7 +245,6 @@ export default {
     
                 img {
                     width: 100%;
-                    // margin-top: 70px
                 }
             }
 
@@ -319,22 +311,16 @@ export default {
                 article {
                     height: auto;
                     width: 80%;
-                    // text-align: center;
-                    // display: block;
-                    // display: flex;
-                    // flex-direction: column;
 
                     .numero {
                         width: 100%;
                         height: auto;
                         margin-bottom: 10px;
-                        // display: block;
 
                         h4 {
                             font-size: 18px;
                             font-family: 'Shrikhand', cursive;
                             text-align: center
-                            // margin-left: 20%
                         }
                     }
 
@@ -373,7 +359,6 @@ export default {
     
                 img {
                     width: 100%;
-                    // margin-top: 70px
                 }
             }
 
@@ -406,7 +391,6 @@ export default {
                 .profil{
                     height: 100%;
                     width: 30%;
-                    // display: block;
                     display: flex;
                     flex-direction: column;
                     align-content: center;
@@ -415,7 +399,6 @@ export default {
                     figure {
                         width: 100%;
                         height: 100%;
-                        // line-height: 115px;
 
                         img {
                             height: 50px;
@@ -450,7 +433,6 @@ export default {
                         width: 100%;
                         height: auto;
                         margin-bottom: 10px;
-                        // display: block;
 
                         h4 {
                             font-size: 16px;

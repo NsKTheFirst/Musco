@@ -57,7 +57,7 @@ export default {
             axios.get(url + this.infos.id_user).then(res => {
                 // console.log(res.data);
                 this.annonces = res.data;
-                console.log("yep");
+                // console.log("yep");
             }).catch(err => {
                 // console.log(err);
             });
@@ -69,7 +69,7 @@ export default {
         // },
 
         annonceSent() {
-            console.log("yep");
+            // console.log("yep");
             this.getAnnonce();
         },
 
@@ -89,7 +89,7 @@ export default {
         // },
 
         delAnnonce(id) {
-            console.log(id);
+            // console.log(id);
             confirm("Voulez vous supprimer cette annonce?");
             const url ="http://localhost:5000/api/v1/annonces";
             axios.delete(url, { data: { id_annonce: id } }).then(res => {
@@ -128,27 +128,10 @@ export default {
         this.$ebus.$on("annonceSent", this.getAnnonce);
         // this.getAnnonce();
     },
-
-// ****************************************************    
-    // updated() {
-    //     refresh() {
-    //         this.$ebus.$on("editValidate");
-    //         this.editValidate();
-    //     },
-    //     // this.getAnnonce();
-    // }
 }
 </script>
 
 <style lang="scss" scoped>
-    // #conteneur {
-    //     width: 80%;
-    //     height: 100%;
-    //     margin: auto;
-    //     padding: 80px;
-    //     display: flex;
-    //     // flex-direction: column;
-    //     justify-content: center;
     @media screen and (min-width:959px) {
         #titre {
             h1 {

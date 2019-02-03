@@ -126,9 +126,9 @@ export default {
         editUser() {
             const url = "http://localhost:5000/api/v1/user";
             axios.patch(url, this.user).then(res => {
-                console.log(res);
+                // console.log(res);
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             })
         }
     },
@@ -151,3 +151,12 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+    #titreEdit {
+        text-align: center;
+        font-family: 'Shrikhand', cursive;
+        font-size: 25px;
+        margin: auto
+    }
+</style>

@@ -57,18 +57,15 @@ export default {
             dialog: false,
             passwordMinLength: 8,
             user: {
-                nom: "Nico",
-                prenom: "Nico",
-                pseudo: "NsK",
-                mail: "nico@owlab.io",
-                mdp: "123Soleil",
-                confirmMdp: "123Soleil",
-                soundcloud: "soundcloudNico",
-                youtube: "youtubeNico",
-                facebook: "facebookNico",
-            },
-            options: {
-                enableHighAccuracy: true,
+                nom: "",          
+                prenom: "",
+                pseudo: "",
+                mail: "",
+                mdp: "",
+                confirmMdp: "",
+                soundcloud: "",
+                youtube: "",
+                facebook: "",
             }
         }
     },
@@ -108,16 +105,6 @@ export default {
             return res;
             }.bind(this);
 
-      // const isPassLengthValid = function isPassLengthValid() {
-      //   const res = this.user.mdp.length >= this.passwordMinLength;
-      //   if (!res) {
-      //     this.logs.push(
-      //       `the password is too short (${this.passwordMinLength} chars min)`
-      //     );
-      //   }
-      //   return res;
-      // }.bind(this);
-
             const isPassSequenceOk = function isPassSequenceOk() {
                 return true;
             };
@@ -127,7 +114,6 @@ export default {
                 return acc;
             };
 
-      // const tests = [isPassSequenceOk];
             const tests = [
                 isFormValueOk,
                 isPassMatch,
@@ -149,12 +135,12 @@ export default {
         },
         register() {
             const check = this.checkRegister();
-            console.log(this.user);
+            // console.log(this.user);
             if (check && confirm("Valider ces informations?")) {
                 this.$store
                 .dispatch("user/register", this.user)
                 .then(res => {
-                    console.log("res@ajax-register", res);
+                    // console.log("res@ajax-register", res);
                     this.logLevel = "success";
                     this.logs = ["all good"];
                     this.$router.push({ path: `/` });
@@ -162,7 +148,7 @@ export default {
                     alert("Compte créé, merci de vous connecter.")
                 })
                 .catch(err => {
-                 console.error("error@ajax-register", err);
+                //  console.error("error@ajax-register", err);
                     this.logLevel = "error";
                     this.logs = [err];
                 });

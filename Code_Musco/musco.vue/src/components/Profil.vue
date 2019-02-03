@@ -75,7 +75,6 @@ export default {
 
     data() {
         return {
-            // id: [],
             user: [],
             annonces: [],
             logged: false,
@@ -94,7 +93,7 @@ export default {
                 this.user = res.data[0];
                 // this.replace();
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             });
             // console.log(this.user);
         },
@@ -103,13 +102,13 @@ export default {
             axios.get(url + this.$route.params.id).then(res => {
                 // console.log(res.data);
                 this.annonces = res.data;
-                console.log(this.annonces);
+                // console.log(this.annonces);
             }).catch(err => {
                 // console.log(err);
             });
         },
         getAvatar(url) {
-            console.log(url);
+            // console.log(url);
             return url ? require(`@/assets/Avatars/${url}`) : require("@/assets/Avatars/avatar_par_defaut.jpg");
         },
         isLogged() {
